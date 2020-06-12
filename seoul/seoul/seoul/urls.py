@@ -18,8 +18,11 @@ from django.urls import path
 import map.views      #추가
 from django.conf import settings
 from django.conf.urls.static import static
+from django.conf.urls import include
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', map.views.index, name='index'),
+    path('map/', include('map.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

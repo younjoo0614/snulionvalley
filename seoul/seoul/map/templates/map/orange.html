@@ -36,28 +36,16 @@
       <div id="chart"></div>
 
       <div class = "filter">
-        <div class="all">ALL</div>
+        <div class="all"><a href="/map/index#chart">ALL</a></div>
         <div class="red"><a href="/map/red#chart">0점~5점</a></div>
-        <div class="orange"><a href="/map/orange">5점~10점</a></div>
-        <div class="yellow"><a href="/map/yellow">10점~15점</a></div>
-        <div class="green"><a href="/map/green">15점~20점</a></div>
+        <div class="orange">5점~10점</div>
+        <div class="yellow"><a href="/map/yellow#chart">10점~15점</a></div>
+        <div class="green"><a href="/map/green#chart">15점~20점</a></div>
       </div>
 
       <p>실제로 어린아이나, 노인의 경우는 대부분의 횡단보도에서 건너지 못하고 있었습니다.</p> 
       <p>제일 심하게는,</p>
-      </br>
-      </br>
-      </br>
-      </br>
-      <p>좀 더 살펴볼까요? 🔍</p>
-      </br>
-      </br>
-      </br>
-      </br>
-      <p>조사를 해보니, 책정된 보행 시간은 오래되어 현실을 반영하지 못하고 있었습니다.</p>
-      <p>모든 사람들에게 Green Light가 되기 위해서는, 새로운 기준이 책정될 필요가 있지 않을까요?</p>
-      </br>
-      </br>
+
   </div> 
 
   <div class="footer">
@@ -184,7 +172,7 @@
   // add circles
     d3.csv("{% static 'map/places.csv'%}", function(data) {
         var point = points.selectAll("circle")
-            .data(data.filter(function(d) { return d.type == "light"; }))
+            .data(data.filter(function(d) { return d.col == "orange"; }))
         .enter().append("a")
             // .attr("xlink:href", function(d) { return d.url }); 
 

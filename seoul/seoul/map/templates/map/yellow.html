@@ -6,44 +6,83 @@
     <link rel="stylesheet" href="{% static 'map/index.css' %}">
 </head>
 <body>
-    <div id="chart"></div>
-    <div id="title">
-        <h2>그린라이트를 '좀만 더' 켜줘</h2>
-        <p> 서울시 길이 40m 이상의 횡단보도 점등시간 시각화</p>
-        <br/>
-        <p> 2020-1 비주얼라이제이션<br/>
+
+  <div class = "header">
+      <div class="title">  그린라이트를 '좀만 더' 켜줘!</div>
+      <div class="dsc"> 2020-1 비주얼라이제이션<br/>
           열시에 만나조 : 김민균, 백지수, 윤아람, 이사은, 이혜민
-        </p>
-        <p> Reference <br/>
-          <a href="http://www.wikitree.co.kr/main/news_view.php?id=217101">Data</a> by Wikitree</a>
-          and <a href="https://gist.github.com/e9t/ba9edd99793a5c91eaab">code</a>
+      </div>
+  </div>
+
+  <div class="article">
+      <p> 어떤 횡단보도를 건너다 신호등의 길이가 너무 짧다고 느낀 적이 있으신가요? </p>
+      <p> 나름 평균 보행 속도를 가졌다고 할 수 있는 성인 남성/여성에게 신호등의 길이가 짧게 느껴진다면, </p>
+      <p> 노인이나 어린아이들과 같은 보행 약자들에게는 신호등의 점등시간이 순식간에 끝나버리는 것처럼 느껴질지도 모릅니다.  </p>
+      </br>
+      </br>
+      <p>그렇다면 이러한 신호등 길이는 어떻게 책정되는 것일까요?</p>
+      </br>
+      <img class="road" src="{% static 'map/images/road.jpeg' %}" width="400px">
+      <p>과연 이러한 설정 기준은 적당한 기준이라 할 수 있을까요?</p>
+      </br>
+      </br>
+      <img class="road" src="{% static 'map/images/road.jpeg' %}" width="400px">
+      </br>
+      </br>
+      <p>학회지의 연령별 보행속도를 기준으로,현재 서울시 내 40m이상의 횡단보도 대상으로 적합성을 조사해보았습니다.</p>
+      <p>횡단보도들은 모두에게 Green light 일까요?</p>
+  
+      
+      <div id="chart"></div>
+
+      <div class = "filter">
+        <div class="all"><a href="/map/index#chart">ALL</a></div>
+        <div class="red"><a href="/map/red#chart">0점~5점</a></div>
+        <div class="orange"><a href="/map/orange#chart">5점~10점</a></div>
+        <div class="yellow">10점~15점</div>
+        <div class="green"><a href="/map/green#chart">15점~20점</a></div>
+      </div>
+
+      <p>실제로 어린아이나, 노인의 경우는 대부분의 횡단보도에서 건너지 못하고 있었습니다.</p> 
+      <p>제일 심하게는,</p>
+
+  </div> 
+
+  <div class="footer">
+      <p> Reference <br/>
+          <a href="https://gist.github.com/e9t/ba9edd99793a5c91eaab">code</a>
           by <a href="http://lucypark.kr">Lucy Park</a>
           <br>
           <a href="http://opensource.org/licenses/Apache-2.0">Licensed with Apache 2.0</a>
         </p>
-    </div>
-    
+  </div>
+
+
+
     <script src="http://d3js.org/d3.v3.min.js"></script>
     <script src="https://d3js.org/queue.v1.min.js"></script>
     <script src="http://d3js.org/topojson.v1.min.js"></script>
     <script>
-    var width = 1080,
+    var width = 1100,
         height = 700;
 
-    var minColor = 'yellow',
-        maxColor = 'red';
+    var minColor = 'red',
+        meanColor = 'yellow',
+        maxColor = 'green';
 
-    var minValue = 5,
-        maxValue = 35; // TODO: automate
+    var minValue = 0,
+        meanValue = 10,
+        maxValue = 20; // TODO: automate
 
     var legendWidth = 15,
         legendHeight = 150,
-        margin = { left: 40, top: 30 };
+        margin = { left: 780, top: 440 };
 
   // define color scale
     var colorScale = d3.scale.linear()
-        .range([minColor, maxColor]) // or use hex values
-        .domain([minValue, maxValue]);
+        .range([minColor, meanColor, maxColor]) // or use hex values
+        .domain([minValue, meanValue, maxValue]);
+        //.interpolator(d3.interpolateSpectral);
 
     var sizeScale = d3.scale.linear()
         .domain([minValue, maxValue]);
@@ -70,6 +109,8 @@
         .attr("id", "gradient")
         .attr("x1", "100%")
         .attr("y1", "0%")
+        .attr("x3","100%")
+        .attr("y3", "50%")
         .attr("x2", "100%")
         .attr("y2", "100%")
         .attr("spreadMethod", "pad");
@@ -78,6 +119,11 @@
         .attr("offset", "0%")
         .attr("stop-color", maxColor)
         .attr("stop-opacity", 1);
+
+    legendBar.append("stop")
+        .attr("offset", "50%")      
+        .attr("stop-color", meanColor)
+        .attr("stop-opacity", 1);    
 
     legendBar.append("stop")
         .attr("offset", "100%")
@@ -103,7 +149,7 @@
         .attr("y", 30)
         .attr("dy", ".71em")
         .style("text-anchor", "end")
-        .text("(단위: %)");
+        .text("(단위: 점)");
 
   // add map
     d3.json("{% static 'map/seoul_municipalities_topo_simple.json' %}", function(error, data) {
@@ -126,7 +172,7 @@
   // add circles
     d3.csv("{% static 'map/places.csv'%}", function(data) {
         var point = points.selectAll("circle")
-            .data(data.filter(function(d) { return d.filter==="red"; }))
+            .data(data.filter(function(d) { return d.col == "yellow"; }))
         .enter().append("a")
             // .attr("xlink:href", function(d) { return d.url }); 
 
@@ -134,7 +180,7 @@
             .attr("cx", function(d) { return projection([d.lon, d.lat])[0]; })
             .attr("cy", function(d) { return projection([d.lon, d.lat])[1]; })
             .attr("r", 6)
-            .style("fill", function(d) { return colorScale(d.price); });
+            .style("fill", function(d) { return colorScale(d.score); });
 
     // add circle labels
         var labels = [],
