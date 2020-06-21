@@ -150,3 +150,14 @@ a:hover {
   display:flex;
   flex-direction: column;
 }
+
+.article.tooltip {
+  background-color: lightsteelblue;
+  border: solid 1px;
+  border-radius:5px;
+  padding:10px;
+  width:200px;
+  position:absolute;
+  left:100px;
+  top:1000px;
+} 

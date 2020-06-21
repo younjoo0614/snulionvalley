@@ -1,3 +1,4 @@
 {
-    "python.pythonPath": "/Users/ihyemin/.pyenv/versions/seoul/bin/python"
+    "python.pythonPath": "/Users/ihyemin/.pyenv/versions/seoul/bin/python",
+    "git.ignoreLimitWarning": true
 }
