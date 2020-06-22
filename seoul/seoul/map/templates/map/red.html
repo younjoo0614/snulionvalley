@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    {% load static %} <!-- 추가 --> 
-    <link rel="stylesheet" href="{% static 'map/index.css' %}">
+  <meta charset="utf-8">
+  {% load static %} <!-- 추가 --> 
+  <link rel="stylesheet" href="{% static 'map/index.css' %}">
 </head>
 <body>
 
@@ -45,23 +45,55 @@
         <div class="green"><a href="/map/green#chart">15점~20점</a></div>
       </div>
 
+      <div class="warn"><p>(점 위에 커서를 두면 각 지점의 정보를 확인할 수 있습니다! 이미지가 나오지 않는 경우 조금만 기다려주세요ㅎㅎ)</p></div>
+      </br>
+      </br>
       <p>실제로 어린아이나, 노인의 경우는 대부분의 횡단보도에서 건너지 못하고 있었습니다.</p> 
-      <p>제일 심하게는,</p>
       </br>
       </br>
-      </br>
-      <p>(차트 설명하는 말) ← 차트 나오고 추가하는 게 좋을 것 같습니다! 😃</p>
-      </br>
-      <p>좀 더 살펴볼까요? 🔍</p>
+      <p>또한 데이터를 분석해보니 몇 가지 눈에 띄는 사례를 볼 수 있었습니다.</br>
+      </br>몇몇 횡단보도의 경우, 5-9세 유아나 75세 이상 노인 뿐만아니라 대부분의 연령 구간에서 책정된 보행 시간이 부족한 경우가 있었습니다.</p>
       </br>
       </br>
+      <img class="yeo" src="{% static 'map/images/yeo.png' %}" width="400px">
+      </br>
+      <p>서울 영등포구에 위치한 여의도공원 사거리의 횡단보도는 총 길이가 87m, 점등 시간은 92초로 책정되어 있습니다. </p>
+      <p>이는 공식에 따른 최소 보행시간인 94초(87초+7초(보행진입시간))를 충족시키지 못하고 있으며, 94초를 기준으로 해도 15~49세를 제외한 모든 연령대에서 보행 시간이 부족했습니다. </p>
+      <p>특히 5~9세의 경우 50초 이상이나 부족하게 나와, 횡단보도를 시간 내에 절대 건너지 못할 정도로 심각한 수준입니다.</p>
+      </br>
+      </br>
+      <p>흠 🤔 좀 더 살펴볼까요? 🔍</p>
+      </br>
+      </br>
+      <p>또한 해당 횡단보도가 위치한 구의 인구비율을 고려했을 때 상대적으로 많은 비율의 사람들에게 시간이 부족한 경우도 있었습니다.</p>
+      <p>그 중 하나가 바로 관악구에 위치한 '보라매 치안센터 단일로'의 횡단보도 입니다.</p>
+      </br>
+      </br>
+      <img class="gwan" src="{% static 'map/images/gwan.png' %}" width="400px">
+      <img class="brm" src="{% static 'map/images/brm.png' %}" width="400px">
+      </br>
+      </br>
+      <p>관악구의 인구 비율을 살펴봤을 때, 100명 중 약 10명은 횡단보도를 시간 내에 걷는데 어려움을 겪습니다. (보라매 치안센터 횡단보도)</p>
+      <p>이를 적용해보면 관악구의 보라매 치안센터의 횡단보도의 경우, 이를 건너는데 100명 중 18명은 불편함을 느끼게 됩니다.</p>
+      <p>위의 사례 외에도 보행약자 비율이 높은 송파구와 같은 경우, 상대적으로 많은 비율의 사람들에게 현재의 점등시간이 부족한 것을 알 수 있었습니다.</p>
+      </br>
+      </br>
+      <p>그렇다면, 대부분의 횡단보도에서 이러한 문제점이 생기는 이유가 무엇일까요?</p>
       </br>
       </br>
       <p>조사를 해보니, 책정된 보행 시간은 오래되어 현실을 반영하지 못하고 있었습니다.</p>
       <p>현재 책정된 보행 시간은 도로교통안전협회가 실시한 ‘횡단보도 보행자의 횡단특성에 관한 연구’ 결과에 따른 것입니다. </p>
       <p>그런데 이 연구는 28년 전인 1992년에 실시 됐을 뿐만 아니라 조사 대상도 ‘서울시 내 20개 교차로’로 국한돼 있습니다.</p>
-      <p>모든 사람들에게 Green Light가 되기 위해서는, 새로운 기준이 책정될 필요가 있지 않을까요?</p>
+      </br>
+      </br>
+      <p>길거리의 횡단보도가 모든 사람들에게 Green Light가 되기 위해서는, 새로운 기준이 책정될 필요가 있지 않을까요?</p>
+      </br>
+      </br>
       <p>이상 '열시에만나조'였습니다. </p>
+      </br>
+      </br>
+      </br>
+      
 
   </div> 
 
@@ -186,18 +218,65 @@
         .text(function(d) { return d.properties.name; })
   });
 
+      d3.csv("{% static 'map/places.csv'%}", function(error, data) {
+      var URL = data.map(function(d) {return d.imageurl});
+      });
+
+   //tooltip       
+    var tooltip = d3.select("#chart")
+      .append("div")
+      .style("opacity", 0)
+      .attr("class", "tooltip")
+      .style("background-color", "#efefef")
+      .style("width","200px")
+      .style("height","220px")
+      .style("position","absolute")
+      .style("left","40px")
+      .style("top","1450px")
+     // .style("border", "solid")
+     // .style("border-width", "1px")
+      .style("border-radius", "5px")
+      .style("padding", "10px")
+
+     
+      var img = new Image();
+      
+      // A function that change this tooltip when the user hover a point.
+      // Its opacity is set to 1: we can now see it. Plus it set the text and position of tooltip depending on the datapoint (d)
+      var mouseover = function(d) {
+        tooltip
+       .style("opacity", "1") 
+       .html('<img src="' + d.imageurl + '" width="200" alt="잠시만 기다려주세요!"/>')      
+      }
+
+      var mousemove = function(d) {
+        tooltip
+       .style("opacity", "1") 
+       .html('<img src="' + d.imageurl + '" width="200" alt="잠시만 기다려주세요!"/>')            
+      }
+
+      // A function that change this tooltip when the leaves a point: just need to set opacity to 0 again
+      var mouseleave = function(d) {
+        tooltip
+          .style("opacity", "0")
+      }
+
+
   // add circles
     d3.csv("{% static 'map/places.csv'%}", function(data) {
         var point = points.selectAll("circle")
             .data(data.filter(function(d) { return d.col == "red"; }))
         .enter().append("a")
-            // .attr("xlink:href", function(d) { return d.url }); 
+            // .attr("xlink:href", function(d) { return d.image }); 
 
         point.append("circle")
             .attr("cx", function(d) { return projection([d.lon, d.lat])[0]; })
             .attr("cy", function(d) { return projection([d.lon, d.lat])[1]; })
             .attr("r", 6)
-            .style("fill", function(d) { return colorScale(d.score); });
+            .style("fill", function(d) { return colorScale(d.score); })
+            .on("mouseover", mouseover )
+            .on("mousemove", mousemove )
+            .on("mouseleave", mouseleave );
 
     // add circle labels
         var labels = [],

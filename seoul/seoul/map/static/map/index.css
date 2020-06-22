@@ -94,6 +94,12 @@ svg #places text {
   text-align: center;
 }
 
+.warn {
+  position: relative;
+  margin-top:-50px;
+}
+
+
 .filter{
   position: relative;
   top:-80px;
@@ -143,13 +149,20 @@ a:hover {
   z-index: 10;
   left:0px;
   width:100%;
-  height:100px;
+  height:200px;
   background-color:rgb(240, 240, 240);
   border-top: 0.5px solid rgb(220, 220, 220);
   box-shadow:  3px 3px 0px 0px rgba(0, 0, 0, 0.02) ;
   display:flex;
   flex-direction: column;
+  padding-left: 20px;
+ 
 }
+
+.footer.p {
+  font-size:8px;
+}
+
 
 .article.tooltip {
   background-color: lightsteelblue;
