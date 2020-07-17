@@ -1,3 +1,6 @@
+## 구글독스 링크
+https://docs.google.com/document/d/1FJvVS31w1ae9-wS8ZWo7nuqqZ1ckV8ovWgUXwYB-_PQ/edit?usp=sharing
+
 ## 일정
 
 매주 수 7:30~9:30분 (7/29 부터), 토요일 1시부터!
