@@ -1,5 +1,7 @@
 # 멋사 서울대 홈페이지
 
+https://docs.google.com/document/d/1FJvVS31w1ae9-wS8ZWo7nuqqZ1ckV8ovWgUXwYB-_PQ/edit
+
 ## 홈페이지 구성
 ### 외부인을 위한 정보
 - 로그인, 회원가입 등등
