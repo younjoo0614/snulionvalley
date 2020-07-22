@@ -1,0 +1,105 @@
+body {
+    font-family: 'Ubuntu', sans-serif;
+    height: 800px;
+}
+
+  
+.h1 {
+font-family: 'Ubuntu';
+font-weight: 700;
+font-size: 28px;
+color: #F58C45;
+padding: 10px;
+position: relative;
+left: 20px;
+}
+
+.main_header{
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+position: relative;
+top:-30px;
+z-index: 2;
+}
+
+.page_header {
+display: flex;
+justify-content: space-around;
+position: relative;
+top:50px;
+}
+
+.ul_1{
+/* z-index: ; */
+text-decoration: none;
+list-style: none;
+padding: 15px;
+background-color:lightgrey;
+border-radius: 1px;
+margin: 10px;
+color:#30426A;
+display: none;
+}
+
+.ul_1 li{
+padding: 10px;
+}
+
+.component{
+color: #D8E8F5;
+font-weight: 700;
+font-size: 24px;
+padding: 15px;
+margin: 10px;
+}
+
+.component:hover{
+border-radius: 3px;
+cursor: pointer;
+background-color: lightgrey;
+border-radius: 2px;
+color: #30426A;
+}
+
+.back_img{
+z-index: 1;
+position: absolute;
+width: 70%;
+top:-50px;
+right: -50px;
+}
+
+.fixed_header{
+position: relative;
+left:86%;
+color:#D8E8F5;
+z-index: 10;
+margin: 10px;
+padding: 10px;
+width:20%;
+}
+
+.fixed_header a{
+padding:10px;
+text-decoration: none;
+font-weight: 500;
+color: #D8E8F5;
+}
+
+.fixed_header a :hover{
+    text-decoration: none;
+    font-weight: 500;
+    color: #D8E8F5;
+    }
+    
+
+.back{
+position: absolute;
+top:200px;
+z-index: 0;
+background-color: lightgrey;
+width: 80%;
+height: 650px;
+right: 200px;
+}
