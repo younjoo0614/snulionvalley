@@ -39,3 +39,21 @@ def signup(request):
 
 def logout(request):
     return render(request, 'accounts/logout.html')
+
+def follow_manager(request, pk):
+    followed_by = Profile.objects.get(user_id = request.user.id)
+    follow = Profile.objects.get(user_id = pk)
+
+    try:
+        following_already = Follow.objects.get(followed_by=followed_by, follow=follow)
+    except Follow.DoesNotExist:
+        following_already = None
+
+    if following_already:
+        following_already.delete()
+    else:
+        f = Follow()
+        f.followed_by, f.follow = followed_by, follow
+        f.save()
+
+    return redirect('/feeds')
