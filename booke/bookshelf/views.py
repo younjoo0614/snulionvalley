@@ -51,8 +51,11 @@ def delete_book(request,id):
 
 def show_memo(request,id):
     userbook=UserBook.objects.get(id=id)
+    book_for_title=Book.objects.get(id=userbook.bookid)
+    author_id=book_in_list.author
+    author=Author.objects.get(id=autor_id)
     memos=Memo.objects.filter(book=id)
-    return render(request, 'bookshelf/show.html',{'userbook':userbook,'memos':memos})
+    return render(request, 'bookshelf/show.html',{'userbook':userbook,'memos':memos,'book_for_title':book_for_title,'author':author})
 
 def recommend_book(request):
     by_book=Book.objects.all().order_by('-count')

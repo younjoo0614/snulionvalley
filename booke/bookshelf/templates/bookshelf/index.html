@@ -2,11 +2,12 @@
 {% load static %}
 
 {% block content %}
-
+{% load static %}
     {% comment %} 임시임시 구조 {% endcomment %}
 
     <div class = "temp"> 
         {% if user.is_authenticated %}
+            <img src="{% static 'bookshelf/read.jpg'  %}">
             <p> 책장 디자인 </p>
         {% else %}
             <div> 
