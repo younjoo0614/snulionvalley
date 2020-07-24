@@ -1,0 +1,42 @@
+{% for memo in memos %}
+
+<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createModalLabel">상세정보</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+                <form id='book-create' data-csrfmiddlewaretoken="{{ csrf_token }}"> 
+                    <div class="form-group">                                           
+                        책 제목: {{ Book.title }}
+                    </div>
+                    <div class="form-group">                                           
+                        작가: {{ author.name }}
+                    </div>
+                    {% comment %} <div class="form-group">                                           
+                        <label for="pages" class="col-form-label">페이지 수: {{ Book.whole_page }}</label>
+                    </div> {% endcomment %}
+                    <div class="form-group">                                           
+                        지난 감상: {{ memo.page}},{{ memo.created_at }}</br>
+                        {{ memo.content }}
+                    </div>
+                    <div class="form-group">                                           
+                        <label for="review" class="col-form-label">감상</label>
+                        <input type="integer" name="review_pages" class="form-control" id="review_pages">
+                        <textarea name="review" class="form-control" id="review" placaholer="감상을 적어주세요."></textarea>
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button> 
+                        <button type="submit" class="btn btn-primary">추가하기</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
