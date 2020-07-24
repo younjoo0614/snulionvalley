@@ -1,0 +1,33 @@
+<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createModalLabel">새로운 책 추가하기</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+                <form id='book-create' data-csrfmiddlewaretoken="{{ csrf_token }}"> 
+                    <div class="form-group">                                           
+                        <label for="title" class="col-form-label">책 제목</label>
+                        <input type="text" name="title" class="form-control" id="title">
+                    </div>
+                    <div class="form-group">                                           
+                        <label for="author" class="col-form-label">작가</label>
+                        <input type="text" name="author" class="form-control" id="author">
+                    </div>
+                    <div class="form-group">                                           
+                        <label for="pages" class="col-form-label">페이지 수</label>
+                        <input type="integer" name="pages" class="form-control" id="pages">
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button> 
+                        <button type="submit" class="btn btn-primary">추가하기</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

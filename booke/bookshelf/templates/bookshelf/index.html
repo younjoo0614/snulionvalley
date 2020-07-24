@@ -12,9 +12,11 @@
         {% endif %}
     </div>
     <div>
-        <a href=""></a>
+        {% comment %} {% if user.is_authenticated %} {% endcomment %}
+            <button type="button" data-toggle="modal" data-target="#createModal" class="newbook">
+                <p>새 책 추가하기</p>
+            </button>
+        {% comment %} {% endif %} {% endcomment %}
     </div>
-
-
 
 {% endblock content %}
