@@ -17,7 +17,7 @@ $('#signup-form').submit((event) => {
             window.location.href='/bookshelf/'
         },
         error(response, status, error) {
-            console.log(response, status, error)
+            console.log(response, status, error);
         }
     })
 
@@ -41,7 +41,29 @@ $('#login-form').submit((event) => {
             window.location.href='/bookshelf/'
         },
         error(response, status, error) {
-            console.log(response, status, error)
+            console.log(response, status, error);
+        }
+    })
+})
+
+$('#book-create').submit((event) => {
+    event.preventDefault()
+    $.ajax({
+        url: '/bookshelf/new/',
+        method: 'POST',
+        data: {
+            title: $(`input#title`).val(),
+            author: $(`input#author`).val(),
+            page: $(`input#page`).val(),
+            csrfmiddlewaretoken: $(event.currentTarget).data('csrfmiddlewaretoken')
+        },
+        dataType: "json",
+        success(res) {
+            console.log(res)
+            window.location.href='/bookshelf/'
+        },
+        error(response, status, error) {
+            console.log(response, status, error);
         }
     })
 })

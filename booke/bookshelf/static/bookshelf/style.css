@@ -27,8 +27,15 @@ body {
     left : 45%;
 }
 
+.newbook {
+    position: relative;
+    left: 20px;
+    top: 100px;
+    text-align: center;
+
 .back_img{
     position: fixed;
     width: 100%;
     left:0;
+
 }
