@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 
@@ -8,7 +9,9 @@
         {% if user.is_authenticated %}
             <p> 책장 디자인 </p>
         {% else %}
-            <p> 로그인 전 환영 이미지 </p>
+            <div> 
+            <img src="{% static 'bookshelf/images/read.jpg' %}"/>
+            </div>
         {% endif %}
     </div>
     <div>
