@@ -40,7 +40,7 @@ def create_book(resquest):
         
         return redirect ('/')
     
-    books=Book.objects.all()
+    UserBook=Book.objects.all()
     authors=Author.objects.all()
     return render(request,'bookshelf/index.html',{"books":books,"authors":authors})
 
