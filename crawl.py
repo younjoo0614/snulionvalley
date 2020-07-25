@@ -21,22 +21,14 @@ deturl=site_for_page[0].attrs['href'] # 페이지 수가 써있는 url로 들어
 html=urlopen(deturl)
 bs=BeautifulSoup(html, "html.parser")
 
-whole_page= bs.select('.book_info_inner > div') #우리가 찾는 div에 class 이름이 없어서 그냥 div로 찾고 index로 특정
- 
-a= whole_page[3].text.split(" ") #띄어쓰기 기준 문자열 분할-> a[1]에 '122|ISBN'이 들어감
+whole_page= bs.select('.book_info_inner') #우리가 찾는 div에 class 이름이 없어서 그냥 div로 찾고 index로 특정
 
-#첫 번째 방법: |이 나오기 전까지 문자열 분할
-def get_page(str):
-    b=""
-    for i in a[1]:
-        if i!='|':
-            b+=i
-        else:
-            return int(b)
-
-page=get_page(a[1])
-print(page)
+#첫번째 방법은 문자열 분할로 하는 거였는데 책마다 상세페이지 구조가 달라서 정규식 사용해야 하넹...
 
 #두 번째 방법: 정규식 활용
-m=re.search('\d+',a[1])
-print(int(m.group())) #m.group()만 해도 페이지 수가 출력되지만 자료형이 str이므로 연산가능한 int형으로 변환
+m=re.search('페이지.\d+',whole_page[0].text)
+print(m.group()) #m.group()만 해도 페이지 수가 출력되지만 자료형이 str이므로 연산가능한 int형으로 변환
+
+b=m.group()
+page=re.search('\d+',b)
+print(int(page.group()))
