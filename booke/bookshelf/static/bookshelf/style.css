@@ -19,22 +19,76 @@ body {
 .login {
     margin-left: 90%;
     margin-top: 30px;
+    text-align: right;
+}
+
+.first-page {
+    position: relative;
+    width: 100%;
 }
 
 .temp {
-    position: relative;
-    top : 200px;
-    left : 45%;
+    position: absolute;
+    top : 150px;
+    width: 100%;
+    vertical-align: middle;
 }
 
-.newbook {
-    position: relative;
-    left: 20px;
-    top: 100px;
-    text-align: center;
-
-.back_img{
-    position: fixed;
+.back_img {
     width: 100%;
-    left:0;
+}
+
+.newbook-btn {
+    position: absolute;
+    top: 670px;
+    right: 5%;
+}
+
+.newbook img{
+    width: 200px;
+    height: 100px;
+}
+
+.color-box{
+    display: flex;
+    justify-content: center;
+}
+
+.color-box button{
+    width: 100px;
+    height: 50px;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+button.btn-1{
+    color: #3F7373;
+    background-color: #3F7373;
+}
+
+button.btn-2{
+    color: #89BEBF;
+    background-color: #89BEBF;
+}
+
+button.btn-3{
+    color: #F28F78;
+    background-color: #F28F78;
+}
+
+button.btn-4{
+    color: #F0C1B5;
+    background-color: #F0C1B5;
+}
+
+button.btn-5{
+    color: #F2F2F2;
+    background-color: #F2F2F2;
+}
+
+button.newbook{
+    border: none;
+    background-color: none;
 }
