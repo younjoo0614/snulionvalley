@@ -67,3 +67,35 @@ $('#book-create').submit((event) => {
         }
     })
 })
+
+$('#memo-create').submit(async (e) => {
+    event.preventDefault()
+    const $this = $(e.currentTarget);
+    const id = $this.data('id');
+    const csrfmiddlewaretoken = $this.data('csrfmiddlewaretoken');
+
+    $.ajax({
+        url: `/bookshelf/${id}/`,  
+        method: 'GET'
+      })
+
+    await $.ajax({
+        url: `/bookshelf/${id}/memos/`, 
+        // 서버가 처리할 url. create_memo를 백에서 불러야 db에 추가되기 때문
+        method: 'POST',
+        data: {
+            content: $(`input#review`).val(),
+            page: $(`input#review_page`).val(),
+            csrfmiddlewaretoken: csrfmiddlewaretoken,
+        },
+        dataType: "json",
+        success(res) {
+            console.log(res)
+            window.location.href=`/bookshelf/${id}/`
+        },
+        error(response, status, error) {
+            console.log(response, status, error);
+        }
+    })
+
+})
