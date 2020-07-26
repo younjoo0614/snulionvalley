@@ -16,6 +16,7 @@
         {% if user.is_authenticated %}
             {{ user.get_username }}님, 안녕하세요
             {% comment %} <a href="{% url 'logout'%}?next={{request.path}}">로그아웃</a> {% endcomment %}
+            <br>
             <a href="#logoutModal" data-toggle="modal">로그아웃</a>
         {% else %}
             {% comment %} <a href="{% url 'signup' %}">회원가입</a> 
