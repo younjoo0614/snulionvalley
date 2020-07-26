@@ -2,10 +2,38 @@ from django.shortcuts import render, redirect
 from django.contrib import auth
 from .models import Author, Book, UserBook, Memo
 from accounts.models import Profile
+from urllib.request import urlopen
+from bs4 import BeautifulSoup
+from urllib.parse import quote_plus
+import re
 
 # Create your views here.
 def index(request):
     return render(request, 'bookshelf/index.html')
+
+def get_page(title,select):
+    baseUrl = 'https://book.naver.com/search/search.nhn?sm=sta_hty.book&sug=&where=nexearch&query='
+
+    plusUrl=input ('책 제목을 입력하세요: ')
+
+    url = baseUrl + quote_plus(plusUrl) #네이버 책 홈에서 책 제목을 검색해서 나오는 url
+    html = urlopen(url)
+    bsObject = BeautifulSoup(html, "html.parser")
+
+    site_for_page = bsObject.select('li > dl > dt > a') # 책 제목을 검색해서 뜨는 a 태그들 결과들의 링크
+
+    deturl=site_for_page[select].attrs['href'] # 페이지 수가 써있는 url로 들어옴 index 0으로 한 건 편의를 위함, 추후 바뀔 수 있음
+
+    html=urlopen(deturl)
+    bs=BeautifulSoup(html, "html.parser")
+
+    whole_page= bs.select('.book_info_inner') 
+
+    m=re.search('페이지.\d+',whole_page[0].text)
+    b=m.group()
+    page=re.search('\d+',b)
+    
+    return int(page.group())
 
 def create_book(resquest):
     # queryset 잘 몰라서 참고하려고 둔 사이트https://docs.djangoproject.com/en/3.0/topics/db/queries/
@@ -36,7 +64,9 @@ def create_book(resquest):
         bookauthor.count+=1
         book.save()
         bookauthor.save()
-        UserBook.objects.create(userid=member.id,bookid=book.id)
+
+        whole_page=get_page(title,0)
+        UserBook.objects.create(userid=member.id,bookid=book.id,whole_page=whole_page)
         
         return redirect ('/')
     
