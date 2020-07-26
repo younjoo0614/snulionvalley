@@ -9,7 +9,9 @@ import re
 
 # Create your views here.
 def index(request):
-    return render(request, 'bookshelf/index.html')
+    member=request.user.profile
+    ratio=member.already_read/member.goal
+    return render(request, 'bookshelf/index.html',{"ratio":ratio})
 
 def get_page(title,select):
     baseUrl = 'https://book.naver.com/search/search.nhn?sm=sta_hty.book&sug=&where=nexearch&query='
@@ -66,6 +68,7 @@ def create_book(resquest):
         bookauthor.save()
 
         whole_page=get_page(title,0)
+        member.already_read+=whole_page
         UserBook.objects.create(userid=member.id,bookid=book.id,whole_page=whole_page)
         
         return redirect ('/')
