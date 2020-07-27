@@ -7,7 +7,28 @@
 <div class = "first-page">    
     <div class = "temp"> 
         {% if user.is_authenticated %}
-            <img class="back_img" src="{% static 'bookshelf/read.jpg'  %}">
+            <div class = "myshelf">
+                {% if user.profile.goal == '1000' %} 
+                {% comment %} text -> integer로 바꿀 것! {% endcomment %}
+                {% comment %} 목표 독서량별 그림 수정 필요  {% endcomment %}
+                    <img class = "myshelf1" src="{% static 'bookshelf/read.jpg' %}"/> 
+                {% elif user.profile.goal == 2000 %}
+                    <img class = "myshelf2" src="{% static 'bookshelf/read.jpg' %}"/>
+                {% elif user.profile.goal == 3000 %}
+                    <img class = "myshelf3" src="{% static 'bookshelf/read.jpg' %}"/>
+                {% elif user.profile.goal == 5000 %}
+                    <img class = "myshelf4" src="{% static 'bookshelf/read.jpg' %}"/>
+                {% elif user.profile.goal == 10000 %}
+                    <img class = "myshelf5" src="{% static 'bookshelf/read.jpg' %}"/>
+                {% endif %}
+            </div>
+            {% comment %} <div class = "book_counted">
+                {% if %}
+
+                {{UserBook.whole_page}}
+
+            </div> {% endcomment %}
+
         {% else %}
             <div> 
                 <img class="back_img" src="{% static 'bookshelf/read.jpg' %}"/>
