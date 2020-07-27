@@ -98,10 +98,21 @@ def recommend_book(request):
 
 def create_memo(request,id):
     page=request.POST['page']
+
     content=request.POST['content']
     Memo.objects.create(content=content, page=page,book=id )
 
-    return redirect('bookself/show.html')
+    new_memo = Memo.objects.latest('id')
+
+    context = {
+        # memo의 id도 필요할까?
+        # memo 자체에 접근하려면 필요한데 삭제 말고 접근할 일이 없으니 일단 두기
+        'page': new_memo.page,
+        'content': new_memo.content,
+    }
+
+    # return redirect('bookself/show.html')
+    return JsonResponse(context)
 
 def delete_memo(request,id,mid):
     m=Memo.objects.get(id=mid)
