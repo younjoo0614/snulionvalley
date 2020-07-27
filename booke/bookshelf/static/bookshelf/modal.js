@@ -49,7 +49,7 @@ $('#login-form').submit((event) => {
 $('#book-create').submit((event) => {
     event.preventDefault()
     $.ajax({
-        url: '/bookshelf/new/',
+        url: `/bookshelf/`,
         method: 'POST',
         data: {
             title: $(`input#title`).val(),

@@ -4,14 +4,14 @@ from accounts.models import Profile
 
 
 class Author(models.Model):
-    name=models.CharField(max_length=20, blank=False,null=False)
+    name=models.CharField(max_length=20, blank=False, null=False)
     count=models.IntegerField()
     def __str__(self):
         return self.name
 
 #회원들이 저장한 전체 책 관리 
 class Book(models.Model):
-    title=models.CharField(max_length=20,blank=False,null=False)
+    title=models.CharField(max_length=20, blank=False, null=False)
     author=models.ForeignKey(Author,on_delete=models.CASCADE,related_name="book")
     count=models.IntegerField() #몇 명의 회원들이 해당 책을 저장했는지
 

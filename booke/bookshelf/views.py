@@ -6,17 +6,18 @@ from urllib.request import urlopen
 from bs4 import BeautifulSoup
 from urllib.parse import quote_plus
 import re
+from django.http import JsonResponse
+from django.contrib.auth.models import User
 
 # Create your views here.
 def index(request):
-    member=request.user.profile
-    ratio=member.already_read/member.goal
-    return render(request, 'bookshelf/index.html',{"ratio":ratio})
+    # member=request.user.profile
+    # ratio=member.already_read/member.goal
+    return render(request, 'bookshelf/index.html')
 
 def get_page(title,select):
     baseUrl = 'https://book.naver.com/search/search.nhn?sm=sta_hty.book&sug=&where=nexearch&query='
-
-    plusUrl=input ('책 제목을 입력하세요: ')
+    plusUrl = title
 
     url = baseUrl + quote_plus(plusUrl) #네이버 책 홈에서 책 제목을 검색해서 나오는 url
     html = urlopen(url)
@@ -37,9 +38,9 @@ def get_page(title,select):
     
     return int(page.group())
 
-def create_book(resquest):
+def create_book(request):
     # queryset 잘 몰라서 참고하려고 둔 사이트https://docs.djangoproject.com/en/3.0/topics/db/queries/
-    if request.method=='POST':
+    if request.method == 'POST':
         member=request.user.profile
         #아직 외부 api 신청 안 한 상태라 직접 입력하는 방식으로 함
         title=request.POST['title']
@@ -47,12 +48,13 @@ def create_book(resquest):
 
         #Author에 지금 유저가 추가하려고 하는 책이 이미 있는지 확인하고 없으면 추가
         try:
-            is_author_in_list=Author.objects.get(author=author)
+            is_author_in_list = Author.objects.get(name=author)
 
-        except Author.DoesnotExist:
+        except Author.DoesNotExist:
             Author.objects.create(name=author)
         
         bookauthor=Author.objects.get(name__iexact=author)
+
         #Book에 지금 유저가 추가하려고 하는 책이 이미 있는지 확인하고 없으면 추가
         try:
             is_in_list=Book.objects.get(title__iexact=title, author=bookauthor.id)
@@ -67,7 +69,7 @@ def create_book(resquest):
         book.save()
         bookauthor.save()
 
-        whole_page=get_page(title,0)
+        whole_page = get_page(title,0)
         member.already_read+=whole_page
         UserBook.objects.create(userid=member.id,bookid=book.id,whole_page=whole_page)
         
@@ -100,7 +102,7 @@ def create_memo(request,id):
     page=request.POST['page']
 
     content=request.POST['content']
-    Memo.objects.create(content=content, page=page,book=id )
+    Memo.objects.create(content=content, page=page, book=id)
 
     new_memo = Memo.objects.latest('id')
 

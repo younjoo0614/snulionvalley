@@ -24,12 +24,24 @@
                 </div>   
                 <div class="form-group">
                 <label for="goal" class="col-form-label">목표 독서량</label>
-                <input type="text" class="form-control" name="goal" id="goal">	
-                </div>     
+                <select name="goal" id="goal" form="signup-form">
+                    <option value = 1000>1000페이지</option>
+                    <option value = 2000>2000페이지</option>
+                    <option value = 3000>3000페이지</option>
+                    <option value = 5000>5000페이지</option>
+                    <option value = 10000>10000페이지</option>
+                </select>
+                </div>      
                 <div class="form-group">
                 <label for="taste" class="col-form-label">선호 장르</label>
-                <input type="text" class="form-control" name="taste" id="taste">	
-                </div>                
+                <select name="taste" id="taste" form="signup-form">
+                    <option value="인문/사회">인문/사회</option>
+                    <option value="과학/공학/IT">과학/공학/IT</option>
+                    <option value="예술/종교">예술/종교</option>
+                    <option value="문학">문학</option>
+                    <option value="자기계발서">자기계발서</option>
+                </select>             
+                </div>               
                 <div class="form-group">
                 <button type="submit" class="btn btn-warning btn-lg btn-block login-btn">가입하기</button>
                 </div>
