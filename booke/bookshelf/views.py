@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import auth
 from .models import Author, Book, UserBook, Memo
 from accounts.models import Profile
-import urllib.request
+from urllib.request import urlopen
 from bs4 import BeautifulSoup
 from urllib.parse import quote_plus
 import re
@@ -10,15 +10,10 @@ from django.http import JsonResponse
 
 # Create your views here.
 
-def index(request):
-    return render(request, 'bookshelf/index.html')
-
-
 def get_page_author(title,select):
     baseUrl = 'https://book.naver.com/search/search.nhn?sm=sta_hty.book&sug=&where=nexearch&query='
 
     url = baseUrl + quote_plus(title) #네이버 책 홈에서 책 제목을 검색해서 나오는 url
-
     html = urlopen(url)
     bsObject = BeautifulSoup(html, "html.parser")
 
@@ -44,11 +39,9 @@ def index(request):
     # queryset 잘 몰라서 참고하려고 둔 사이트https://docs.djangoproject.com/en/3.0/topics/db/queries/
     if request.method=='POST':
         member=request.user.profile
-
         #아직 외부 api 신청 안 한 상태라 직접 입력하는 방식으로 함
         book_title=request.POST['title']
         book_author=get_page_author(book_title,0)[1]
-
 
         #Author에 지금 유저가 추가하려고 하는 책이 이미 있는지 확인하고 없으면 추가
         
@@ -99,7 +92,7 @@ def delete_book(request,id):
 def show_memo(request,id):
     userbook=UserBook.objects.get(id=id)
     memos=Memo.objects.filter(book=userbook)
-    return render(request, 'bookshelf/show.html',{'memos':memos})
+    return render(request, 'bookshelf/show.html',{'userbook':userbook,'memos':memos})
 
 def recommend_book(request):
     by_book=Book.objects.all().order_by('-count')
@@ -130,20 +123,3 @@ def delete_memo(request,id,mid):
     m.delete()
 
     return redirect('bookshelf/show.html')
-
-# 네이버 책 API 부분
-# client_id = "5VgMPLkJIVU_85O43zpS" # 애플리케이션 등록시 발급 받은 값 입력
-# client_secret = "nDFQ9RQO2K" # 애플리케이션 등록시 발급 받은 값 입력
-# def search_book(title):
-#     encText = title
-#     url = "https://openapi.naver.com/v1/search/book?query=" + encText +"&display=3&sort=count"
-#     request = urllib.request.Request(url)
-#     request.add_header("X-Naver-5VgMPLkJIVU_85O43zpS",client_id)
-#     request.add_header("X-Naver-nDFQ9RQO2K",client_secret)
-#     response = urllib.request.urlopen(request)
-#     rescode = response.getcode()
-#     if(rescode==200):
-#         response_body = response.read()
-#         print(response_body.decode('utf-8'))
-#     else:
-#         print("Error Code:" + rescode)
