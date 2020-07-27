@@ -22,12 +22,12 @@
                     <img class = "myshelf5" src="{% static 'bookshelf/read.jpg' %}"/>
                 {% endif %}
             </div>
-            <div class = "book_counted">
+            {% comment %} <div class = "book_counted">
                 {% if %}
 
                 {{UserBook.whole_page}}
 
-            </div>
+            </div> {% endcomment %}
 
         {% else %}
             <div> 
