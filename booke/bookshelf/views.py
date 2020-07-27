@@ -92,7 +92,7 @@ def delete_book(request,id):
 def show_memo(request,id):
     userbook=UserBook.objects.get(id=id)
     memos=Memo.objects.filter(book=userbook)
-    return render(request, 'bookshelf/show.html',{'memos':memos})
+    return render(request, 'bookshelf/show.html',{'userbook':userbook,'memos':memos})
 
 def recommend_book(request):
     by_book=Book.objects.all().order_by('-count')
