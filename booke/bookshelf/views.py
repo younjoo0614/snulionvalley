@@ -92,19 +92,19 @@ def delete_book(request,id):
 def show_memo(request,id):
     userbook=UserBook.objects.get(id=id)
     memos=Memo.objects.filter(book=userbook)
-    return render(request, 'bookshelf/show.html',{'userbook':userbook,'memos':memos})
+    return render(request, 'bookshelf/show.html',{'memos':memos})
 
 def recommend_book(request):
     by_book=Book.objects.all().order_by('-count')
     best_author=Author.objects.all().order_by('-count').first()
-    by_author=Book.objects.filter(author=best_author.id)#.exclude로 자기가 읽은 책 제외해야 함
+    by_author=Book.objects.filter(author=best_author)#.exclude로 자기가 읽은 책 제외해야 함
     return render(request,'bookshelf/recommend.html',{"by_books":by_book,'by_author':by_author})
 
 def create_memo(request,id):
     page=request.POST['page']
 
     content=request.POST['content']
-    Memo.objects.create(content=content, page=page,book=id )
+    Memo.objects.create(content=content, page=page,book_id=id )
 
     new_memo = Memo.objects.latest('id')
 

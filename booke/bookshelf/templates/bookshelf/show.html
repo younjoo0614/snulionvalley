@@ -16,12 +16,13 @@
                     <div class="form-group">                                           
                         작가: {{ userbook.bookid.author.name }}
                     </div>
-                    {% comment %} <div class="form-group">                                           
+                    {% comment %}  <div class="form-group">                                           
                         <label for="pages" class="col-form-label">페이지 수: {{ Book.whole_page }}</label>
                     </div> 
                     
                     {% for memo in memos %} {% endcomment %}
                     {% comment %} 1:N에서 userbook에 딸린 memo만을 불러와야 합니당 {% endcomment %}
+                    {% comment %} views에서 memos를 userbook에 딸린 것만 넘겨주긴 하는데 편한 걸로 하면 될 듯 {% endcomment %}
                     {% for memo in userbook.memo_set.all %}
 
                     <div class="form-group">                                           
