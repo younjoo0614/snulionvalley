@@ -13,11 +13,13 @@
                     <div class="form-group">                                           
                         책 제목: {{ Book.title }}
                     </div>
+                    {% comment %} 작가 크롤링 정규식 완성되면 추가하기
                     <div class="form-group">                                           
                         작가: {{ author.name }}
-                    </div>
-                    {% comment %} <div class="form-group">                                           
-                        <label for="pages" class="col-form-label">페이지 수: {{ Book.whole_page }}</label>
+                    </div> 
+                    {% endcomment %}
+                    <div class="form-group">                                           
+                        <label for="pages" class="col-form-label">페이지 수: {{ UserBook.whole_page }}</label>
                     </div> 
                     
                     {% for memo in memos %} {% endcomment %}
