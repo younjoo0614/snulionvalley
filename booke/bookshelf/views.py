@@ -27,14 +27,13 @@ def get_page_author(title,select):
     whole_page= bs.select('.book_info_inner') 
 
     m=re.search('페이지.\d+',whole_page[0].text)
-    n=re.search('저자.\w+',whole_page[0].text)
-    b=m.group()
-    c=m.group()
-    page=re.search('\d+',b)
-    author=re.search('\w+',c)
+    n=re.search('저자.(\w+|\s|\.)+',whole_page[0].text)
+
+    page=re.search('\d+',m.group())
+    author=re.search('(?!저)(?!자)(?!\s)(\w+|\s|\.)+',n.group()) #정규식 앞에 '저자 ' 제거하는 방법이 있을 거 같은데...
     
-    author_page=[page.group(),author.group()]
-    return author_page
+    page_author=[page.group(),author.group()]
+    return page_author
 
 def index(request):
     # queryset 잘 몰라서 참고하려고 둔 사이트https://docs.djangoproject.com/en/3.0/topics/db/queries/
@@ -79,17 +78,11 @@ def index(request):
     
 
 def create_book(request):
-    return render(request,'bookshelf/new.html')   
-    
+    return render(request,'bookshelf/new.html')
 
 def list_friends(request):
-    member=request.user.id
-    follower=Follow.objects.filter(follow=member)
-    for f in follower:
-        follower_list=[]
-        follower_list.append(Profile.objects.get(id=f.followed_by))
-
-    return request(request,'friend_list.html',{"follower_list":follower_list})
+    followers=request.user.profile.follows
+    return request(request,'friend_list.html',{"followers":followers})
 
 def delete_book(request,id):
     userbook=UserBook.objects.get(id=id)
@@ -98,11 +91,8 @@ def delete_book(request,id):
 
 def show_memo(request,id):
     userbook=UserBook.objects.get(id=id)
-    book_for_title=Book.objects.get(id=userbook.bookid)
-    author_id=book_in_list.author
-    author=Author.objects.get(id=autor_id)
-    memos=Memo.objects.filter(book=id)
-    return render(request, 'bookshelf/show.html',{'userbook':userbook,'memos':memos,'book_for_title':book_for_title,'author':author})
+    memos=Memo.objects.filter(book=userbook)
+    return render(request, 'bookshelf/show.html',{'userbook':userbook,'memos':memos})
 
 def recommend_book(request):
     by_book=Book.objects.all().order_by('-count')

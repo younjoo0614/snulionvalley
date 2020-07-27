@@ -11,10 +11,10 @@
             {% comment %} form id는 modal.js에서 식별해야 해서 memo-create으로 바꿨어용 {% endcomment %}
                 <form id='memo-create' data-csrfmiddlewaretoken="{{ csrf_token }}"> 
                     <div class="form-group">                                           
-                        책 제목: {{ Book.title }}
+                        책 제목: {{ userbook.bookid.title }}
                     </div>
                     <div class="form-group">                                           
-                        작가: {{ author.name }}
+                        작가: {{ userbook.bookid.author.name }}
                     </div>
                     {% comment %} <div class="form-group">                                           
                         <label for="pages" class="col-form-label">페이지 수: {{ Book.whole_page }}</label>
