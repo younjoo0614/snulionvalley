@@ -10,18 +10,19 @@
             <div class="modal-body">
             {% comment %} form id는 modal.js에서 식별해야 해서 memo-create으로 바꿨어용 {% endcomment %}
                 <form id='memo-create' data-csrfmiddlewaretoken="{{ csrf_token }}"> 
-                    <div class="form-group">                                           
-                        책 제목: {{ Book.title }}
+                    <div class="form-group">                                          
+                        책 제목: {{ userbook.bookid.title }}
                     </div>
-                    {% comment %} 작가 크롤링 정규식 완성되면 추가하기
                     <div class="form-group">                                           
-                        작가: {{ author.name }}
-                    </div> 
-                    {% endcomment %}
+
+                        작가: {{ userbook.bookid.author.name }}
+                    </div>
+                    {% comment %}  
                     <div class="form-group">                                           
                         <label for="pages" class="col-form-label">페이지 수: {{ UserBook.whole_page }}</label>
                     </div> 
                     
+                
                     {% for memo in memos %} {% endcomment %}
                     {% comment %} 1:N에서 userbook에 딸린 memo만을 불러와야 합니당 {% endcomment %}
                     {% for memo in userbook.memo_set.all %}
