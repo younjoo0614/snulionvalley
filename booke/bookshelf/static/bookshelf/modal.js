@@ -67,3 +67,37 @@ $('#book-create').submit((event) => {
         }
     })
 })
+
+$('#memo-create').submit(async (e) => {
+    event.preventDefault()
+    const $this = $(e.currentTarget);
+    const id = $this.data('id');
+    // 보통 이벤트가 일어난 객체의 id를 가져오는데 이건 책장에서 책등의 id를 가져오는 게 아니라 
+    // modal form의 id를 가져오게 될텐데,, 지금 확인이 안 되지만 일단 이렇게 써둘게요
+    const csrfmiddlewaretoken = $this.data('csrfmiddlewaretoken');
+
+    $.ajax({
+        url: `/bookshelf/${id}/`,  
+        method: 'GET'
+      })
+
+    await $.ajax({
+        url: `/bookshelf/${id}/memos/`, 
+        // 서버가 처리할 url. create_memo를 백에서 불러야 db에 추가되기 때문
+        method: 'POST',
+        data: {
+            content: $(`input#review`).val(),
+            page: $(`input#review_page`).val(),
+            csrfmiddlewaretoken: csrfmiddlewaretoken,
+        },
+        dataType: "json",
+        success(res) {
+            console.log(res)
+            window.location.href=`/bookshelf/${id}/`
+        },
+        error(response, status, error) {
+            console.log(response, status, error);
+        }
+    })
+
+})
