@@ -57,3 +57,4 @@ def follow_manager(request, pk):
         f.save()
 
     return redirect('/feeds')
+
