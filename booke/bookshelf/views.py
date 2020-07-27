@@ -98,8 +98,8 @@ def recommend_book(request):
 
 def create_memo(request,id):
     page=request.POST['page']
-    content=request.POST['content']    
-    Memo.objects.create(content=content, page=page)
+    content=request.POST['content']
+    Memo.objects.create(content=content, page=page,book=id )
 
     return redirect('bookself/show.html')
 
