@@ -53,8 +53,12 @@ $('#book-create').submit((event) => {
         method: 'POST',
         data: {
             title: $(`input#title`).val(),
+
             // author: $(`input#author`).val(),
             // page: $(`input#page`).val(),
+
+            author: $(`input#author`).val(),
+
             csrfmiddlewaretoken: $(event.currentTarget).data('csrfmiddlewaretoken')
         },
         dataType: "json",

@@ -6,17 +6,19 @@ import urllib.request
 from bs4 import BeautifulSoup
 from urllib.parse import quote_plus
 import re
+from django.http import JsonResponse
 
 # Create your views here.
+
 def index(request):
     return render(request, 'bookshelf/index.html')
 
-def get_page(title,select):
+
+def get_page_author(title,select):
     baseUrl = 'https://book.naver.com/search/search.nhn?sm=sta_hty.book&sug=&where=nexearch&query='
 
-    plusUrl= title
+    url = baseUrl + quote_plus(title) #네이버 책 홈에서 책 제목을 검색해서 나오는 url
 
-    url = baseUrl + quote_plus(plusUrl) #네이버 책 홈에서 책 제목을 검색해서 나오는 url
     html = urlopen(url)
     bsObject = BeautifulSoup(html, "html.parser")
 
@@ -30,49 +32,71 @@ def get_page(title,select):
     whole_page= bs.select('.book_info_inner') 
 
     m=re.search('페이지.\d+',whole_page[0].text)
+    n=re.search('저자.\w+',whole_page[0].text)
     b=m.group()
+    c=m.group()
     page=re.search('\d+',b)
+    author=re.search('\w+',c)
     
-    return int(page.group())
+    author_page=[page.group(),author.group()]
+    return author_page
 
-def create_book(resquest):
+def index(request):
     # queryset 잘 몰라서 참고하려고 둔 사이트https://docs.djangoproject.com/en/3.0/topics/db/queries/
     if request.method=='POST':
         member=request.user.profile
-        title=request.POST['title']
-        # author=request.POST['author']
+
+        #아직 외부 api 신청 안 한 상태라 직접 입력하는 방식으로 함
+        book_title=request.POST['title']
+        book_author=get_page_author(book_title,0)[1]
+
 
         #Author에 지금 유저가 추가하려고 하는 책이 이미 있는지 확인하고 없으면 추가
-        try:
-            is_author_in_list=Author.objects.get(author=author)
-
-        except Author.DoesnotExist:
-            Author.objects.create(name=author)
         
-        bookauthor=Author.objects.get(name__iexact=author)
+        try:
+            is_author_in_list=Author.objects.get(name=book_author)
+
+        except Author.DoesNotExist:
+            Author.objects.create(name=book_author)
+        
+        bookauthor=Author.objects.get(name__iexact=book_author)
         #Book에 지금 유저가 추가하려고 하는 책이 이미 있는지 확인하고 없으면 추가
         try:
-            is_in_list=Book.objects.get(title__iexact=title, author=bookauthor.id)
+            is_in_list=Book.objects.get(title__iexact=book_title, author=bookauthor)
 
         except Book.DoesNotExist:
-            Book.objects.create(title=title, author=bookauthor.id)
+            Book.objects.create(title=book_title, author=bookauthor)
         
-        book= Book.objects.get(titl__iexact=title, author=bookauthor.id)
+        book= Book.objects.get(title__iexact=book_title, author=bookauthor)
         # 저장된 횟수 추가
         book.count+=1
         bookauthor.count+=1
         book.save()
         bookauthor.save()
 
-        whole_page=get_page(title,0)
+        whole_page=int(get_page_author(book_title,0)[0])
         member.already_read+=whole_page
-        UserBook.objects.create(userid=member.id,bookid=book.id,whole_page=whole_page)
+        UserBook.objects.create(userid=member,bookid=book,whole_page=whole_page)
         
-        return redirect ('/')
+        return JsonResponse({"message":"created"},status=201)
+    else: 
+        books=UserBook.objects.all()
+        authors=Author.objects.all()
+        return render(request,'bookshelf/index.html',{"books":books,"authors":authors})
     
-    UserBook=Book.objects.all()
-    authors=Author.objects.all()
-    return render(request,'bookshelf/index.html',{"books":books,"authors":authors})
+
+def create_book(request):
+    return render(request,'bookshelf/new.html')   
+    
+
+def list_friends(request):
+    member=request.user.id
+    follower=Follow.objects.filter(follow=member)
+    for f in follower:
+        follower_list=[]
+        follower_list.append(Profile.objects.get(id=f.followed_by))
+
+    return request(request,'friend_list.html',{"follower_list":follower_list})
 
 def delete_book(request,id):
     userbook=UserBook.objects.get(id=id)
