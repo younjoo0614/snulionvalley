@@ -9,8 +9,8 @@ $('#signup-form').submit((event) => {
             username: $(`input#username`).val(),
             password1: $(`input#password1`).val(),
             password2: $(`input#password2`).val(),
-            goal: $(`input#goal`).val(),
-            taste: $(`input#taste`).val()
+            goal: $(`#goal option:selected`).val(),
+            taste: $(`#taste option:selected`).val(),
         },
         success(response) {
             console.log(response)
@@ -49,6 +49,7 @@ $('#login-form').submit((event) => {
 $('#book-create').submit((event) => {
     event.preventDefault()
     $.ajax({
+
         url: '/bookshelf/',
         method: 'POST',
         data: {

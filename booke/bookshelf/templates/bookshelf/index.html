@@ -8,8 +8,7 @@
     <div class = "temp"> 
         {% if user.is_authenticated %}
             <div class = "myshelf">
-                {% if user.profile.goal == '1000' %} 
-                {% comment %} text -> integer로 바꿀 것! {% endcomment %}
+                {% if user.profile.goal == 1000 %} 
                 {% comment %} 목표 독서량별 그림 수정 필요  {% endcomment %}
                     <img class = "myshelf1" src="{% static 'bookshelf/read.jpg' %}"/> 
                 {% elif user.profile.goal == 2000 %}
