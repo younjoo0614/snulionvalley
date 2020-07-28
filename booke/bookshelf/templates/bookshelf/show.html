@@ -10,19 +10,21 @@
             <div class="modal-body">
             {% comment %} form id는 modal.js에서 식별해야 해서 memo-create으로 바꿨어용 {% endcomment %}
                 <form id='memo-create' data-csrfmiddlewaretoken="{{ csrf_token }}"> 
-                    <div class="form-group">                                           
+                    <div class="form-group">                                          
                         책 제목: {{ userbook.bookid.title }}
                     </div>
                     <div class="form-group">                                           
+
                         작가: {{ userbook.bookid.author.name }}
                     </div>
-                    {% comment %}  <div class="form-group">                                           
-                        <label for="pages" class="col-form-label">페이지 수: {{ Book.whole_page }}</label>
+                    {% comment %}  
+                    <div class="form-group">                                           
+                        <label for="pages" class="col-form-label">페이지 수: {{ UserBook.whole_page }}</label>
                     </div> 
                     
+                
                     {% for memo in memos %} {% endcomment %}
                     {% comment %} 1:N에서 userbook에 딸린 memo만을 불러와야 합니당 {% endcomment %}
-                    {% comment %} views에서 memos를 userbook에 딸린 것만 넘겨주긴 하는데 편한 걸로 하면 될 듯 {% endcomment %}
                     {% for memo in userbook.memo_set.all %}
 
                     <div class="form-group">                                           

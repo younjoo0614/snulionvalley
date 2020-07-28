@@ -121,5 +121,5 @@ def create_memo(request,id):
 def delete_memo(request,id,mid):
     m=Memo.objects.get(id=mid)
     m.delete()
-
+    
     return redirect('bookshelf/show.html')
