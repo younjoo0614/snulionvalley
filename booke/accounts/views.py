@@ -9,21 +9,21 @@ from .models import Profile
 
 
 def signup(request):
-   if request.method == "POST":
-       username = request.POST["username"]
-       password = request.POST["password1"]
-       goal = request.POST["goal"]
-       taste = request.POST["taste"]
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST["password1"]
+        goal = request.POST["goal"]
+        taste = request.POST["taste"]
 
-       user = User.objects.create_user(username=username, password=password)
-       user.profile.nickname = username
-       user.profile.goal = goal
-       user.profile.taste = taste
-       user.save()
+        user = User.objects.create_user(username=username, password=password)
+        user.profile.nickname = username
+        user.profile.goal = goal
+        user.profile.taste = taste
+        user.save()
 
-       login_user = django_authenticate(username=username, password=password)
-       django_login(request, login_user)
-       return JsonResponse({"response": "signup success"})
+        login_user = django_authenticate(username=username, password=password)
+        django_login(request, login_user)
+        return JsonResponse({"response": "signup success"})
 
 # 모달 전 기존 회원가입 함수.. 기록용! 무시해도 됨
 # def signup(request):

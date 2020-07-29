@@ -21,6 +21,16 @@
             </button>
         {% endif %}
     </div>
+    <div class = "friendslist-btn">
+        {% if user.is_authenticated %}
+            {% for friend in follower_list %} <!--마지막 댓글의 경우-->
+                <div class="friend-list" style="display: none;"> <!--나머지 댓글의 경우 toggle-comment라는 클래스를 적용하고 보이지 않게 설정합니다-->
+                    <p>{{friend.nickname}}</p>
+                    <button class="more-friendlist-btn"> Friend list </button>
+                    {% csrf_token %}
+                </div> 
+        {% endif %}
+    </div>
 </div>
 
-{% endblock content %}
+{% endblock content %}  

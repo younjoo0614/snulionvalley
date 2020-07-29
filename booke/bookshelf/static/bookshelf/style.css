@@ -42,6 +42,7 @@ body {
     position: absolute;
     top: 670px;
     right: 5%;
+    background-color: none;
 }
 
 .newbook img{
@@ -91,4 +92,14 @@ button.btn-5{
 button.newbook{
     border: none;
     background-color: none;
+}
+
+
+.friendslist-btn{
+    position: relative;
+    top:200px;
+}
+
+.friend-list > p {
+    display: inline;
 }

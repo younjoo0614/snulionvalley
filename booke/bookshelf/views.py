@@ -9,9 +9,9 @@ import re
 
 # Create your views here.
 def index(request):
-    member=request.user.profile
-    ratio=member.already_read/member.goal
-    return render(request, 'bookshelf/index.html',{"ratio":ratio})
+    # member=request.user.profile
+    # ratio=member.already_read/member.goal
+    return render(request, 'bookshelf/index.html')
 
 def get_page(title,select):
     baseUrl = 'https://book.naver.com/search/search.nhn?sm=sta_hty.book&sug=&where=nexearch&query='
@@ -37,7 +37,7 @@ def get_page(title,select):
     
     return int(page.group())
 
-def create_book(resquest):
+def create_book(request):
     # queryset 잘 몰라서 참고하려고 둔 사이트https://docs.djangoproject.com/en/3.0/topics/db/queries/
     if request.method=='POST':
         member=request.user.profile
@@ -119,3 +119,12 @@ def delete_memo(request,id,mid):
     m.delete()
 
     return redirect('bookshelf/show.html')
+
+def list_friends(request):
+    member=request.user.id
+    follower=Follow.objects.filter(follow=member)
+    for f in follower:
+        follower_list=[]
+        follower_list.append(Profile.objects.get(id=f.followed_by))
+
+    return request(request,'friend_list.html',{"follower_list":follower_list})
