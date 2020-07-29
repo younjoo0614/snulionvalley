@@ -3,6 +3,13 @@ body {
     height: 800px;
 }
 
+.page_header a {
+    text-decoration: none;
+}
+
+.page_header a :hover{
+    text-decoration: none;
+}
   
 .h1 {
 font-family: 'Ubuntu';
@@ -102,4 +109,39 @@ background-color: lightgrey;
 width: 80%;
 height: 650px;
 right: 200px;
+}
+
+.notice{
+position: relative;
+background-color: #D8E8F5;
+/* opacity: 80%; */
+width: 70%;
+height: 400px;
+left:15%;
+z-index:5;
+top: 40px;
+padding: 40px;
+}
+
+.recruiting{
+position: relative;
+background-color: #D8E8F5;
+/* opacity: 80%; */
+width: 70%;
+height: 400px;
+left:15%;
+top: 60px;
+z-index:5;
+padding: 40px;
+}
+
+.h3 {
+z-index: 10;
+font-family: 'Ubuntu';
+font-weight: 700;
+/* font-size: 28px; */
+color: #F58C45;
+/* padding: 10px; */
+position: relative;
+/* left: 20px; */
 }

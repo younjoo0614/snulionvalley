@@ -11,6 +11,7 @@ class Profile(models.Model):
     major = models.CharField(max_length=20, blank=True)
     ordinal = models.CharField(max_length=20, blank=True)
     birthday = models.DateField(auto_now=False, auto_now_add=False, null=True)
+    
 
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):  
