@@ -6,33 +6,32 @@
     {% comment %} 임시임시 구조 {% endcomment %}
 <div class = "first-page">    
     <div class = "temp"> 
-        {% if user.is_authenticated %}
-            <div class = "myshelf">
-                {% if user.profile.goal == 1000 %} 
-                {% comment %} 목표 독서량별 그림 수정 필요  {% endcomment %}
-                    <img class = "myshelf1" src="{% static 'bookshelf/read.jpg' %}"/> 
-                {% elif user.profile.goal == 2000 %}
-                    <img class = "myshelf2" src="{% static 'bookshelf/read.jpg' %}"/>
-                {% elif user.profile.goal == 3000 %}
-                    <img class = "myshelf3" src="{% static 'bookshelf/read.jpg' %}"/>
-                {% elif user.profile.goal == 5000 %}
-                    <img class = "myshelf4" src="{% static 'bookshelf/read.jpg' %}"/>
-                {% elif user.profile.goal == 10000 %}
-                    <img class = "myshelf5" src="{% static 'bookshelf/read.jpg' %}"/>
-                {% endif %}
-            </div>
-            {% comment %} <div class = "book_counted">
-                {% if %}
+            {% if user.is_authenticated %}
+                <div class = "myshelf">
+                    {% if user.profile.goal == 1000 %} 
+                        <img class = "myshelf1" src="{% static 'bookshelf/p1000.png' %}"/> 
+                    {% elif user.profile.goal == 2000 %}
+                        <img class = "myshelf2" src="{% static 'bookshelf/p2000.png' %}"/>
+                    {% elif user.profile.goal == 3000 %}
+                        <img class = "myshelf3" src="{% static 'bookshelf/p3000.png' %}"/>
+                    {% elif user.profile.goal == 5000 %}
+                        <img class = "myshelf4" src="{% static 'bookshelf/p5000.png' %}"/>
+                    {% elif user.profile.goal == 10000 %}
+                        <img class = "myshelf5" src="{% static 'bookshelf/p10000.png' %}"/>
+                    {% endif %}
+                {% for userbook in books %}
+                        <div class = "bookiread" style = " margin: 10px; height: 50px; background-color: orange ; width: calc({{userbook.whole_page}} / {{user.profile.goal}} * 80%) "> 
+                        {{userbook.bookid.title}} 
+                    </div>
+                {%endfor%} 
 
-                {{UserBook.whole_page}}
+                </div>
 
-            </div> {% endcomment %}
-
-        {% else %}
-            <div> 
-                <img class="back_img" src="{% static 'bookshelf/read.jpg' %}"/>
-            </div>
-        {% endif %}
+            {% else %}
+                <div> 
+                    <img class="back_img" src="{% static 'bookshelf/read.jpg' %}"/>
+                </div>
+            {% endif %}
     </div>
     <div class = "newbook-btn">
         {% if user.is_authenticated %}
@@ -54,4 +53,5 @@
     </div>
 </div>
 
-{% endblock content %}  
+
+{% endblock content %}
