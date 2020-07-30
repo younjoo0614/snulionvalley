@@ -96,31 +96,34 @@ button.newbook{
 .myshelf {
     width: 100%;
     display: block;
-    margin: 0px auto;
 }
 
 .myshelf1 {
-    width: 10%;
-    height: 100px;
+    width: 80%;
+    display: block;
+    margin: 0px auto;
 }
 
 .myshelf2 {
-    width: 20%;
-    height: 100px;
+    width: 80%;
+    display: block;
+    margin: 0px auto;
 }
 
 .myshelf3 {
-    width: 30%;
-    height: 100px;
+    width: 80%;
+    display: block;
+    margin: 0px auto;
 }
 
 .myshelf4 {
-    width: 50%;
-    height: 100px;
+    width: 80%;
+    display: block;
+    margin: 0px auto;
 }
 
 .myshelf5 {
-    width: 50%;
-    height: 200px;
+    width: 80%;
+    display: block;
+    margin: 0px auto;
 }
-
