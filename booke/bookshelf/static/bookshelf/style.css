@@ -94,7 +94,6 @@ button.newbook{
     background-color: none;
 }
 
-
 .friendslist-btn{
     position: relative;
     top:200px;
@@ -103,3 +102,35 @@ button.newbook{
 .friend-list > p {
     display: inline;
 }
+
+.myshelf {
+    width: 100%;
+    display: block;
+    margin: 0px auto;
+}
+
+.myshelf1 {
+    width: 10%;
+    height: 100px;
+}
+
+.myshelf2 {
+    width: 20%;
+    height: 100px;
+}
+
+.myshelf3 {
+    width: 30%;
+    height: 100px;
+}
+
+.myshelf4 {
+    width: 50%;
+    height: 100px;
+}
+
+.myshelf5 {
+    width: 50%;
+    height: 200px;
+}
+
