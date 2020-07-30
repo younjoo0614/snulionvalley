@@ -82,7 +82,7 @@ def create_book(request):
 
 def list_friends(request):
     followers=request.user.profile.follows
-    return request(request,'friend_list.html',{"followers":followers})
+    return request(request,'index.html',{"follows":follows})
 
 def delete_book(request,id):
     userbook=UserBook.objects.get(id=id)

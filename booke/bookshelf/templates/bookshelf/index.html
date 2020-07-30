@@ -3,42 +3,65 @@
 
 {% block content %}
 {% load static %}
-    {% comment %} 임시임시 구조 {% endcomment %}
+    
+{% comment %} member.already_read/ member_goal 표현하는 것도 추가해 주세요! {% endcomment %}
+
 <div class = "first-page">    
     <div class = "temp"> 
-        {% for userbook in books %}
-            {% if user.is_authenticated %}
-                <div class = "myshelf">
-                    {% if user.profile.goal == 1000 %} 
-                        <img class = "myshelf1" src="{% static 'bookshelf/p1000.png' %}"/> 
-                    {% elif user.profile.goal == 2000 %}
-                        <img class = "myshelf2" src="{% static 'bookshelf/p2000.png' %}"/>
-                    {% elif user.profile.goal == 3000 %}
-                        <img class = "myshelf3" src="{% static 'bookshelf/p3000.png' %}"/>
-                    {% elif user.profile.goal == 5000 %}
-                        <img class = "myshelf4" src="{% static 'bookshelf/p5000.png' %}"/>
-                    {% elif user.profile.goal == 10000 %}
-                        <img class = "myshelf5" src="{% static 'bookshelf/p10000.png' %}"/>
-                    {% endif %}
-
-                    <div class = "bookiread" style = "height: 500px; background-color: ; width: cal({{UserBook.whole_page}} / {{user.profile.goal}} * 80%) "> 
-                        {{Book.title}} 
-                    </div>
-
+        {% if user.is_authenticated %}
+            <div class = "achievement">
+                <div class = "totalpc">
+                    <div class = "achievepc" style="width: calc({{ user.profile.already_read }}/{{user.profile.goal}}*500px"></div>
                 </div>
+            </div>
 
-            {% else %}
+            <div class = "myshelf">
+                {% if user.profile.goal == 1000 %} 
+                    <img class = "myshelf1" src="{% static 'bookshelf/p1000.png' %}"/> 
+                {% elif user.profile.goal == 2000 %}
+                    <img class = "myshelf2" src="{% static 'bookshelf/p2000.png' %}"/>
+                {% elif user.profile.goal == 3000 %}
+                    <img class = "myshelf3" src="{% static 'bookshelf/p3000.png' %}"/>
+                {% elif user.profile.goal == 5000 %}
+                    <img class = "myshelf4" src="{% static 'bookshelf/p5000.png' %}"/>
+                {% elif user.profile.goal == 10000 %}
+                    <img class = "myshelf5" src="{% static 'bookshelf/p10000.png' %}"/>
+                {% endif %}
+
+                {% comment %} <a  href="/bookshelf/{{ userbook.bookid }}/memos"> 한 번 끄적여보았지만 작동 안 되는 코드 ㅠㅠ{% endcomment %}
+                    {% for userbook in books %}
+                        <div class = "bookiread" style = "margin: 10px; height: 50px; background-color: orange ; width: calc({{userbook.whole_page}} / {{user.profile.goal}} * 80%) "> 
+                            {{userbook.bookid.title}} 
+                        </div>
+                    {%endfor%}
+                {% comment %} </a> {% endcomment %}
+
+            </div>
+
+        {% else %}
                 <div> 
                     <img class="back_img" src="{% static 'bookshelf/read.jpg' %}"/>
                 </div>
-            {% endif %}
-        {%endfor%}
+        
+        {% endif %}
+        
     </div>
     <div class = "newbook-btn">
         {% if user.is_authenticated %}
             <button type="button" data-toggle="modal" data-target="#createModal" class="newbook">
                 <img src="{% static 'bookshelf/newbook.png'  %}">
             </button>
+        {% endif %}
+    </div>
+    <div class = "friendslist-btn">
+        {% if user.is_authenticated %}
+            {% for friend in follows %} <!--마지막 댓글의 경우-->
+                <div class="friend-list" style="display: none;"> <!--나머지 댓글의 경우 toggle-comment라는 클래스를 적용하고 보이지 않게 설정합니다-->
+                    <p>{{friend.nickname}}</p>
+                    <button class="more-friendlist-btn"> Friend list </button>
+                    {% csrf_token %}
+                </div> 
+            {% endfor %}
         {% endif %}
     </div>
 </div>

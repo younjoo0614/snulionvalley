@@ -20,8 +20,6 @@ $('#signup-form').submit((event) => {
             console.log(response, status, error);
         }
     })
-
-    
 })
 
 
@@ -105,4 +103,18 @@ $('#memo-create').submit(async (e) => {
         }
     })
 
+})
+
+$(document).ready(() => {
+    $(".more-comment-btn").on('click', function(event) {
+        $(this).toggleClass("showing-comment");
+
+        if ($(this).hasClass("showing-comment")) {
+            $(this).text("HIDE COMMENTS");
+            $(this).parent().find(".toggle-comment").not(".last-comment").show();
+        } else {
+            $(this).text("MORE COMMENTS");
+            $(this).parent().find(".toggle-comment").not(".last-comment").hide();
+        }
+    });
 })

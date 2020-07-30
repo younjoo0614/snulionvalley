@@ -42,6 +42,7 @@ body {
     position: absolute;
     top: 670px;
     right: 5%;
+    background-color: none;
 }
 
 .newbook img{
@@ -93,7 +94,36 @@ button.newbook{
     background-color: none;
 }
 
+.friendslist-btn{
+    position: relative;
+    top:200px;
+}
+
+.friend-list > p {
+    display: inline;
+}
+
+.achievement {
+    display: block;
+    margin: 0px auto;
+}
+
+.totalpc {
+    display: block;
+    margin: 0px auto;
+    width: 500px; 
+    background-color: pink;
+    height: 50px;
+}
+
+.achievepc {
+    left: 0px;
+    background-color: blue;   
+    height: 50px; 
+}
+
 .myshelf {
+    padding-top: 30px;
     width: 100%;
     display: block;
 }
@@ -102,6 +132,7 @@ button.newbook{
     width: 80%;
     display: block;
     margin: 0px auto;
+    top: 500px;
 }
 
 .myshelf2 {
