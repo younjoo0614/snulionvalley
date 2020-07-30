@@ -1,4 +1,4 @@
-from urllib.request import urlopen
+import urllib.request 
 from bs4 import BeautifulSoup
 from urllib.parse import quote_plus
 import re
@@ -38,14 +38,14 @@ title=input('제목을 입력하세요: ')
 baseUrl = 'https://book.naver.com/search/search.nhn?sm=sta_hty.book&sug=&where=nexearch&query='
 
 url = baseUrl + quote_plus(title) #네이버 책 홈에서 책 제목을 검색해서 나오는 url
-html = urlopen(url)
+html = urllib.request.urlopen(url)
 bsObject = BeautifulSoup(html, "html.parser")
 
 site_for_page = bsObject.select('li > dl > dt > a') # 책 제목을 검색해서 뜨는 a 태그들 결과들의 링크
 
 deturl=site_for_page[0].attrs['href'] # 페이지 수가 써있는 url로 들어옴 index 0으로 한 건 편의를 위함, 추후 바뀔 수 있음
 
-html=urlopen(deturl)
+html= urllib.request.urlopen(deturl)
 bs=BeautifulSoup(html, "html.parser")
 
 title_div=bs.select('.book_info > h2 > a')
