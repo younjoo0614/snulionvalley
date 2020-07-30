@@ -12,6 +12,7 @@ import sys
 import json
 
 # Create your views here.
+
 def search_title_author(title,num):
     client_id = "4dDEAG4leXp6OiKVgE7G" 
     client_secret = "gw8Luw9s2F"
@@ -33,7 +34,6 @@ def search_title_author(title,num):
 
     else:
         print("Error Code:" + rescode)
-
 
 def get_page(title,select):
     baseUrl = 'https://book.naver.com/search/search.nhn?sm=sta_hty.book&sug=&where=nexearch&query='
@@ -60,13 +60,15 @@ def get_page(title,select):
     #page_author=[page.group(),author.group()]
     return int(page.group())
 
+
 def index(request):
     if request.method=='POST':
         member=request.user.profile
         ta_list=search_title_author(request.POST['title'],0)
         book_title=ta_list[0]
         book_author=ta_list[1]
-       
+        
+        #추가하려는 책의 작가가 이미 있는지 확인하고 없으면 추가
         try:
             is_author_in_list=Author.objects.get(name=book_author)
 
@@ -103,7 +105,7 @@ def create_book(request):
 
 def list_friends(request):
     follows=request.user.profile.follows
-    return request(request,'friend_list.html',{"follows":follows})
+    return request(request,'index.html',{"follows":follows})
 
 def delete_book(request,id):
     userbook=UserBook.objects.get(id=id)
@@ -141,6 +143,6 @@ def create_memo(request,id):
 
 def delete_memo(request,id,mid):
     m=Memo.objects.get(id=mid)
-    m.delete()
-    
+    m.delete()    
     return redirect('bookshelf/show.html')
+
