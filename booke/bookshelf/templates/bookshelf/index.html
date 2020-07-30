@@ -20,7 +20,7 @@
                         <img class = "myshelf5" src="{% static 'bookshelf/p10000.png' %}"/>
                     {% endif %}
                 {% for userbook in books %}
-                        <div class = "bookiread" style = " margin: 10px; height: 50px; background-color: orange ; width: cal({{userbook.whole_page}} / {{user.profile.goal}} * 80%) "> 
+                        <div class = "bookiread" style = " margin: 10px; height: 50px; background-color: orange ; width: calc({{userbook.whole_page}} / {{user.profile.goal}} * 80%) "> 
                         {{userbook.bookid.title}} 
                     </div>
                 {%endfor%} 
