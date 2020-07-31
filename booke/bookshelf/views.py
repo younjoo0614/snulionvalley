@@ -63,7 +63,7 @@ def get_page(title,select):
 
 def index(request):
     if request.method=='POST':
-        member=request.user.profile
+        member=request.user.profile 
         ta_list=search_title_author(request.POST['title'],0)
         book_title=ta_list[0]
         book_author=ta_list[1]
@@ -76,7 +76,7 @@ def index(request):
             Author.objects.create(name=book_author)
         
         bookauthor=Author.objects.get(name__iexact=book_author)
-        #Book에 지금 유저가 추가하려고 하는 책이 이미 있는지 확인하고 없으면 추가
+        #추가하려고 하는 책이 이미 있는지 확인하고 없으면 추가
         try:
             is_in_list=Book.objects.get(title__iexact=book_title, author=bookauthor)
 
@@ -95,10 +95,15 @@ def index(request):
         UserBook.objects.create(userid=member,bookid=book,whole_page=whole_page)
         
         return JsonResponse({"message":"created"},status=201)
-    else: 
-        books=UserBook.objects.all()
-        authors=Author.objects.all()
-        return render(request,'bookshelf/index.html',{"books":books,"authors":authors})
+    else:
+        if request.user.is_authenticated:
+            member=request.user.profile
+            books=UserBook.objects.filter(userid=member)
+            authors=Author.objects.all()
+            return render(request,'bookshelf/index.html',{"books":books,"authors":authors})
+        else:
+            return render(request,'bookshelf/index.html')
+        
     
 def create_book(request):
     return render(request,'bookshelf/new.html')
@@ -145,4 +150,3 @@ def delete_memo(request,id,mid):
     m=Memo.objects.get(id=mid)
     m.delete()    
     return redirect('bookshelf/show.html')
-

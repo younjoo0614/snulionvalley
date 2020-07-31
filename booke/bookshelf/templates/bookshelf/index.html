@@ -3,7 +3,7 @@
 
 {% block content %}
 {% load static %}
-    {% comment %} 임시임시 구조 {% endcomment %}
+    
 <div class = "first-page">    
     <div class = "temp"> 
             {% if user.is_authenticated %}
@@ -47,7 +47,8 @@
                     <p>{{friend.nickname}}</p>
                     <button class="more-friendlist-btn"> Friend list </button>
                     {% csrf_token %}
-                </div> 
+                </div>
+            {% endfor %}
         {% endif %}
     </div>
 </div>
