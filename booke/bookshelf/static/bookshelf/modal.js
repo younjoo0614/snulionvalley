@@ -24,7 +24,6 @@ $('#signup-form').submit((event) => {
     
 })
 
-
 $('#login-form').submit((event) => {
     event.preventDefault()
     $.ajax({
@@ -72,6 +71,35 @@ $('#book-create').submit((event) => {
         }
     })
 })
+
+$('.showmodal').click((e) => {
+    e.preventDefault();
+    console.log('show memo');
+    const $this = $(e.currentTarget);
+    const id = $this.data('id');
+    const csrfmiddlewaretoken = $this.data('csrfmiddlewaretoken');
+
+    $.ajax({
+        type: 'GET',
+        url: `/bookshelf/${id}`, 
+        data: { 
+            id: id,
+            csrfmiddlewaretoken: csrfmiddlewaretoken,
+            
+            // content: $(`input#${fid}[name=content]`).val(),
+        },
+        dataType: "json",
+        success(res) {
+            console.log(res)
+            window.location.href=`/bookshelf/${id}/`
+        },
+        error(response, status, error) {
+            console.log(response, status, error);
+        }
+    })
+})
+
+
 
 $('#memo-create').submit(async (e) => {
     event.preventDefault()

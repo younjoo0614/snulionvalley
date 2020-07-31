@@ -60,7 +60,6 @@ def get_page(title,select):
     #page_author=[page.group(),author.group()]
     return int(page.group())
 
-
 def index(request):
     if request.method=='POST':
         member=request.user.profile 
@@ -95,7 +94,8 @@ def index(request):
         UserBook.objects.create(userid=member,bookid=book,whole_page=whole_page)
         
         return JsonResponse({"message":"created"},status=201)
-    else:
+
+    else: 
         if request.user.is_authenticated:
             member=request.user.profile
             books=UserBook.objects.filter(userid=member)
@@ -103,7 +103,6 @@ def index(request):
             return render(request,'bookshelf/index.html',{"books":books,"authors":authors})
         else:
             return render(request,'bookshelf/index.html')
-        
     
 def create_book(request):
     return render(request,'bookshelf/new.html')
@@ -120,7 +119,14 @@ def delete_book(request,id):
 def show_memo(request,id):
     userbook=UserBook.objects.get(id=id)
     memos=Memo.objects.filter(book=userbook)
-    return render(request, 'bookshelf/show.html',{'userbook':userbook,'memos':memos})
+    memo_json=json.dumps(memos)
+
+    context = {
+        'userbook': userbook,
+        'memo_json':memo_json,
+    }
+    
+    return JsonResponse(context)
 
 def recommend_book(request):
     by_book=Book.objects.all().order_by('-count')

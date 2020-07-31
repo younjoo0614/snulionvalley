@@ -19,19 +19,23 @@
                     {% elif user.profile.goal == 10000 %}
                         <img class = "myshelf5" src="{% static 'bookshelf/p10000.png' %}"/>
                     {% endif %}
+
                 {% for userbook in books %}
-                        <div class = "bookiread" style = " margin: 10px; height: 50px; background-color: orange ; width: calc({{userbook.whole_page}} / {{user.profile.goal}} * 80%) "> 
+
+                <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }}> 
+                {% comment %} <a href="/bookshelf/{{userbook.id}}"> {% endcomment %}
+                    <div class = "bookiread" style = " margin: 10px; height: 50px; background-color: orange ; width: calc({{userbook.whole_page}} / {{user.profile.goal}} * 80%) "> 
                         {{userbook.bookid.title}} 
                     </div>
-                {%endfor%} 
-
+                </a> 
+                {% endfor %} 
                 </div>
-
             {% else %}
                 <div> 
                     <img class="back_img" src="{% static 'bookshelf/read.jpg' %}"/>
                 </div>
             {% endif %}
+
     </div>
     <div class = "newbook-btn">
         {% if user.is_authenticated %}
@@ -47,7 +51,8 @@
                     <p>{{friend.nickname}}</p>
                     <button class="more-friendlist-btn"> Friend list </button>
                     {% csrf_token %}
-                </div>
+
+                </div> 
             {% endfor %}
         {% endif %}
     </div>
