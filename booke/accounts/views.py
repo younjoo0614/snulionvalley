@@ -58,3 +58,11 @@ def follow_manager(request, pk):
 
     return redirect('/feeds')
 
+def result(request):
+    fs = Profile.objects.all()
+    f = request.GET.get(f,'')
+    if f:
+        fs = Profile.filter(nickname=f)
+    return render(request, 'bookshelf/index.html', {'f_result':fs})
+
+
