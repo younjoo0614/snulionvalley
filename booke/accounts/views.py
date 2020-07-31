@@ -60,9 +60,9 @@ def follow_manager(request, pk):
 
 def result(request):
     fs = Profile.objects.all()
-    f = request.GET.get(f,'')
+    f = request.GET['friend-value']
     if f:
-        fs = Profile.filter(nickname=f)
+        fs = Profile.objects.filter(nickname__startswith=f)
     return render(request, 'bookshelf/index.html', {'f_result':fs})
 
 
