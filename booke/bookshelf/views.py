@@ -11,6 +11,7 @@ import os
 import sys
 import json
 
+
 # Create your views here.
 
 def search_title_author(title,num):
@@ -96,9 +97,13 @@ def index(request):
         
         return JsonResponse({"message":"created"},status=201)
     else: 
-        books=UserBook.objects.all()
-        authors=Author.objects.all()
-        return render(request,'bookshelf/index.html',{"books":books,"authors":authors})
+        if request.user.is_authenticated:
+            member=request.user.profile
+            books=UserBook.objects.filter(userid=member)
+            authors=Author.objects.all()
+            return render(request,'bookshelf/index.html',{"books":books,"authors":authors})
+        else:
+            return render(request,'bookshelf/index.html')
     
 def create_book(request):
     return render(request,'bookshelf/new.html')
@@ -115,7 +120,13 @@ def delete_book(request,id):
 def show_memo(request,id):
     userbook=UserBook.objects.get(id=id)
     memos=Memo.objects.filter(book=userbook)
-    return render(request, 'bookshelf/show.html',{'userbook':userbook,'memos':memos})
+    context = {
+        'userbook': userbook,
+        'memos': memos,
+    }
+    return redirect('bookshelf/show.html',{"userbook":userbook,"memos":memos})
+    # return JsonResponse(context)
+
 
 def recommend_book(request):
     by_book=Book.objects.all().order_by('-count')
