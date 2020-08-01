@@ -38,9 +38,28 @@ body {
     width: 100%;
 }
 
+.achievement {
+    display: block;
+    margin: 0px auto;
+}
+
+.totalpc {
+    display: block;
+    margin: 0px auto;
+    width: 500px; 
+    background-color: pink;
+    height: 50px;
+}
+
+.achievepc {
+    left: 0px;
+    background-color: blue;   
+    height: 50px; 
+}
+
 .newbook-btn {
-    position: absolute;
-    top: 670px;
+    position: fixed;
+    bottom: 5%;
     right: 5%;
     background-color: none;
 }
@@ -103,25 +122,6 @@ button.newbook{
     display: inline;
 }
 
-.achievement {
-    display: block;
-    margin: 0px auto;
-}
-
-.totalpc {
-    display: block;
-    margin: 0px auto;
-    width: 500px; 
-    background-color: pink;
-    height: 50px;
-}
-
-.achievepc {
-    left: 0px;
-    background-color: blue;   
-    height: 50px; 
-}
-
 .myshelf {
     padding-top: 30px;
     width: 100%;
@@ -133,28 +133,40 @@ button.newbook{
     display: block;
     margin: 0px auto;
     top: 500px;
+    z-index:1;
 }
 
 .myshelf2 {
     width: 80%;
     display: block;
     margin: 0px auto;
+    z-index:1;
 }
 
 .myshelf3 {
     width: 80%;
     display: block;
     margin: 0px auto;
+    z-index:1;
 }
 
 .myshelf4 {
     width: 80%;
     display: block;
     margin: 0px auto;
+    z-index:1;
 }
 
 .myshelf5 {
     width: 80%;
+    height: 50%;
     display: block;
     margin: 0px auto;
+    z-index:1;
+}
+
+.bookiread {
+    display: inline-block;
+    height: 100px;
+    z-index: 1000;
 }

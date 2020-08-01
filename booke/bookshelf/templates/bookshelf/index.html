@@ -8,43 +8,44 @@
 
 <div class = "first-page">    
     <div class = "temp"> 
-        {% if user.is_authenticated %}
-            <div class = "achievement">
-                <div class = "totalpc">
-                    <div class = "achievepc" style="width: calc({{ user.profile.already_read }}/{{user.profile.goal}}*500px"></div>
+            {% if user.is_authenticated %}
+            
+                <div class = "achievement">
+                    <div class = "totalpc">
+                        <div class = "achievepc" style="width: calc(500px * {{user.profile.already_read}} / {{user.profile.goal}}"></div>
+                    </div>
                 </div>
-            </div>
 
-            <div class = "myshelf">
-                {% if user.profile.goal == 1000 %} 
-                    <img class = "myshelf1" src="{% static 'bookshelf/p1000.png' %}"/> 
-                {% elif user.profile.goal == 2000 %}
-                    <img class = "myshelf2" src="{% static 'bookshelf/p2000.png' %}"/>
-                {% elif user.profile.goal == 3000 %}
-                    <img class = "myshelf3" src="{% static 'bookshelf/p3000.png' %}"/>
-                {% elif user.profile.goal == 5000 %}
-                    <img class = "myshelf4" src="{% static 'bookshelf/p5000.png' %}"/>
-                {% elif user.profile.goal == 10000 %}
-                    <img class = "myshelf5" src="{% static 'bookshelf/p10000.png' %}"/>
-                {% endif %}
+                <div class = "myshelf">
+                    {% if user.profile.goal == 1000 %} 
+                        <img class = "myshelf1" src = {% static 'bookshelf/p1000.png' %}/> 
+                    {% elif user.profile.goal == 2000 %}
+                        <img class = "myshelf2" src = {% static 'bookshelf/p2000.png' %}/>
+                    {% elif user.profile.goal == 3000 %}
+                        <img class = "myshelf3" src = {% static 'bookshelf/p3000.png' %}/>
+                    {% elif user.profile.goal == 5000 %}
+                        <img class = "myshelf4" src = {% static 'bookshelf/p5000.png' %}/>
+                    {% elif user.profile.goal == 10000 %}
+                        <img class = "myshelf5" src = {% static 'bookshelf/p10000.png' %}/>
+                    {% endif %}
 
-                {% comment %} <a  href="/bookshelf/{{ userbook.bookid }}/memos"> 한 번 끄적여보았지만 작동 안 되는 코드 ㅠㅠ{% endcomment %}
                     {% for userbook in books %}
-                        <div class = "bookiread" style = "margin: 10px; height: 50px; background-color: orange ; width: calc({{userbook.whole_page}} / {{user.profile.goal}} * 80%) "> 
-                            {{userbook.bookid.title}} 
-                        </div>
-                    {%endfor%}
-                {% comment %} </a> {% endcomment %}
+                        {% comment %} <a  href="/{{ userbook.bookid }}/memos/"> {% endcomment %}
+                        {% if userbook.whole_page <= 1000 %} 
+                            <div class = "bookiread" style = " margin: 1px; background-color: orange; width: calc({{userbook.whole_page}} / {{user.profile.goal}} * 80%);"> 
+                                {{userbook.bookid.title}} 
+                            </div>
+                        {% comment %} </a> {% endcomment %}
+                        {%endif%}
+                    {%endfor%} 
+                    
+                </div>
 
-            </div>
-
-        {% else %}
+            {% else %}
                 <div> 
                     <img class="back_img" src="{% static 'bookshelf/read.jpg' %}"/>
                 </div>
-        
-        {% endif %}
-        
+            {% endif %}
     </div>
     <div class = "newbook-btn">
         {% if user.is_authenticated %}
@@ -65,5 +66,6 @@
         {% endif %}
     </div>
 </div>
+
 
 {% endblock content %}
