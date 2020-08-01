@@ -1,3 +1,5 @@
+
+
 <div class="modal fade" id="showModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -25,6 +27,7 @@
                 
                     {% for memo in memos %} {% endcomment %}
                     {% comment %} 1:N에서 userbook에 딸린 memo만을 불러와야 합니당 {% endcomment %}
+                    <div id="memo-list"></div>
                     {% for memo in userbook.memo_set.all %}
 
                     <div class="form-group">                                           
@@ -36,7 +39,7 @@
 
                     <div class="form-group">                                           
                         <label for="review" class="col-form-label">감상</label>
-                        <input type="integer" name="review_pages" class="form-control" id="review_pages">
+                        <input type="integer" name="review_pages" class="form-control" id="review_pages" required>
                         <textarea name="review" class="form-control" id="review" placaholer="감상을 적어주세요."></textarea>
                     </div>
 
@@ -49,3 +52,4 @@
         </div>
     </div>
 </div>
+

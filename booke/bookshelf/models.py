@@ -22,6 +22,7 @@ class UserBook(models.Model):
     userid=models.ForeignKey(Profile,on_delete=models.CASCADE,related_name='books')
     bookid=models.ForeignKey(Book, on_delete=models.CASCADE, related_name="users")
     whole_page=models.IntegerField()
+    color=models.CharField(max_length=20,blank=False,null=True)
 
 class Memo(models.Model):
     book=models.ForeignKey(UserBook, on_delete=models.CASCADE)

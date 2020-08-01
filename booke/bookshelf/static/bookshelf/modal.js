@@ -1,3 +1,6 @@
+$( document ).ready(function() {
+});
+
 $('#signup-form').submit((event) => {
     event.preventDefault()
     $.ajax({
@@ -48,29 +51,53 @@ $('#login-form').submit((event) => {
 
 $('#book-create').submit((event) => {
     event.preventDefault()
-    $.ajax({
+    var colors = document.getElementsByName('color');
+        var color_value;
+        for(var i = 0; i < colors.length; i++){
+            if(colors[i].checked){
+                color_value = colors[i].value;
+                // console.log(color_value)
+            }
+            // return color_value;
+        }
 
+    $.ajax({
         url: '/bookshelf/',
         method: 'POST',
         data: {
             title: $(`input#title`).val(),
-
             // author: $(`input#author`).val(),
             // page: $(`input#page`).val(),
-
             author: $(`input#author`).val(),
-
+            color: color_value,
             csrfmiddlewaretoken: $(event.currentTarget).data('csrfmiddlewaretoken')
         },
         dataType: "json",
         success(res) {
-            console.log(res)
+            console.log(res);
             window.location.href='/bookshelf/'
         },
         error(response, status, error) {
             console.log(response, status, error);
         }
     })
+    // .then(res => {
+       
+    //     var colors = document.getElementsByName('color');
+    //     var color_value;
+    //     for(var i = 0; i < colors.length; i++){
+    //         if(colors[i].checked){
+    //             color_value = colors[i].value;
+    //             // console.log(color_value)
+    //         }
+    //         // return color_value;
+    //     }
+    //     console.log(color_value);
+    //     console.log(`${res.id}`);
+    //     console.log($(`#${res.id}`));
+    //     // document.getElementById(`${res.id}`).classList.add(`btn-${color_value}`);
+    //     $(`#${res.id}`).addClass(`book-${color_value}`);
+    // })         
 })
 
 
@@ -92,11 +119,23 @@ $('.showmodal').click((e) => {
         dataType: "json",
         success(res) {
             console.log(res)
-            window.location.href=`/bookshelf/${id}`
         },
         error(response, status, error) {
             console.log(response, status, error);
         }
+    }).then((data) => {
+        const userbook = data.userbook;
+        const memos = data.memos;
+
+        const $title = document.querySelector('#userbook-title');
+        $title = userbook.title
+
+        const tempalte = memos.map(
+            memo => xxxtemplate(memo)
+        ).join(".")
+
+        // coanf xx .inneh = tempalte;
+
     })
 })
 

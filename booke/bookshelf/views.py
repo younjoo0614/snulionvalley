@@ -10,6 +10,8 @@ from django.http import JsonResponse
 import os
 import sys
 import json
+from django.core.serializers import serialize 
+
 
 
 # Create your views here.
@@ -35,6 +37,7 @@ def search_title_author(title,num):
 
     else:
         print("Error Code:" + rescode)
+        
 
 def get_page(title,select):
     baseUrl = 'https://book.naver.com/search/search.nhn?sm=sta_hty.book&sug=&where=nexearch&query='
@@ -68,6 +71,7 @@ def index(request):
         ta_list=search_title_author(request.POST['title'],0)
         book_title=ta_list[0]
         book_author=ta_list[1]
+        color=request.POST['color']
         
         #추가하려는 책의 작가가 이미 있는지 확인하고 없으면 추가
         try:
@@ -93,7 +97,12 @@ def index(request):
 
         whole_page=get_page(book_title,0)
         member.already_read+=whole_page
-        UserBook.objects.create(userid=member,bookid=book,whole_page=whole_page)
+        UserBook.objects.create(userid=member,bookid=book,whole_page=whole_page,color=color)
+        # new_book = UserBook.objects.latest('id')
+
+        # res = {
+        #     'id':new_book.id,
+        # }
         
         return JsonResponse({"message":"created"},status=201)
     else: 
@@ -117,15 +126,29 @@ def delete_book(request,id):
     userbook.delete()
     return redirect('/bookshelf')
 
+
+
 def show_memo(request,id):
     userbook=UserBook.objects.get(id=id)
     memos=Memo.objects.filter(book=userbook)
+
+    memo_list=[]
+    for memo in memos : 
+        memo_list.append(memo)
+
     context = {
-        'userbook': userbook,
-        'memos': memos,
+        # 'userbook': userbook,
+        'memos': memo_list,
     }
-    return redirect('bookshelf/show.html',{"userbook":userbook,"memos":memos})
-    # return JsonResponse(context)
+
+    return JsonResponse(context)
+  
+    # return redirect('bookshelf/show.html',{"userbook":userbook,"memos":memos})
+    # return JsonResponse({"message" : "created"}, status=201)
+    # return redirect("/bookshelf/%d/" %id)
+    # return render(request, 'bookshelf/show.html', {'userbook': userbook, 'memos':memos})
+
+
 
 
 def recommend_book(request):
@@ -135,22 +158,32 @@ def recommend_book(request):
     return render(request,'bookshelf/recommend.html',{"by_books":by_book,'by_author':by_author})
 
 def create_memo(request,id):
-    page=request.POST['page']
+    if request.method=='POST':
 
-    content=request.POST['content']
-    Memo.objects.create(content=content, page=page,book_id=id )
+        page=request.POST['page']
 
-    new_memo = Memo.objects.latest('id')
+        content=request.POST['content']
+        Memo.objects.create(content=content, page=page,book_id=id )
 
-    context = {
-        # memo의 id도 필요할까?
-        # memo 자체에 접근하려면 필요한데 삭제 말고 접근할 일이 없으니 일단 두기
-        'page': new_memo.page,
-        'content': new_memo.content,
-    }
+        new_memo = Memo.objects.latest('id')
 
-    # return redirect('bookself/show.html')
-    return JsonResponse(context)
+        context = {
+            # memo의 id도 필요할까?
+            # memo 자체에 접근하려면 필요한데 삭제 말고 접근할 일이 없으니 일단 두기
+            'page': new_memo.page,
+            'content': new_memo.content,
+        }
+
+        # return redirect('bookself/show.html')
+        return JsonResponse(context)
+    elif request.method=='GET':
+        userbook=UserBook.objects.get(id=id)
+        memos=Memo.objects.filter(book=userbook)
+
+    return render(request,'bookshelf/show.html',{"userbook":userbook,"memos":memos})
+    # return render(request,'#showModal',{"userbook":userbook,"memos":memos})
+
+    
 
 def delete_memo(request,id,mid):
     m=Memo.objects.get(id=mid)
