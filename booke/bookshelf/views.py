@@ -35,7 +35,7 @@ def search_title_author(title,num):
     else:
         print("Error Code:" + rescode)
 
-def get_page(title,select):
+def get_page(title,num):
     baseUrl = 'https://book.naver.com/search/search.nhn?sm=sta_hty.book&sug=&where=nexearch&query='
 
     url = baseUrl + quote_plus(title) #네이버 책 홈에서 책 제목을 검색해서 나오는 url
@@ -44,7 +44,7 @@ def get_page(title,select):
 
     site_for_page = bsObject.select('li > dl > dt > a') # 책 제목을 검색해서 뜨는 a 태그들 결과들의 링크
 
-    deturl=site_for_page[select].attrs['href'] # 페이지 수가 써있는 url로 들어옴 index 0으로 한 건 편의를 위함, 추후 바뀔 수 있음
+    deturl=site_for_page[num].attrs['href'] # 페이지 수가 써있는 url로 들어옴 index 0으로 한 건 편의를 위함, 추후 바뀔 수 있음
 
     html=urllib.request.urlopen(deturl)
     bs=BeautifulSoup(html, "html.parser")
@@ -100,7 +100,8 @@ def index(request):
             member=request.user.profile
             books=UserBook.objects.filter(userid=member)
             authors=Author.objects.all()
-            return render(request,'bookshelf/index.html',{"books":books,"authors":authors})
+            ratio=member.already_read/member.goal
+            return render(request,'bookshelf/index.html',{"books":books,"authors":authors,"ratio":ratio})
         else:
             return render(request,'bookshelf/index.html')
     
