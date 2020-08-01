@@ -44,7 +44,12 @@ def search_title_author(title,num):
     if(rescode==200):
         response_body = response.read()
         dict=json.loads(response_body.decode('utf-8'))
-        book_title=re.search('(?!b)(\w+|\s|,)+',dict["items"][0]["title"]).group()
+        #book_title=re.search('(?!b)(\w+|\s|,)+',dict["items"][0]["title"]).group()
+        p=re.compile('<b>|</b>')
+        book_title=p.sub('',dict["items"][0]["title"])
+        book_title=re.search('.+(?=\()',book_title)
+        print(book_title.group())
+        print (dict["items"][0]["title"])
         book_author=dict["items"][num]["author"]
         title_author=[book_title,book_author]
         

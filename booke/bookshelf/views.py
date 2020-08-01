@@ -29,6 +29,7 @@ def search_title_author(title,num):
         dict=json.loads(response_body.decode('utf-8'))
         p=re.compile('<b>|</b>')
         book_title=p.sub('',dict["items"][0]["title"])
+        book_title=re.search('.+(?=\()',book_title)
         book_author=dict["items"][num]["author"]
         title_author=[book_title,book_author]
         return title_author
@@ -124,7 +125,7 @@ def show_memo(request,id):
     memo_list=[]
     for i in memos:
         memo_list.append([i.page,i.content])
-    memo_json=json.dumps(memo_list)
+    memo_json=json.dumps(memo_list,ensure_ascii = False)
 
     context = {
         'title': userbook.bookid.title,
