@@ -138,6 +138,10 @@ button.newbook{
     margin: 0px auto;
 }
 
-.fr{
+/* .fr{
     display: flex;
+} */
+
+.bookiread{
+    background-color: #3F7373;
 }
