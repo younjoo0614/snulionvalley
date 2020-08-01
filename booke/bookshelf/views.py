@@ -27,7 +27,8 @@ def search_title_author(title,num):
     if(rescode==200):
         response_body = response.read()
         dict=json.loads(response_body.decode('utf-8'))
-        book_title=re.search('(?!b)(\w+|\s|,)+',dict["items"][num]["title"]).group()
+        p=re.compile('<b>|</b>')
+        book_title=p.sub('',dict["items"][0]["title"])
         book_author=dict["items"][num]["author"]
         title_author=[book_title,book_author]
         return title_author
@@ -143,14 +144,27 @@ def create_memo(request,id):
     page=request.POST['page']
     content=request.POST['content']
     new_memo = Memo.objects.create(content=content, page=page,book_id=id )
-
+    '''
     context = {
         # memo의 id도 필요할까?
         # memo 자체에 접근하려면 필요한데 삭제 말고 접근할 일이 없으니 일단 두기
         'page': new_memo.page,
         'content': new_memo.content,
+        'create_at':new_memo.created_at
     }
+    '''
+    memos=Memo.objects.filter(book=userbook)
+    memo_list=[]
+    for i in memos:
+        memo_list.append([i.page,i.created_at,i.content])
+    memo_json=json.dumps(memo_list)
 
+    context = {
+        'title': userbook.bookid.title,
+        'author':userbook.bookid.author.name,
+        'memo_json':memo_json,
+    }
+    
     # return redirect('bookself/show.html')
     return JsonResponse(context)
 

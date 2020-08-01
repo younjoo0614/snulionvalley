@@ -97,9 +97,15 @@ $('.showmodal').click((e) => {
             console.log(response, status, error);
         }
     }).then((response)=>{
+        e.preventDefault();
         const title=response.title;
         const author=response.author;
         const memo_json=response.memo_json;
+        const memo_div=document.getElementById('memo-div');
+        const info_div=document.getElementById('info-div')
+        info_div.innerHTML="<div>책 제목: "+title+"</div><div>작가: "+author+"</div>"
+        memo_div.innerHTML="<div>지난 감상:"+ memo_json[0][1]+"<br/>"+memo_json[0][0]+memo_json[0][2]+"</div>"
+        
     })
 })
 
@@ -111,7 +117,7 @@ $('#submit-memo').click( (e) => {
     // modal form의 id를 가져오게 될텐데,, 지금 확인이 안 되지만 일단 이렇게 써둘게요
     const csrfmiddlewaretoken = $this.data('csrfmiddlewaretoken');
 
-    await $.ajax({
+    $.ajax({
         url: `/bookshelf/${id}/memos/`, 
         // 서버가 처리할 url. create_memo를 백에서 불러야 db에 추가되기 때문
         method: 'POST',
@@ -129,11 +135,16 @@ $('#submit-memo').click( (e) => {
             console.log(response, status, error);
         }
     }).then((response)=>{
+        e.preventDefault();
         const title=response.title;
         const author=response.author;
         const memo_json=response.memo_json;
-
-})
+        const info_div=document.getElementById('info-div')
+        info_div.innerHTML="<div>책 제목: "+title+"</div><div>작가: "+author+"</div>"
+        const memo_div=document.getElementById('memo-div');
+        memo_div.innerHTML="<div>지난 감상:"+ memo_json[0][1]+"<br/>"+memo_json[0][0]+memo_json[0][2]+"</div>"
+        
+    })
 })
 
 $(document).ready(() => {
