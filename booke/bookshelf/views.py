@@ -120,10 +120,14 @@ def delete_book(request,id):
 def show_memo(request,id):
     userbook=UserBook.objects.get(id=id)
     memos=Memo.objects.filter(book=userbook)
-    memo_json=json.dumps(memos)
+    memo_list=[]
+    for i in memos:
+        memo_list.append([i.page,i.content])
+    memo_json=json.dumps(memo_list)
 
     context = {
-        'userbook': userbook,
+        'title': userbook.bookid.title,
+        'author':userbook.bookid.author.name,
         'memo_json':memo_json,
     }
     
@@ -137,11 +141,8 @@ def recommend_book(request):
 
 def create_memo(request,id):
     page=request.POST['page']
-
     content=request.POST['content']
-    Memo.objects.create(content=content, page=page,book_id=id )
-
-    new_memo = Memo.objects.latest('id')
+    new_memo = Memo.objects.create(content=content, page=page,book_id=id )
 
     context = {
         # memo의 id도 필요할까?

@@ -96,23 +96,20 @@ $('.showmodal').click((e) => {
         error(response, status, error) {
             console.log(response, status, error);
         }
+    }).then((response)=>{
+        const title=response.title;
+        const author=response.author;
+        const memo_json=response.memo_json;
     })
 })
 
-
-
-$('#memo-create').submit(async (e) => {
-    event.preventDefault()
+$('#submit-memo').click( (e) => {
+    e.preventDefault()
     const $this = $(e.currentTarget);
     const id = $this.data('id');
     // 보통 이벤트가 일어난 객체의 id를 가져오는데 이건 책장에서 책등의 id를 가져오는 게 아니라 
     // modal form의 id를 가져오게 될텐데,, 지금 확인이 안 되지만 일단 이렇게 써둘게요
     const csrfmiddlewaretoken = $this.data('csrfmiddlewaretoken');
-
-    $.ajax({
-        url: `/bookshelf/${id}/`,  
-        method: 'GET'
-        })
 
     await $.ajax({
         url: `/bookshelf/${id}/memos/`, 
@@ -131,8 +128,12 @@ $('#memo-create').submit(async (e) => {
         error(response, status, error) {
             console.log(response, status, error);
         }
-    })
+    }).then((response)=>{
+        const title=response.title;
+        const author=response.author;
+        const memo_json=response.memo_json;
 
+})
 })
 
 $(document).ready(() => {
