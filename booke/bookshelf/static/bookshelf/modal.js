@@ -127,14 +127,23 @@ $('.showmodal').click((e) => {
         const userbook = data.userbook;
         const memos = data.memos;
 
-        const $title = document.querySelector('#userbook-title');
-        $title = userbook.title
+        let $title = document.getElementById('userbook.bookid.title');
+        $($title).find('p').remove();
 
-        const tempalte = memos.map(
-            memo => xxxtemplate(memo)
-        ).join(".")
+        const userbookTitle = `<p>책 제목 : ${userbook.title}</p>`;
+        $(userbookTitle).prependTo($title);
 
-        // coanf xx .inneh = tempalte;
+        let $author = document.getElementById('userbook.bookid.author.name');
+        $($author).find('p').remove();
+        const userbookAuthor = `<p>작가 : ${userbook.author}</p>`;
+        $(userbookAuthor).prependTo($author);
+
+
+        // const tempalte = memos.map(
+        //     memo => xxxtemplate(memo)
+        // ).join(".")
+
+        // const xx .inneh = tempalte;
 
     })
 })

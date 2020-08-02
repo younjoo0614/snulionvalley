@@ -137,7 +137,10 @@ def show_memo(request,id):
         memo_list.append(memo)
 
     context = {
-        # 'userbook': userbook,
+        'userbook': {
+            'title':userbook.bookid.title,
+            'author':userbook.bookid.author.name,
+        }, 
         'memos': memo_list,
     }
 

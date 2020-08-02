@@ -1,5 +1,3 @@
-
-
 <div class="modal fade" id="showModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -13,11 +11,12 @@
             {% comment %} form id는 modal.js에서 식별해야 해서 memo-create으로 바꿨어용 {% endcomment %}
                 <form id='memo-create' data-csrfmiddlewaretoken="{{ csrf_token }}"> 
                     <div class="form-group">                                          
-                        책 제목: {{ userbook.bookid.title }}
+                        {% comment %} 책 제목: {{ userbook.bookid.title }} {% endcomment %}
+                        <div id="userbook.bookid.title"></div>
                     </div>
                     <div class="form-group">                                           
-
-                        작가: {{ userbook.bookid.author.name }}
+                        {% comment %} 작가: {{ userbook.bookid.author.name }} {% endcomment %}
+                        <div id="userbook.bookid.author.name"></div>
                     </div>
                     {% comment %}  
                     <div class="form-group">                                           
