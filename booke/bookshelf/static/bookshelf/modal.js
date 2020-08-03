@@ -27,7 +27,6 @@ $('#signup-form').submit((event) => {
     
 })
 
-
 $('#login-form').submit((event) => {
     event.preventDefault()
     $.ajax({
@@ -101,6 +100,7 @@ $('#book-create').submit((event) => {
 })
 
 
+
 $('.showmodal').click((e) => {
     e.preventDefault();
     console.log('show memo');
@@ -110,19 +110,23 @@ $('.showmodal').click((e) => {
 
     $.ajax({
         type: 'GET',
+
         url: `/bookshelf/${id}`, 
         data: { 
             id: id,
+
             csrfmiddlewaretoken: csrfmiddlewaretoken,
             // content: $(`input#${fid}[name=content]`).val(),
         },
         dataType: "json",
         success(res) {
             console.log(res)
+            window.location.href=`/bookshelf/${bid}/`
         },
         error(response, status, error) {
             console.log(response, status, error);
         }
+
     }).then((data) => {
         const userbook = data.userbook;
         const memos = data.memos;
@@ -138,7 +142,17 @@ $('.showmodal').click((e) => {
         const userbookAuthor = `<p>작가 : ${userbook.author}</p>`;
         $(userbookAuthor).prependTo($author);
 
-
+        const obj=JSON.parse(data)
+        const userbook=obj.userbook
+        const memo_list=obj.memo_list
+        console.log(userbook.title)
+        console.log(userbook.author)
+        let memo_div=document.getElementById('memo-div');
+        let info_div=document.getElementById('info-div')
+        info_div.innerHTML='<div>info_div found</div>'
+        //info_div.innerHTML="<div>책 제목: "+userbook['title']+"</div><div>작가: "+userbook['author']+"</div>"
+        memo_div.innerHTML='<div>memo_div found</div>'
+        //memo_div.innerHTML="<div>지난 감상:"+ memo_json[0][1]+"<br/>"+memo_json[0][0]+memo_json[0][2]+"</div>"
         // const tempalte = memos.map(
         //     memo => xxxtemplate(memo)
         // ).join(".")
@@ -149,9 +163,8 @@ $('.showmodal').click((e) => {
 })
 
 
-
-$('#memo-create').submit(async (e) => {
-    event.preventDefault()
+$('#submit-memo').click( (e) => {
+    e.preventDefault()
     const $this = $(e.currentTarget);
     const id = $this.data('id');
     // 보통 이벤트가 일어난 객체의 id를 가져오는데 이건 책장에서 책등의 id를 가져오는 게 아니라 
@@ -159,15 +172,10 @@ $('#memo-create').submit(async (e) => {
     const csrfmiddlewaretoken = $this.data('csrfmiddlewaretoken');
 
     $.ajax({
-        url: `/bookshelf/${id}/`,  
-        method: 'GET'
-        })
-
-    await $.ajax({
-        url: `/bookshelf/${id}/memos/`, 
-        // 서버가 처리할 url. create_memo를 백에서 불러야 db에 추가되기 때문
+        url: `/bookshelf/${bid}/memos/`,         
         method: 'POST',
         data: {
+            bid:response.userbook.bid,
             content: $(`input#review`).val(),
             page: $(`input#review_page`).val(),
             csrfmiddlewaretoken: csrfmiddlewaretoken,
@@ -180,8 +188,17 @@ $('#memo-create').submit(async (e) => {
         error(response, status, error) {
             console.log(response, status, error);
         }
+    }).then((context)=>{
+        const data=JSON.parse(context)
+        const title=response.title;
+        const author=response.author;
+        let memo_json=response.memo_json;
+        let info_div=document.getElementById('info-div')
+        info_div.innerHTML="<div>책 제목: "+title+"</div><div>작가: "+author+"</div>"
+        const memo_div=document.getElementById('memo-div');
+        memo_div.innerHTML="<div>지난 감상:"+ memo_json[0][1]+"<br/>"+memo_json[0][0]+memo_json[0][2]+"</div>"
+        
     })
-
 })
 
 $(document).ready(() => {
