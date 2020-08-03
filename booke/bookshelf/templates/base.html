@@ -21,6 +21,25 @@
             {% comment %} <a href="{% url 'logout'%}?next={{request.path}}">로그아웃</a> {% endcomment %}
             <br>
             <a href="#logoutModal" data-toggle="modal">로그아웃</a>
+            <div class="search">
+              <form action="{% url 'search_friend' %}" method="GET">
+                <input onkeyup="filter()" type="text" name="friend-value">
+                <input type="submit" value="검색">
+              </form>
+              <div class="search-result">
+                {% for f in f_result %}
+                  <div class="fr">
+                    <p class="frn">{{f.nickname}}</p>
+                    <button class="follow-btn">팔로우</button>
+                  </div>
+                {% empty %}
+                  검색결과가 없습니다.
+                {% endfor %}
+              </div>
+            </div>
+            {% comment %} <input type = "text" id="word" placeholder="검색어를 입력하세요." onkeyup="search(this);">
+            <button type="button" id="btn_search">Search</button>
+            <ul id="schoolList"></ul> {% endcomment %}
         {% else %}
             {% comment %} <a href="{% url 'signup' %}">회원가입</a> 
             <a href="{% url 'login'%}?next={{request.path}}">로그인</a>{% endcomment %}
@@ -29,7 +48,6 @@
         {% endif %}
         </div>
     </div>
-
   </body>
   {% block content %}
 

@@ -139,12 +139,14 @@ button.newbook {
   margin: 0px auto; }
 
 .myshelf5 {
+
   width: 80%;
   display: block;
   margin: 0px auto; }
 
 .fr {
-  display: flex; }
+  display: flex;
+}
 
 .book-1 {
   background-color: #3F7373; }
@@ -161,4 +163,3 @@ button.newbook {
 .book-5 {
   background-color: #F2F2F2; }
 
-/*# sourceMappingURL=style.css.map */
