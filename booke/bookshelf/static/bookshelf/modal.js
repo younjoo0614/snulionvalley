@@ -74,38 +74,38 @@ $('#book-create').submit((event) => {
 
 $('.showmodal').click((e) => {
     e.preventDefault();
-    console.log('show memo');
     const $this = $(e.currentTarget);
-    const id = $this.data('id');
+    const bid = $this.data('id');
     const csrfmiddlewaretoken = $this.data('csrfmiddlewaretoken');
 
     $.ajax({
         type: 'GET',
-        url: `/bookshelf/${id}`, 
+        url: `/bookshelf/${bid}`, 
         data: { 
-            id: id,
+            id: bid,
             csrfmiddlewaretoken: csrfmiddlewaretoken,
-            
             // content: $(`input#${fid}[name=content]`).val(),
         },
         dataType: "json",
         success(res) {
             console.log(res)
-            window.location.href=`/bookshelf/${id}/`
+            window.location.href=`/bookshelf/${bid}/`
         },
         error(response, status, error) {
             console.log(response, status, error);
         }
-    }).then((response)=>{
-        e.preventDefault();
-        const title=response.title;
-        const author=response.author;
-        const memo_json=response.memo_json;
-        const memo_div=document.getElementById('memo-div');
-        const info_div=document.getElementById('info-div')
-        info_div.innerHTML="<div>책 제목: "+title+"</div><div>작가: "+author+"</div>"
-        memo_div.innerHTML="<div>지난 감상:"+ memo_json[0][1]+"<br/>"+memo_json[0][0]+memo_json[0][2]+"</div>"
-        
+    }).then((data)=>{
+        const obj=JSON.parse(data)
+        const userbook=obj.userbook
+        const memo_list=obj.memo_list
+        console.log(userbook.title)
+        console.log(userbook.author)
+        let memo_div=document.getElementById('memo-div');
+        let info_div=document.getElementById('info-div')
+        info_div.innerHTML='<div>info_div found</div>'
+        //info_div.innerHTML="<div>책 제목: "+userbook['title']+"</div><div>작가: "+userbook['author']+"</div>"
+        memo_div.innerHTML='<div>memo_div found</div>'
+        //memo_div.innerHTML="<div>지난 감상:"+ memo_json[0][1]+"<br/>"+memo_json[0][0]+memo_json[0][2]+"</div>"
     })
 })
 
@@ -118,10 +118,10 @@ $('#submit-memo').click( (e) => {
     const csrfmiddlewaretoken = $this.data('csrfmiddlewaretoken');
 
     $.ajax({
-        url: `/bookshelf/${id}/memos/`, 
-        // 서버가 처리할 url. create_memo를 백에서 불러야 db에 추가되기 때문
+        url: `/bookshelf/${bid}/memos/`,         
         method: 'POST',
         data: {
+            bid:response.userbook.bid,
             content: $(`input#review`).val(),
             page: $(`input#review_page`).val(),
             csrfmiddlewaretoken: csrfmiddlewaretoken,
@@ -134,12 +134,12 @@ $('#submit-memo').click( (e) => {
         error(response, status, error) {
             console.log(response, status, error);
         }
-    }).then((response)=>{
-        e.preventDefault();
+    }).then((context)=>{
+        const data=JSON.parse(context)
         const title=response.title;
         const author=response.author;
-        const memo_json=response.memo_json;
-        const info_div=document.getElementById('info-div')
+        let memo_json=response.memo_json;
+        let info_div=document.getElementById('info-div')
         info_div.innerHTML="<div>책 제목: "+title+"</div><div>작가: "+author+"</div>"
         const memo_div=document.getElementById('memo-div');
         memo_div.innerHTML="<div>지난 감상:"+ memo_json[0][1]+"<br/>"+memo_json[0][0]+memo_json[0][2]+"</div>"

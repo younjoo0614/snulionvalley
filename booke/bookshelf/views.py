@@ -29,7 +29,8 @@ def search_title_author(title,num):
         dict=json.loads(response_body.decode('utf-8'))
         p=re.compile('<b>|</b>')
         book_title=p.sub('',dict["items"][0]["title"])
-        book_title=re.search('.+(?=\()',book_title)
+        while book_title.find('(')!=-1:
+            book_title=re.search('.+(?=\()',book_title).group()
         book_author=dict["items"][num]["author"]
         title_author=[book_title,book_author]
         return title_author
@@ -54,12 +55,8 @@ def get_page(title,num):
     whole_page= bs.select('.book_info_inner') 
 
     m=re.search('페이지.\d+',whole_page[0].text)
-    #n=re.search('저자.(\w+|\s|\.)+',whole_page[0].text)
-
     page=re.search('\d+',m.group())
-    #author=re.search('(?!저)(?!자)(?!\s)(\w+|\s|\.)+',n.group()) #정규식 앞에 '저자 ' 제거하는 방법이 있을 거 같은데...
-    
-    #page_author=[page.group(),author.group()]
+
     return int(page.group())
 
 def index(request):
@@ -119,55 +116,53 @@ def delete_book(request,id):
     userbook.delete()
     return redirect('/bookshelf')
 
-def show_memo(request,id):
-    userbook=UserBook.objects.get(id=id)
-    memos=Memo.objects.filter(book=userbook)
-    memo_list=[]
-    for i in memos:
-        memo_list.append([i.page,i.content])
-    memo_json=json.dumps(memo_list,ensure_ascii = False)
-
-    context = {
-        'title': userbook.bookid.title,
-        'author':userbook.bookid.author.name,
-        'memo_json':memo_json,
-    }
-    
-    return JsonResponse(context)
-
 def recommend_book(request):
     by_book=Book.objects.all().order_by('-count')
     best_author=Author.objects.all().order_by('-count').first()
     by_author=Book.objects.filter(author=best_author)#.exclude로 자기가 읽은 책 제외해야 함
     return render(request,'bookshelf/recommend.html',{"by_books":by_book,'by_author':by_author})
 
-def create_memo(request,id):
-    page=request.POST['page']
-    content=request.POST['content']
-    new_memo = Memo.objects.create(content=content, page=page,book_id=id )
-    '''
-    context = {
-        # memo의 id도 필요할까?
-        # memo 자체에 접근하려면 필요한데 삭제 말고 접근할 일이 없으니 일단 두기
-        'page': new_memo.page,
-        'content': new_memo.content,
-        'create_at':new_memo.created_at
-    }
-    '''
+def show_memo(request,id):
+    userbook=UserBook.objects.get(id=id)
     memos=Memo.objects.filter(book=userbook)
-    memo_list=[]
+    memo_list={}
     for i in memos:
-        memo_list.append([i.page,i.created_at,i.content])
-    memo_json=json.dumps(memo_list)
+        memo_list.update({i.id:{'page':i.page,'created_at':i.created_at,'content':i.content}})
 
     context = {
-        'title': userbook.bookid.title,
-        'author':userbook.bookid.author.name,
-        'memo_json':memo_json,
+        'userbook':{
+            'title': userbook.bookid.title,
+            'author':userbook.bookid.author.name,
+        },
+        'memo_list':memo_list,
     }
     
-    # return redirect('bookself/show.html')
+    #context=json.dumps(context,ensure_ascii=False)
     return JsonResponse(context)
+
+def create_memo(request,id):
+    userbook=UserBook.objects.get(id=id)
+    page=request.POST['page']
+    content=request.POST['content']
+    new_memo = Memo.objects.create(content=content, page=page,book=userbook )
+   
+    memos=Memo.objects.filter(book=userbook)
+    memo_list={}
+    for i in memos:
+        memo_list.update({i.id:{'page':i.page,'created_at':i.created_at,'content':i.content}})
+
+    context = {
+        'userbook':{
+            'bid':bid,
+            'title': userbook.bookid.title,
+            'author':userbook.bookid.author.name,
+        },
+        'memo_list':memo_list,
+    }
+    #context=json.dumps(context,ensure_ascii=False)
+
+    return JsonResponse(context)
+    
 
 def delete_memo(request,id,mid):
     m=Memo.objects.get(id=mid)

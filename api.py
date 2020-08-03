@@ -47,14 +47,27 @@ def search_title_author(title,num):
         #book_title=re.search('(?!b)(\w+|\s|,)+',dict["items"][0]["title"]).group()
         p=re.compile('<b>|</b>')
         book_title=p.sub('',dict["items"][0]["title"])
-        book_title=re.search('.+(?=\()',book_title)
-        print(book_title.group())
+        while book_title.find('(')!=-1:
+            book_title=re.search('.+(?=\()',book_title).group()
+            
+        print(book_title)
         print (dict["items"][0]["title"])
         book_author=dict["items"][num]["author"]
+        print(book_author)
         title_author=[book_title,book_author]
         
         return title_author
     else:
         print("Error Code:" + rescode)
 
-search_title_author("공부하는 뇌",0)
+search_title_author("변신",0)
+context = {
+        'userbook':{
+            'title': '변신',
+            'author':'프란츠 카프카',
+        },
+        'memo_list':[[200,'재밌어요']],
+    }
+
+print(context['memo_list'])
+print (json.dumps(context,ensure_ascii=False))

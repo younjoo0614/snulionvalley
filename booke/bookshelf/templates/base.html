@@ -53,16 +53,6 @@
             검색결과가 없습니다.
           {% endfor %}
         </div>
-        <div class="search-result">
-          {% for f in f_result %}
-            <div class="fr">
-              <p class="frn">{{f.nickname}}</p>
-              <button class="follow-btn">팔로우</button>
-            </div>
-          {% empty %}
-            검색결과가 없습니다.
-          {% endfor %}
-        </div>
       </span>
       <span>
         {% for friend in follows %} 
@@ -83,7 +73,7 @@
   {% endblock %}
 
   {% include 'bookshelf/new.html'%}
-  {% include 'bookshelf/show.html'%}
+  {% include 'bookshelf/show.html'%}  
   {% include 'accounts/signup.html' %}
   {% include 'accounts/login.html' %}
   {% include 'accounts/logout.html' %}
