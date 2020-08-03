@@ -79,7 +79,21 @@ body {
   vertical-align: middle; }
 
 .back_img {
-  width: 100%; }
+    width: 100%;
+    position: absolute;
+    z-index: 0;
+}
+
+.back_img1 {
+    width: 100%;
+    z-index: 1;
+    position: relative;
+}
+
+.back{
+    position: relative;
+    top:-150px;
+}
 
 .newbook-btn {
   position: absolute;
@@ -118,33 +132,57 @@ button.newbook {
   width: 100%;
   display: block; }
 
-.myshelf1 {
-  width: 80%;
-  display: block;
-  margin: 0px auto; }
+/* --새로 수정된 부분 */
 
-.myshelf2 {
-  width: 80%;
-  display: block;
-  margin: 0px auto; }
+.shelf{
+    display: flex;
+    width: 100%;
+    height: 50%;
+    background-color: #DDDDDD;
+    border: 30px solid #f2f2f2;
+    border-radius: 10px;
+}
 
-.myshelf3 {
-  width: 80%;
-  display: block;
-  margin: 0px auto; }
+.myshelf1{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    height: 20%;
+    margin:0 auto;
+}
 
-.myshelf4 {
-  width: 80%;
-  display: block;
-  margin: 0px auto; }
+.myshelf2{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    height: 40%;
+    margin:0 auto;
+}
 
-.myshelf5 {
-  width: 80%;
-  display: block;
-  margin: 0px auto; }
+.myshelf3{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    height: 60%;
+    margin:0 auto;
+}
 
-.fr {
-  display: flex; }
+.myshelf4{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    height: 100%;
+    margin:0 auto;
+}
+
+.myshelf5{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    margin:0 auto;
+}
+
 
 .book-1 {
   background-color: #3F7373; }
@@ -162,3 +200,4 @@ button.newbook {
   background-color: #F2F2F2; }
 
 /*# sourceMappingURL=style.css.map */
+
