@@ -9,20 +9,36 @@
             {% if user.is_authenticated %}
                 <div class = "myshelf">
                     {% if user.profile.goal == 1000 %} 
-                        {% comment %} <img class = "myshelf1" src="{% static 'bookshelf/p1000.png' %}"/>  {% endcomment %}
-                        <div class = "myshelf1"></div>
+                        <div class = "myshelf1">
+                            <div class="shelf"></div>
+                        </div>
                     {% elif user.profile.goal == 2000 %}
-                        {% comment %} <img class = "myshelf2" src="{% static 'bookshelf/p2000.png' %}"/> {% endcomment %}
-                        <div class = "myshelf2"></div>
+                        <div class = "myshelf2">
+                            <div class="shelf"></div>
+                            <div class="shelf"></div>
+                        </div>
                     {% elif user.profile.goal == 3000 %}
-                        {% comment %} <img class = "myshelf3" src="{% static 'bookshelf/p3000.png' %}"/> {% endcomment %}
-                        <div class = "myshelf3"></div>
+                        <div class = "myshelf3">
+                            <div class="shelf"></div>
+                            <div class="shelf"></div>
+                            <div class="shelf"></div>
+                        </div>
                     {% elif user.profile.goal == 5000 %}
-                        {% comment %} <img class = "myshelf4" src="{% static 'bookshelf/p5000.png' %}"/> {% endcomment %}
-                        <div class = "myshelf4"></div>
+                        <div class = "myshelf4">
+                            <div class="shelf"></div>
+                            <div class="shelf"></div>
+                            <div class="shelf"></div>
+                            <div class="shelf"></div>
+                            <div class="shelf"></div>
+                        </div>
                     {% elif user.profile.goal == 10000 %}
-                        {% comment %} <img class = "myshelf5" src="{% static 'bookshelf/p10000.png' %}"/> {% endcomment %}
-                        <div class = "myshelf5"></div>
+                        <div class = "myshelf5">
+                            <div class="shelf"></div>
+                            <div class="shelf"></div>
+                            <div class="shelf"></div>
+                            <div class="shelf"></div>
+                            <div class="shelf"></div>
+                        </div>
                     {% endif %}
                 {% for userbook in books %}
                         <div class = "bookiread" style = " margin: 10px; height: 50px; width: calc({{userbook.whole_page}} / {{user.profile.goal}} * 80%) "> 
@@ -33,8 +49,9 @@
                 </div>
 
             {% else %}
-                <div> 
-                    <img class="back_img" src="{% static 'bookshelf/read.jpg' %}"/>
+                <div class="back"> 
+                    <img class="back_img" src="{% static 'bookshelf/back.png' %}"/>
+                    <img class="back_img1" src="{% static 'bookshelf/logo.png' %}"/>
                 </div>
             {% endif %}
     </div>
