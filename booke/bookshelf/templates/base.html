@@ -36,9 +36,6 @@
                 {% endfor %}
               </div>
             </div>
-            {% comment %} <input type = "text" id="word" placeholder="검색어를 입력하세요." onkeyup="search(this);">
-            <button type="button" id="btn_search">Search</button>
-            <ul id="schoolList"></ul> {% endcomment %}
         {% else %}
             {% comment %} <a href="{% url 'signup' %}">회원가입</a> 
             <a href="{% url 'login'%}?next={{request.path}}">로그인</a>{% endcomment %}
