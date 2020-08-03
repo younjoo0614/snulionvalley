@@ -27,7 +27,6 @@ $('#signup-form').submit((event) => {
     
 })
 
-
 $('#login-form').submit((event) => {
     event.preventDefault()
     $.ajax({
@@ -100,88 +99,85 @@ $('#book-create').submit((event) => {
     // })         
 })
 
-
 $('.showmodal').click((e) => {
     e.preventDefault();
-    console.log('show memo');
     const $this = $(e.currentTarget);
     const id = $this.data('id');
     const csrfmiddlewaretoken = $this.data('csrfmiddlewaretoken');
 
     $.ajax({
         type: 'GET',
+
         url: `/bookshelf/${id}`, 
         data: { 
             id: id,
             csrfmiddlewaretoken: csrfmiddlewaretoken,
-            // content: $(`input#${fid}[name=content]`).val(),
+            //content: $(`input#${id}[name=content]`).val(),
         },
         dataType: "json",
         success(res) {
             console.log(res)
-        },
+            //window.location.href=`/bookshelf/${id}/`
+            const userbook = data.userbook;
+            const memos = data.memos;
+
+            let info_div=document.getElementById('info-div')
+            let memo_div=document.getElementById('memo-div');
+            let str=``
+            for (let i=0; i<memos.length; i++){
+                str+=`<p> ${memos.i.page}, ${memos.i.created_at},${memos.content}</p>`;
+            }
+            info_div.innerHTML=`<p>책 제목 : ${userbook.title}</p>
+            <p>작가 : ${userbook.author}</p>`;
+
+            const memoTemplate=memos.map(memo=>`<div>${memo.id} ${memo.content}</div>`).join('');
+            memo_div.innerHTML=memoTemplate;
+
+            document.getElementById('submit-memo').setAttribute('data-id', `${id}`); 
+
+            },
         error(response, status, error) {
             console.log(response, status, error);
         }
-    }).then((data) => {
-        const userbook = data.userbook;
-        const memos = data.memos;
-
-        let $title = document.getElementById('userbook.bookid.title');
-        $($title).find('p').remove();
-
-        const userbookTitle = `<p>책 제목 : ${userbook.title}</p>`;
-        $(userbookTitle).prependTo($title);
-
-        let $author = document.getElementById('userbook.bookid.author.name');
-        $($author).find('p').remove();
-        const userbookAuthor = `<p>작가 : ${userbook.author}</p>`;
-        $(userbookAuthor).prependTo($author);
-
-
-        // const tempalte = memos.map(
-        //     memo => xxxtemplate(memo)
-        // ).join(".")
-
-        // const xx .inneh = tempalte;
 
     })
 })
 
-
-
-$('#memo-create').submit(async (e) => {
-    event.preventDefault()
+$('#submit-memo').click( (e) => {
+    e.preventDefault()
     const $this = $(e.currentTarget);
     const id = $this.data('id');
-    // 보통 이벤트가 일어난 객체의 id를 가져오는데 이건 책장에서 책등의 id를 가져오는 게 아니라 
-    // modal form의 id를 가져오게 될텐데,, 지금 확인이 안 되지만 일단 이렇게 써둘게요
+
     const csrfmiddlewaretoken = $this.data('csrfmiddlewaretoken');
-
+    console.log(id);
     $.ajax({
-        url: `/bookshelf/${id}/`,  
-        method: 'GET'
-        })
-
-    await $.ajax({
-        url: `/bookshelf/${id}/memos/`, 
-        // 서버가 처리할 url. create_memo를 백에서 불러야 db에 추가되기 때문
+        url: `/bookshelf/${id}/memos/`,         
         method: 'POST',
         data: {
-            content: $(`input#review`).val(),
-            page: $(`input#review_page`).val(),
+            id:id,
+            content: $(`textarea#review`).val(),
+            page: $(`input#review_pages`).val(),
             csrfmiddlewaretoken: csrfmiddlewaretoken,
         },
         dataType: "json",
-        success(res) {
-            console.log(res)
-            window.location.href=`/bookshelf/${id}/`
+        success(data) {
+            console.log(data)
+            //window.location.href=`/bookshelf/${id}/`
+            const userbook = data.userbook;
+            const memos = data.memos;
+
+            let info_div=document.getElementById('info-div')
+            info_div.innerHTML=`<p>책 제목 : ${userbook.title}</p>
+            <p>작가 : ${userbook.author}</p>`;
+            let memo_div=document.getElementById('memo-div');
+            const memos=data.memos;
+            const memoTemplate=memos.map(memo=>`<div>${memo.id} ${memo.content}</div>`).join('');
+            memo_div.innerHTML=memoTemplate;
         },
         error(response, status, error) {
             console.log(response, status, error);
         }
     })
-
 })
 
 $(document).ready(() => {
