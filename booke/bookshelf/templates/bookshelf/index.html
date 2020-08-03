@@ -20,14 +20,16 @@
                         <img class = "myshelf5" src="{% static 'bookshelf/p10000.png' %}"/>
                     {% endif %}
 
-                    {% for userbook in books %}
-                        <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }}> 
-                            {% comment %} <a href="/bookshelf/{{userbook.id}}"> </a>{% endcomment %}
-                            <div class = "bookiread" style = " margin: 10px; height: 50px; background-color: orange ; width: calc({{userbook.whole_page}} / {{user.profile.goal}} * 80%) "> 
-                                {{userbook.bookid.title}} 
-                            </div>
-                        </a> 
-                    {% endfor %} 
+
+                  {% for userbook in books %}
+                    <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }}> 
+                  {% comment %} <a href="/bookshelf/{{userbook.id}}"> {% endcomment %}
+                   <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = " margin: 10px; height: 50px; width: calc({{userbook.whole_page}} / {{user.profile.goal}} * 80%) "> 
+                     {{userbook.bookid.title}} 
+                   </div>
+                    </a> 
+
+                {% endfor %} 
                 </div>
                 <div class = "newbook-btn">        
                     <button type="button" data-toggle="modal" data-target="#createModal" class="newbook">
@@ -40,6 +42,25 @@
                     <img class="back_img" src="{% static 'bookshelf/read.jpg' %}"/>
                 </div>
             {% endif %}
+
+    </div>
+    <div class = "newbook-btn">
+        {% if user.is_authenticated %}
+            <button type="button" data-toggle="modal" data-target="#createModal" class="newbook">
+                <img src="{% static 'bookshelf/newbook.png'  %}">
+            </button>
+        {% endif %}
+    </div>
+    <div class = "friendslist-btn">
+        {% if user.is_authenticated %}
+            {% for friend in follows %} <!--마지막 댓글의 경우-->
+                <div class="friend-list" style="display: none;"> <!--나머지 댓글의 경우 toggle-comment라는 클래스를 적용하고 보이지 않게 설정합니다-->
+                    <p>{{friend.nickname}}</p>
+                    <button class="more-friendlist-btn"> Friend list </button>
+                    {% csrf_token %}
+                </div> 
+            {% endfor %}
+        {% endif %}
 
     </div>
 </div>
