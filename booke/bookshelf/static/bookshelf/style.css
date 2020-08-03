@@ -116,7 +116,7 @@ button.newbook {
 
 .myshelf {
   width: 100%;
-  display: block; }
+  display: inline-block; }
 
 .myshelf1 {
   width: 80%;
@@ -146,6 +146,9 @@ button.newbook {
 .fr {
   display: flex; }
 
+.booksiread {
+  float: left; }
+
 .book-1 {
   background-color: #3F7373; }
 
@@ -160,5 +163,20 @@ button.newbook {
 
 .book-5 {
   background-color: #F2F2F2; }
+
+.achievement {
+  display: inline-block; }
+
+.totalpc {
+  display: block;
+  margin: 0px auto;
+  width: 500px;
+  background-color: pink;
+  height: 50px; }
+
+.achievepc {
+  left: 0px;
+  background-color: blue;
+  height: 50px; }
 
 /*# sourceMappingURL=style.css.map */

@@ -161,7 +161,7 @@ button.newbook{
 
 .myshelf {
     width: 100%;
-    display: block;
+    display: inline-block;
 }
 
 .myshelf1 {
@@ -221,4 +221,23 @@ button.newbook{
 .book-5{
   // color: #F2F2F2;
   background-color: #F2F2F2;
+}
+
+.achievement {
+  display: block;
+  margin: 0px auto;
+}
+
+.totalpc {
+  display: block;
+  margin: 0px auto;
+  width: 500px; 
+  background-color: pink;
+  height: 50px;
+}
+
+.achievepc {
+  left: 0px;
+  background-color: blue;   
+  height: 50px; 
 }

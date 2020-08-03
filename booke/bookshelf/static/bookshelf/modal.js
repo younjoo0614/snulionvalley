@@ -140,11 +140,11 @@ $('.showmodal').click((e) => {
         const userbookAuthor = `<p>작가 : ${userbook.author}</p>`;
         $(userbookAuthor).prependTo($author);
 
-        const obj=JSON.parse(data)
-        const userbook=obj.userbook
-        const memo_list=obj.memo_list
-        console.log(userbook.title)
-        console.log(userbook.author)
+        // const obj=JSON.parse(data)
+        // const userbook=obj.userbook
+        // const memo_list=obj.memo_list
+        // console.log(userbook.title)
+        // console.log(userbook.author)
         let memo_div=document.getElementById('memo-div');
         let info_div=document.getElementById('info-div')
         info_div.innerHTML='<div>info_div found</div>'
