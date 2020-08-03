@@ -1,4 +1,4 @@
-<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+<div class="modal fade" id="showModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -8,41 +8,19 @@
                     </button>
             </div>
             <div class="modal-body">
-            {% comment %} form id는 modal.js에서 식별해야 해서 memo-create으로 바꿨어용 {% endcomment %}
                 <form id='memo-create' data-csrfmiddlewaretoken="{{ csrf_token }}"> 
-                    <div class="form-group">                                          
-                        책 제목: {{ userbook.bookid.title }}
-                    </div>
-                    <div class="form-group">                                           
-
-                        작가: {{ userbook.bookid.author.name }}
-                    </div>
-                    {% comment %}  
-                    <div class="form-group">                                           
-                        <label for="pages" class="col-form-label">페이지 수: {{ UserBook.whole_page }}</label>
-                    </div> 
-                    
-                
-                    {% for memo in memos %} {% endcomment %}
-                    {% comment %} 1:N에서 userbook에 딸린 memo만을 불러와야 합니당 {% endcomment %}
-                    {% for memo in userbook.memo_set.all %}
-
-                    <div class="form-group">                                           
-                        지난 감상: {{ memo.page}},{{ memo.created_at }}<br/>
-                        {{ memo.content }}
-                    </div>
-
-                    {% endfor %}
+                    <div id="info-div"></div>
+                    <div id='memo-div'></div>
 
                     <div class="form-group">                                           
                         <label for="review" class="col-form-label">감상</label>
-                        <input type="integer" name="review_pages" class="form-control" id="review_pages">
+                        <input type="integer" name="review_pages" class="form-control" id="review_pages" >
                         <textarea name="review" class="form-control" id="review" placaholer="감상을 적어주세요."></textarea>
                     </div>
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button> 
-                        <button type="submit" class="btn btn-primary">추가하기</button>
+                        <button type="submit" id= "submit-memo" class="btn btn-primary">추가하기</button>
                     </div>
                 </form>
             </div>

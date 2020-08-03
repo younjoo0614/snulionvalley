@@ -11,7 +11,6 @@
     <script type="text/javascript" src="https://openapi.naver.com/v1/search/book_advClientId=5VgMPLkJIVU_85O43zpS"></script>
   </head>
   <body>
-
     <div class="header">
         <div class = "login">
         {% if user.is_authenticated %}
@@ -24,34 +23,57 @@
                 <input onkeyup="filter()" type="text" name="friend-value">
                 <input type="submit" value="검색">
               </form>
-              <div class="search-result">
-                {% for f in f_result %}
-                  <div class="fr">
-                    <p class="frn">{{f.nickname}}</p>
-                    <button class="follow-btn">팔로우</button>
-                  </div>
-                {% empty %}
-                  검색결과가 없습니다.
-                {% endfor %}
-              </div>
             </div>
             {% comment %} <input type = "text" id="word" placeholder="검색어를 입력하세요." onkeyup="search(this);">
             <button type="button" id="btn_search">Search</button>
             <ul id="schoolList"></ul> {% endcomment %}
         {% else %}
-            {% comment %} <a href="{% url 'signup' %}">회원가입</a> 
-            <a href="{% url 'login'%}?next={{request.path}}">로그인</a>{% endcomment %}
             <a href="#signupModal" data-toggle="modal">회원가입</a> 
             <a href="#loginModal" data-toggle="modal">로그인</a>
         {% endif %}
         </div>
     </div>
+    {% if user.is_authenticated %}
+    <nav>
+      <span>
+        <button><a href="bookshelf/recommned/">책 추천</a></button>
+      </span>
+      <span class="search">
+        <form action="{% url 'search_friend' %}" method="GET">
+          <input onkeyup="filter()" type="text" name="friend-value">
+          <input type="submit" value="검색">
+        </form>
+        <div class="search-result">
+          {% for f in f_result %}
+            <div class="fr">
+              <p class="frn">{{f.nickname}}</p>
+              <button class="follow-btn">팔로우</button>
+            </div>
+          {% empty %}
+            검색결과가 없습니다.
+          {% endfor %}
+        </div>
+      </span>
+      <span>
+        {% for friend in follows %} 
+          <div class="friend-list" style="display: none;"> 
+            <p>{{friend.nickname}}</p>
+            <button class="more-friendlist-btn"> 놀러가기 </button>
+            <button class="unfollow-btn"> 언팔 </button>
+            {% csrf_token %}
+          </div>
+        {% endfor %}
+      <button class ="more-friendlist-btn">친구목록 펼치기</button>
+      </span>
+    </nav>
+    {% endif %}
   </body>
   {% block content %}
 
   {% endblock %}
 
   {% include 'bookshelf/new.html'%}
+  {% include 'bookshelf/show.html'%}  
   {% include 'accounts/signup.html' %}
   {% include 'accounts/login.html' %}
   {% include 'accounts/logout.html' %}
