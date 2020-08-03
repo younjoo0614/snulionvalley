@@ -60,7 +60,7 @@
         {% for friend in follows %} 
           <div class="friend-list" style="display: none;"> 
             <p>{{friend.nickname}}</p>
-            <button class="more-friendlist-btn"> 놀러가기 </button>
+            <button class="to-friend-btn"> 놀러가기 </button>
             <button class="unfollow-btn"> 언팔 </button>
             {% csrf_token %}
           </div>
