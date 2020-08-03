@@ -26,10 +26,11 @@
                 
                     {% for memo in memos %} {% endcomment %}
                     {% comment %} 1:N에서 userbook에 딸린 memo만을 불러와야 합니당 {% endcomment %}
+
                     <div id="memo-list"></div>
                     {% for memo in userbook.memo_set.all %}
 
-                    <div class="form-group">                                           
+                    <divㅣ class="form-group">                                           
                         지난 감상: {{ memo.page}},{{ memo.created_at }}<br/>
                         {{ memo.content }}
                     </div>

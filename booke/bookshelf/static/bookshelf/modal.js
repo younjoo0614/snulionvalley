@@ -68,7 +68,7 @@ $('#book-create').submit((event) => {
             title: $(`input#title`).val(),
             // author: $(`input#author`).val(),
             // page: $(`input#page`).val(),
-            author: $(`input#author`).val(),
+            // author: $(`input#author`).val(),
             color: color_value,
             csrfmiddlewaretoken: $(event.currentTarget).data('csrfmiddlewaretoken')
         },
