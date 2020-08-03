@@ -124,8 +124,6 @@ def delete_book(request,id):
     userbook.delete()
     return redirect('/bookshelf')
 
-
-
 def recommend_book(request):
     by_book=Book.objects.all().order_by('-count')
     best_author=Author.objects.all().order_by('-count').first()
@@ -135,31 +133,31 @@ def recommend_book(request):
 def show_memo(request,id):
     userbook=UserBook.objects.get(id=id)
     memos=Memo.objects.filter(book=userbook)
-    memo_list={}
-    for i in memos:
-        memo_list.update({i.id:{'page':i.page,'created_at':i.created_at,'content':i.content}})
+
+    memo_list=[]
+    for memo in memos : 
+        memo_list.append(memo)
 
     context = {
-        'userbook':{
-            'title': userbook.bookid.title,
+        'userbook': {
+            'title':userbook.bookid.title,
             'author':userbook.bookid.author.name,
-        },
-        'memo_list':memo_list,
+        }, 
+        'memos': memo_list,
     }
+
+    return JsonResponse(context)
     
     #context=json.dumps(context,ensure_ascii=False)
     # return redirect('bookshelf/show.html',{"userbook":userbook,"memos":memos})
     # return JsonResponse({"message" : "created"}, status=201)
     # return redirect("/bookshelf/%d/" %id)
     # return render(request, 'bookshelf/show.html', {'userbook': userbook, 'memos':memos})
-    return JsonResponse(context)
+    #return JsonResponse(context)
 
 def create_memo(request,id):
-
     if request.method=='POST':
-
         page=request.POST['page']
-
         content=request.POST['content']
         Memo.objects.create(content=content, page=page,book_id=id )
 
@@ -174,6 +172,7 @@ def create_memo(request,id):
 
         # return redirect('bookself/show.html')
         return JsonResponse(context)
+        
     elif request.method=='GET':
         userbook=UserBook.objects.get(id=id)
         memos=Memo.objects.filter(book=userbook)
