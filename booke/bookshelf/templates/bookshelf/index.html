@@ -44,13 +44,6 @@
             {% endif %}
 
     </div>
-    <div class = "newbook-btn">
-        {% if user.is_authenticated %}
-            <button type="button" data-toggle="modal" data-target="#createModal" class="newbook">
-                <img src="{% static 'bookshelf/newbook.png'  %}">
-            </button>
-        {% endif %}
-    </div>
     <div class = "friendslist-btn">
         {% if user.is_authenticated %}
             {% for friend in follows %} <!--마지막 댓글의 경우-->

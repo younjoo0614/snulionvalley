@@ -64,5 +64,3 @@ def result(request):
     if f:
         fs = Profile.objects.filter(nickname__startswith=f)
     return render(request, 'bookshelf/index.html', {'f_result':fs})
-
-

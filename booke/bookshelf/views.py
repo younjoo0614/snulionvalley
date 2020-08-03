@@ -12,8 +12,6 @@ import sys
 import json
 from django.core.serializers import serialize 
 
-
-
 # Create your views here.
 
 def search_title_author(title,num):
@@ -94,7 +92,8 @@ def index(request):
         bookauthor.save()
 
         whole_page=get_page(book_title,0)
-        member.already_read+=whole_page
+        member.already+=whole_page
+        member.save()
         UserBook.objects.create(userid=member,bookid=book,whole_page=whole_page,color=color)
         # new_book = UserBook.objects.latest('id')
 
@@ -109,8 +108,7 @@ def index(request):
             member=request.user.profile
             books=UserBook.objects.filter(userid=member)
             authors=Author.objects.all()
-            ratio=member.already_read/member.goal
-            return render(request,'bookshelf/index.html',{"books":books,"authors":authors,"ratio":ratio})
+            return render(request,'bookshelf/index.html',{"books":books,"authors":authors})
         else:
             return render(request,'bookshelf/index.html')
     
