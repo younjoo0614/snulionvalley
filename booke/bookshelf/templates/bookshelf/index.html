@@ -7,17 +7,24 @@
 <div class = "first-page">    
     <div class = "temp"> 
             {% if user.is_authenticated %}
+            
+                <div class = "achievement">
+                    <div class = "totalpc">
+                        <div class = "achievepc" style="width: calc(500px * {{user.profile.already}} / {{user.profile.goal}}"></div>
+                    </div>
+                </div>
+
                 <div class = "myshelf">
                     {% if user.profile.goal == 1000 %} 
-                        <img class = "myshelf1" src="{% static 'bookshelf/p1000.png' %}"/> 
+                        <img class = "myshelf1" src = {% static 'bookshelf/p1000.png' %}/> 
                     {% elif user.profile.goal == 2000 %}
-                        <img class = "myshelf2" src="{% static 'bookshelf/p2000.png' %}"/>
+                        <img class = "myshelf2" src = {% static 'bookshelf/p2000.png' %}/>
                     {% elif user.profile.goal == 3000 %}
-                        <img class = "myshelf3" src="{% static 'bookshelf/p3000.png' %}"/>
+                        <img class = "myshelf3" src = {% static 'bookshelf/p3000.png' %}/>
                     {% elif user.profile.goal == 5000 %}
-                        <img class = "myshelf4" src="{% static 'bookshelf/p5000.png' %}"/>
+                        <img class = "myshelf4" src = {% static 'bookshelf/p5000.png' %}/>
                     {% elif user.profile.goal == 10000 %}
-                        <img class = "myshelf5" src="{% static 'bookshelf/p10000.png' %}"/>
+                        <img class = "myshelf5" src = {% static 'bookshelf/p10000.png' %}/>
                     {% endif %}
 
 

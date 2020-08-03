@@ -23,8 +23,6 @@ $('#signup-form').submit((event) => {
             console.log(response, status, error);
         }
     })
-
-    
 })
 
 $('#login-form').submit((event) => {
