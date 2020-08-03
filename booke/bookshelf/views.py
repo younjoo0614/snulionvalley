@@ -134,9 +134,11 @@ def show_memo(request,id):
     userbook=UserBook.objects.get(id=id)
     memos=Memo.objects.filter(book=userbook)
 
-    memo_list=[]
+    memo_list={}
+    i=0
     for memo in memos : 
-        memo_list.append(memo)
+        memo_list.update({i:{'page':memo.page,'created_at':memo.created_at,'content':memo.content}})
+        i+=1
 
     context = {
         'userbook': {
@@ -157,22 +159,34 @@ def show_memo(request,id):
 
 def create_memo(request,id):
     if request.method=='POST':
+        userbook=UserBook.ob
         page=request.POST['page']
         content=request.POST['content']
-        Memo.objects.create(content=content, page=page,book_id=id )
+        new_memo=Memo.objects.create(content=content, page=page,book_id=id )
+        memos=Memo.objects.filter(book=userbook)
+        #memo_list=serialize("json",memos)
 
-        new_memo = Memo.objects.latest('id')
-
+        memo_list={}
+        i=0
+        for memo in memos : 
+            memo_list.update({i:{'page':memo.page,'created_at':memo.created_at,'content':memo.content}})
+            i+=1
+        
         context = {
             # memo의 id도 필요할까?
             # memo 자체에 접근하려면 필요한데 삭제 말고 접근할 일이 없으니 일단 두기
             'page': new_memo.page,
             'content': new_memo.content,
+            'userbook': {
+            'title':userbook.bookid.title,
+            'author':userbook.bookid.author.name,
+            }, 
+            'memos': memo_list,
         }
 
         # return redirect('bookself/show.html')
         return JsonResponse(context)
-        
+
     elif request.method=='GET':
         userbook=UserBook.objects.get(id=id)
         memos=Memo.objects.filter(book=userbook)

@@ -55,7 +55,6 @@ def follow_manager(request, fid):
         f = Follow()
         f.followed_by, f.follow = followed_by, follow
         f.save()
-    print('follow_manager')
     return redirect('/bookshelf')
 
 def result(request):
