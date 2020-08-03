@@ -118,51 +118,35 @@ $('.showmodal').click((e) => {
         success(res) {
             console.log(res)
             //window.location.href=`/bookshelf/${id}/`
-        },
+            const userbook = data.userbook;
+            const memos = data.memos;
+
+            let info_div=document.getElementById('info-div')
+            let memo_div=document.getElementById('memo-div');
+            let str=``
+            for (let i=0; i<memos.length; i++){
+                str+=`<p> ${memos.i.page}, ${memos.i.created_at},${memos.content}</p>`;
+            }
+            info_div.innerHTML=`<p>책 제목 : ${userbook.title}</p>
+            <p>작가 : ${userbook.author}</p>`;
+            const memos=data.memos;
+            const memoTemplate=memos.map(memo=>`<div>${memo.id} ${memo.content}</div>`).join('');
+            memo_div.innerHTML=memoTemplate;
+            },
         error(response, status, error) {
             console.log(response, status, error);
         }
 
-    }).then((data) => {
-        const userbook = data.userbook;
-        const memos = data.memos;
-        /*let $title = document.getElementById('userbook.bookid.title');
-        $($title).find('p').remove();
-        const userbookTitle = `<p>책 제목 : ${userbook.title}</p>`;
-        $(userbookTitle).prependTo($title);
-        let $author = document.getElementById('userbook.bookid.author.name');
-        $($author).find('p').remove();
-        const userbookAuthor = `<p>작가 : ${userbook.author}</p>`;
-        $(userbookAuthor).prependTo($author);*/
-
-        let info_div=document.getElementById('info-div')
-        let memo_div=document.getElementById('memo-div');
-        let str=``
-        for (let i=0; i<memos.length; i++){
-            str+=`<p> ${memos.i.page}, ${memos.i.created_at},${memos.content}</p>`;
-        }
-        info_div.innerHTML=`<p>책 제목 : ${userbook.title}</p>
-        <p>작가 : ${userbook.author}</p>`;
-        memo_div.innerHTML=`<div>지난 감상</div><div>${str}</div>`;
-        
-        // const tempalte = memos.map(
-        //     memo => xxxtemplate(memo)
-        // ).join(".")
-
-        // const xx .inneh = tempalte;
-
     })
 })
-
 
 $('#submit-memo').click( (e) => {
     e.preventDefault()
     const $this = $(e.currentTarget);
-    //const id = $this.data('id');
-    // 보통 이벤트가 일어난 객체의 id를 가져오는데 이건 책장에서 책등의 id를 가져오는 게 아니라 
-    // modal form의 id를 가져오게 될텐데,, 지금 확인이 안 되지만 일단 이렇게 써둘게요
+    const id = document.getElementById('submit-memo').value; //이게 제일 문제 userbook의 id를 어떻게 받아와야 할지...
+    
     const csrfmiddlewaretoken = $this.data('csrfmiddlewaretoken');
-
+    console.log(id);
     $.ajax({
         url: `/bookshelf/${id}/memos/`,         
         method: 'POST',
@@ -173,36 +157,25 @@ $('#submit-memo').click( (e) => {
             csrfmiddlewaretoken: csrfmiddlewaretoken,
         },
         dataType: "json",
-        success(res) {
-            console.log(res)
+        success(data) {
+            console.log(data)
             //window.location.href=`/bookshelf/${id}/`
+            const userbook = data.userbook;
+            const memos = data.memos;
+
+            let info_div=document.getElementById('info-div')
+            info_div.innerHTML=`<p>책 제목 : ${userbook.title}</p>
+            <p>작가 : ${userbook.author}</p>`;
+            let memo_div=document.getElementById('memo-div');
+            const memos=data.memos;
+            const memoTemplate=memos.map(memo=>`<div>${memo.id} ${memo.content}</div>`).join('');
+            memo_div.innerHTML=memoTemplate;
         },
         error(response, status, error) {
             console.log(response, status, error);
         }
-    }).then((data) => {
-        const userbook = data.userbook;
-        const memos = data.memos;
-        /*let $title = document.getElementById('userbook.bookid.title');
-        $($title).find('p').remove();
-        const userbookTitle = `<p>책 제목 : ${userbook.title}</p>`;
-        $(userbookTitle).prependTo($title);
-        let $author = document.getElementById('userbook.bookid.author.name');
-        $($author).find('p').remove();
-        const userbookAuthor = `<p>작가 : ${userbook.author}</p>`;
-        $(userbookAuthor).prependTo($author);*/
-        let info_div=document.getElementById('info-div')
-        info_div.innerHTML=`<p>책 제목 : ${userbook.title}</p>
-        <p>작가 : ${userbook.author}</p>`;
-        let memo_div=document.getElementById('memo-div');
-        let str=``
-        for (let i=0; i<memos.length; i++){
-            str+=`<p> ${memos.i.page}, ${memos.i.created_at},${memos.content}</p>`
-        }
-        memo_div.innerHTML=`<div>지난 감상</div><div>${str}</div>`
     })
 })
-
 
 $(document).ready(() => {
     $(".more-comment-btn").on('click', function(event) {

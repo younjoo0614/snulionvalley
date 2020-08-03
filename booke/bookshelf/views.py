@@ -132,20 +132,19 @@ def recommend_book(request):
 
 def show_memo(request,id):
     userbook=UserBook.objects.get(id=id)
-    memos=Memo.objects.filter(book=userbook)
-
-    memo_list={}
+    memo_data=list(Memo.objects.filter(book=userbook).values('id','book','content','page'))
+    '''memo_list={}
     i=0
     for memo in memos : 
         memo_list.update({i:{'page':memo.page,'created_at':memo.created_at,'content':memo.content}})
         i+=1
-
+    '''
     context = {
         'userbook': {
             'title':userbook.bookid.title,
             'author':userbook.bookid.author.name,
         }, 
-        'memos': memo_list,
+        'memos': memo_data,
     }
 
     return JsonResponse(context)
@@ -159,18 +158,12 @@ def show_memo(request,id):
 
 def create_memo(request,id):
     if request.method=='POST':
-        userbook=UserBook.ob
+        userbook=UserBook.objects.get(id=id)
         page=request.POST['page']
         content=request.POST['content']
         new_memo=Memo.objects.create(content=content, page=page,book_id=id )
-        memos=Memo.objects.filter(book=userbook)
         #memo_list=serialize("json",memos)
-
-        memo_list={}
-        i=0
-        for memo in memos : 
-            memo_list.update({i:{'page':memo.page,'created_at':memo.created_at,'content':memo.content}})
-            i+=1
+        memo_data = list(Memo.objects.filter(book=userbook).values('id', 'book', 'content','page') )        
         
         context = {
             # memo의 id도 필요할까?
@@ -181,7 +174,7 @@ def create_memo(request,id):
             'title':userbook.bookid.title,
             'author':userbook.bookid.author.name,
             }, 
-            'memos': memo_list,
+            'memos': memo_data,
         }
 
         # return redirect('bookself/show.html')
