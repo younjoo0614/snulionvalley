@@ -19,9 +19,10 @@
             {% comment %} <a href="{% url 'logout'%}?next={{request.path}}">로그아웃</a> {% endcomment %}
             <br>
             <a href="#logoutModal" data-toggle="modal">로그아웃</a>
+
             <div class="search">
               <form action="{% url 'search_friend' %}" method="GET">
-                <input onkeyup="filter()" type="text" name="friend-value">
+                <input onkeyup="filter()" type="text" name="friend-value" id="friend-value">
                 <input type="submit" value="검색">
               </form>
               <div class="search-result">

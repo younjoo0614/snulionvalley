@@ -108,6 +108,7 @@ button.newbook{
     display: block;
 }
 
+/*
 .myshelf1 {
     width: 80%;
     display: block;
@@ -136,12 +137,15 @@ button.newbook{
     width: 80%;
     display: block;
     margin: 0px auto;
-}
+} -->우선 주석처리 해둘게! */
 
 /* .fr{
     display: flex;
-} */
+} --자바스크립트로 바꿀 경우 수정 할 부분*/
+
 
 .bookiread{
     background-color: #3F7373;
 }
+
+/* --새로 수정된 부분 */
