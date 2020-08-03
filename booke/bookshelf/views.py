@@ -12,8 +12,6 @@ import sys
 import json
 from django.core.serializers import serialize 
 
-
-
 # Create your views here.
 
 def search_title_author(title,num):
@@ -126,8 +124,6 @@ def delete_book(request,id):
     userbook.delete()
     return redirect('/bookshelf')
 
-
-
 def recommend_book(request):
     by_book=Book.objects.all().order_by('-count')
     best_author=Author.objects.all().order_by('-count').first()
@@ -137,45 +133,60 @@ def recommend_book(request):
 def show_memo(request,id):
     userbook=UserBook.objects.get(id=id)
     memos=Memo.objects.filter(book=userbook)
+
     memo_list={}
-    for i in memos:
-        memo_list.update({i.id:{'page':i.page,'created_at':i.created_at,'content':i.content}})
+    i=0
+    for memo in memos : 
+        memo_list.update({i:{'page':memo.page,'created_at':memo.created_at,'content':memo.content}})
+        i+=1
 
     context = {
-        'userbook':{
-            'title': userbook.bookid.title,
+        'userbook': {
+            'title':userbook.bookid.title,
             'author':userbook.bookid.author.name,
-        },
-        'memo_list':memo_list,
+        }, 
+        'memos': memo_list,
     }
+
+    return JsonResponse(context)
     
     #context=json.dumps(context,ensure_ascii=False)
     # return redirect('bookshelf/show.html',{"userbook":userbook,"memos":memos})
     # return JsonResponse({"message" : "created"}, status=201)
     # return redirect("/bookshelf/%d/" %id)
     # return render(request, 'bookshelf/show.html', {'userbook': userbook, 'memos':memos})
-    return JsonResponse(context)
+    #return JsonResponse(context)
 
 def create_memo(request,id):
-
     if request.method=='POST':
-
+        userbook=UserBook.ob
         page=request.POST['page']
-
         content=request.POST['content']
-        Memo.objects.create(content=content, page=page,book_id=id )
+        new_memo=Memo.objects.create(content=content, page=page,book_id=id )
+        memos=Memo.objects.filter(book=userbook)
+        #memo_list=serialize("json",memos)
 
-        new_memo = Memo.objects.latest('id')
-
+        memo_list={}
+        i=0
+        for memo in memos : 
+            memo_list.update({i:{'page':memo.page,'created_at':memo.created_at,'content':memo.content}})
+            i+=1
+        
         context = {
             # memo의 id도 필요할까?
             # memo 자체에 접근하려면 필요한데 삭제 말고 접근할 일이 없으니 일단 두기
             'page': new_memo.page,
             'content': new_memo.content,
+            'userbook': {
+            'title':userbook.bookid.title,
+            'author':userbook.bookid.author.name,
+            }, 
+            'memos': memo_list,
         }
 
         # return redirect('bookself/show.html')
         return JsonResponse(context)
+
     elif request.method=='GET':
         userbook=UserBook.objects.get(id=id)
         memos=Memo.objects.filter(book=userbook)

@@ -7,7 +7,6 @@
 <div class = "first-page">    
     <div class = "temp"> 
             {% if user.is_authenticated %}
-            
                 <div class = "achievement">
                     <div class = "totalpc">
                         <div class = "achievepc" style="width: calc(500px * {{user.profile.already}} / {{user.profile.goal}}"></div>
@@ -56,8 +55,8 @@
                     <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }}> 
                     {% comment %} <a href="/bookshelf/{{userbook.id}}"> {% endcomment %}
                         <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = " margin: 10px; height: 50px; width: calc({{userbook.whole_page}} / {{user.profile.goal}} * 80%) "> 
-                            {{userbook.bookid.title}} 
-                        </div>
+                        {{userbook.bookid.title}} 
+                    </div>
                     </a> 
 
                 {% endfor %} 

@@ -5,7 +5,7 @@ from django.shortcuts import redirect
 from django.contrib.auth import login as django_login
 from django.contrib.auth import authenticate as django_authenticate
 from django.http import JsonResponse
-from .models import Profile
+from .models import Profile,Follow
 
 
 def signup(request):
@@ -40,9 +40,9 @@ def signup(request):
 def logout(request):
     return render(request, 'accounts/logout.html')
 
-def follow_manager(request, pk):
+def follow_manager(request, fid):
     followed_by = Profile.objects.get(user_id = request.user.id)
-    follow = Profile.objects.get(user_id = pk)
+    follow = Profile.objects.get(user_id = fid)
 
     try:
         following_already = Follow.objects.get(followed_by=followed_by, follow=follow)
@@ -55,8 +55,7 @@ def follow_manager(request, pk):
         f = Follow()
         f.followed_by, f.follow = followed_by, follow
         f.save()
-
-    return redirect('/feeds')
+    return redirect('/bookshelf')
 
 def result(request):
     fs = Profile.objects.all()
@@ -64,5 +63,3 @@ def result(request):
     if f:
         fs = Profile.objects.filter(nickname__startswith=f)
     return render(request, 'bookshelf/index.html', {'f_result':fs})
-
-

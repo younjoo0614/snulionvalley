@@ -28,17 +28,17 @@
               </form>
             </div>
         {% else %}
-            <a href="#signupModal" data-toggle="modal">회원가입</a> 
+            <a href="#signupModal" data-toggle="modal"><img class="signup-btn" src="{% static 'bookshelf/signup.png' %}"></a> 
             <a href="#loginModal" data-toggle="modal">로그인</a>
         {% endif %}
         </div>
     </div>
     {% if user.is_authenticated %}
     <nav>
-      <span>
+      <div>
         <button><a href="bookshelf/recommned/">책 추천</a></button>
-      </span>
-      <span class="search">
+      </div>
+      <div class="search">
         <form action="{% url 'search_friend' %}" method="GET">
           <input onkeyup="filter()" type="text" name="friend-value">
           <input type="submit" value="검색">
@@ -47,24 +47,24 @@
           {% for f in f_result %}
             <div class="fr">
               <p class="frn">{{f.nickname}}</p>
-              <button class="follow-btn">팔로우</button>
+              <a href="{{f.id}}/follow" class="follow-btn">팔로우</a>
             </div>
           {% empty %}
             검색결과가 없습니다.
           {% endfor %}
         </div>
-      </span>
-      <span>
+      </div>
+      <div>
         {% for friend in follows %} 
           <div class="friend-list" style="display: none;"> 
             <p>{{friend.nickname}}</p>
-            <button class="more-friendlist-btn"> 놀러가기 </button>
+            <button class="to-friend-btn"> 놀러가기 </button>
             <button class="unfollow-btn"> 언팔 </button>
             {% csrf_token %}
           </div>
         {% endfor %}
       <button class ="more-friendlist-btn">친구목록 펼치기</button>
-      </span>
+        </div>
     </nav>
     {% endif %}
   </body>
