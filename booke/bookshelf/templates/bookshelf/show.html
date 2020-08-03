@@ -9,26 +9,9 @@
             </div>
             <div class="modal-body">
                 <form id='memo-create' data-csrfmiddlewaretoken="{{ csrf_token }}"> 
-
-                    <div class="form-group">                                          
-                        {% comment %} 책 제목: {{ userbook.bookid.title }} {% endcomment %}
-                        <div id="userbook.bookid.title"></div>
-                    </div>
-                    <div class="form-group">                                           
-                        {% comment %} 작가: {{ userbook.bookid.author.name }} {% endcomment %}
-                        <div id="userbook.bookid.author.name"></div>
-                    </div>
                     <div id='info-div'></div>
                     <div id='memo-div'></div>
-                    {% comment %}  
-                    <div class="form-group">                                           
-                        <label for="pages" class="col-form-label">페이지 수: {{ UserBook.whole_page }}</label>
-                    </div> 
                     
-                
-                    {% for memo in memos %} {% endcomment %}
-                    {% comment %} 1:N에서 userbook에 딸린 memo만을 불러와야 합니당 {% endcomment %}
-                    <div id="memo-list"></div>
                     {% for memo in userbook.memo_set.all %}
 
                     <div class="form-group">                                           
@@ -48,7 +31,7 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button> 
-                        <button type="submit" id= "submit-memo" class="btn btn-primary">추가하기</button>
+                        <button type="submit" id= "submit-memo" value= "{{userbook.id}}"  class="btn btn-primary">추가하기</button>
                     </div>
                 </form>
             </div>
