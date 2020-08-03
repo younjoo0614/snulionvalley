@@ -18,15 +18,36 @@
 
                 <div class = "myshelf">
                     {% if user.profile.goal == 1000 %} 
-                        <img class = "myshelf1" src = {% static 'bookshelf/p1000.png' %}/> 
+                        <div class = "myshelf1">
+                            <div class="shelf"></div>
+                        </div>
                     {% elif user.profile.goal == 2000 %}
-                        <img class = "myshelf2" src = {% static 'bookshelf/p2000.png' %}/>
+                        <div class = "myshelf2">
+                            <div class="shelf"></div>
+                            <div class="shelf"></div>
+                        </div>
                     {% elif user.profile.goal == 3000 %}
-                        <img class = "myshelf3" src = {% static 'bookshelf/p3000.png' %}/>
+                        <div class = "myshelf3">
+                            <div class="shelf"></div>
+                            <div class="shelf"></div>
+                            <div class="shelf"></div>
+                        </div>
                     {% elif user.profile.goal == 5000 %}
-                        <img class = "myshelf4" src = {% static 'bookshelf/p5000.png' %}/>
+                        <div class = "myshelf4">
+                            <div class="shelf"></div>
+                            <div class="shelf"></div>
+                            <div class="shelf"></div>
+                            <div class="shelf"></div>
+                            <div class="shelf"></div>
+                        </div>
                     {% elif user.profile.goal == 10000 %}
-                        <img class = "myshelf5" src = {% static 'bookshelf/p10000.png' %}/>
+                        <div class = "myshelf5">
+                            <div class="shelf"></div>
+                            <div class="shelf"></div>
+                            <div class="shelf"></div>
+                            <div class="shelf"></div>
+                            <div class="shelf"></div>
+                        </div>
                     {% endif %}
 
                     <div class = "booksiread">
@@ -39,8 +60,7 @@
                             </a> 
                         {% endfor %} 
                     </div>
-
-                </div>
+                    
                 <div class = "newbook-btn">        
                     <button type="button" data-toggle="modal" data-target="#createModal" class="newbook">
                         <img src="{% static 'bookshelf/newbook.png'  %}">
@@ -48,8 +68,9 @@
                 </div>
                 
             {% else %}
-                <div> 
-                    <img class="back_img" src="{% static 'bookshelf/read.jpg' %}"/>
+                <div class="back"> 
+                    <img class="back_img" src="{% static 'bookshelf/back.png' %}"/>
+                    <img class="back_img1" src="{% static 'bookshelf/logo.png' %}"/>
                 </div>
             {% endif %}
 

@@ -146,9 +146,6 @@ button.newbook {
 .fr {
   display: flex; }
 
-.booksiread {
-  float: left; }
-
 .book-1 {
   background-color: #3F7373; }
 
@@ -165,7 +162,8 @@ button.newbook {
   background-color: #F2F2F2; }
 
 .achievement {
-  display: inline-block; }
+  display: block;
+  margin: 0px auto; }
 
 .totalpc {
   display: block;

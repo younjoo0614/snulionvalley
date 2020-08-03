@@ -13,20 +13,40 @@ $(document).ready(() => {
     }
     )
 
-// function filter(){
-
-//     var f, fr, frn, i;
-
-//     f = document.getElementsByName("friend-value").value.toUpperCase();
-//     fr = document.getElementsByClassName("fr");
-
-//     for(i=0; i<fr.length; i++){
-//         frn = fr[i].getElementsByClassName("frn");
-//         if(frn[0].innerHTML.toUpperCase.indexOf(f) > -1){
-//             fr[i].style.display = "flex";
-//         }else{
-//             fr[i].style.display = "none";
-//         }
-//     }
-// }
+    $("#friend-value").autocomplete({
+        source : function(request, response) {
+            $.ajax({
+                url : "accounts/result/"
+                , type : "GET"
+                , data : {keyWord : $("#friend-value").val()} 
+                , success : function(data){ 
+                    response(
+                        $.map(data, function(item) {
+                            return {
+                                label : item.nickname   
+                                , value : item.nickname    
+                                , idx : item.testIdx   
+                            };
+                        })
+                    );    //response
+                }
+                ,
+                error : function(){ //실패
+                    alert("통신에 실패했습니다.");
+                }
+            });
+        }
+        , minLength : 1    
+        , autoFocus : false    
+        , select : function(evt, ui) {
+            console.log("전체 data: " + JSON.stringify(ui));
+            console.log("db Index : " + ui.item.idx);
+            console.log("검색 데이터 : " + ui.item.value);
+        }
+        , focus : function(evt, ui) {
+            return false;
+        }
+        , close : function(evt) {
+        }
+    });
 
