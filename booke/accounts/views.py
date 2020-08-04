@@ -1,14 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from django.contrib import auth
-from django.shortcuts import redirect
+#from django.contrib import auth
 from django.contrib.auth import login as django_login
 from django.contrib.auth import authenticate as django_authenticate
 from django.http import JsonResponse
-from .models import Profile,Follow
+from .models import Profile, Follow
 
 
 def signup(request):
+    print("sign up start")
     if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password1"]
@@ -20,9 +20,10 @@ def signup(request):
         user.profile.goal = goal
         user.profile.taste = taste
         user.save()
-
+        print('user saved')
         login_user = django_authenticate(username=username, password=password)
         django_login(request, login_user)
+        print('signup done')
         return JsonResponse({"response": "signup success"})
 
 # 모달 전 기존 회원가입 함수.. 기록용! 무시해도 됨

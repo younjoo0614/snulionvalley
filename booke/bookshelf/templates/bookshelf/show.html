@@ -28,11 +28,11 @@
                         <input type="integer" name="review_pages" class="form-control" id="review_pages" placeholder="페이지를 적어주세요" required>
                         <textarea name="review" class="form-control" id="review" placeholder="감상을 적어주세요."></textarea>
                     </div>
-
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button> 
-                        <button type="submit" id= "submit-memo" value= "{{userbook.id}}"  class="btn btn-primary">추가하기</button>
+                        <button type="submit" id= "submit-memo" class="btn btn-primary" data-id="" data-csrfmiddlewaretoken="{{ csrf_token }}">추가하기</button>
                     </div>
+                    
                 </form>
             </div>
         </div>

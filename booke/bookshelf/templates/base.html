@@ -47,7 +47,7 @@
           {% for f in f_result %}
             <div class="fr">
               <p class="frn">{{f.nickname}}</p>
-              <a href="{{f.id}}/follow" class="follow-btn">팔로우</a>
+              <a href="/accounts/result/{{f.id}}/follow/" class="follow-btn">팔로우</a>
             </div>
           {% empty %}
             검색결과가 없습니다.
@@ -74,9 +74,9 @@
 
   {% include 'bookshelf/new.html'%}
   {% include 'bookshelf/show.html'%}  
-  {% include 'accounts/signup.html' %}
-  {% include 'accounts/login.html' %}
-  {% include 'accounts/logout.html' %}
+  {% include 'account/signup.html' %}
+  {% include 'account/login.html' %}
+  {% include 'account/logout.html' %}
   <script src="{% static 'bookshelf/modal.js' %}"></script>
   </body>
 </html>

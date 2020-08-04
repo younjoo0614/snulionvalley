@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib import auth
+#from django.contrib import auth
 from .models import Author, Book, UserBook, Memo
 from accounts.models import Profile
 import urllib.request
@@ -10,7 +10,7 @@ from django.http import JsonResponse
 import os
 import sys
 import json
-from django.core.serializers import serialize 
+#from django.core.serializers import serialize 
 
 # Create your views here.
 
@@ -62,8 +62,10 @@ def get_page(title,num):
     return int(page.group())
 
 def index(request):
+    
     if request.method=='POST':
-        member=request.user.profile 
+        print ('POST done')
+        member=request.user.profile
         ta_list=search_title_author(request.POST['title'],0)
         book_title=ta_list[0]
         book_author=ta_list[1]
@@ -103,15 +105,19 @@ def index(request):
         
         return JsonResponse({"message":"created"},status=201)
 
-    else: 
+    else:
+        print ('GET done') 
         if request.user.is_authenticated:
+            print('logged in')
             member=request.user.profile
             books=UserBook.objects.filter(userid=member)
             authors=Author.objects.all()
             return render(request,'bookshelf/index.html',{"books":books,"authors":authors})
         else:
+            print('unlogged')
             return render(request,'bookshelf/index.html')
-    
+            
+
 def create_book(request):
     return render(request,'bookshelf/new.html')
 
@@ -133,12 +139,7 @@ def recommend_book(request):
 def show_memo(request,id):
     userbook=UserBook.objects.get(id=id)
     memo_data=list(Memo.objects.filter(book=userbook).values('id','book','content','page'))
-    '''memo_list={}
-    i=0
-    for memo in memos : 
-        memo_list.update({i:{'page':memo.page,'created_at':memo.created_at,'content':memo.content}})
-        i+=1
-    '''
+    
     context = {
         'userbook': {
             'title':userbook.bookid.title,
@@ -162,7 +163,6 @@ def create_memo(request,id):
         page=request.POST['page']
         content=request.POST['content']
         new_memo=Memo.objects.create(content=content, page=page,book_id=id )
-        #memo_list=serialize("json",memos)
         memo_data = list(Memo.objects.filter(book=userbook).values('id', 'book', 'content','page') )        
         
         context = {
@@ -170,11 +170,11 @@ def create_memo(request,id):
             # memo 자체에 접근하려면 필요한데 삭제 말고 접근할 일이 없으니 일단 두기
             'page': new_memo.page,
             'content': new_memo.content,
-            'userbook': {
-            'title':userbook.bookid.title,
-            'author':userbook.bookid.author.name,
-            }, 
-            'memos': memo_data,
+            #'userbook': {
+            #'title':userbook.bookid.title,
+            #'author':userbook.bookid.author.name,
+            #}, 
+            #'memos': memo_data,
         }
 
         # return redirect('bookself/show.html')
