@@ -46,24 +46,11 @@
                             <div class="shelf"></div>
                         </div>
                     {% endif %}
-<<<<<<< HEAD
-                {% for userbook in books %}
-                        <div class = "bookiread" style = " margin: 10px; height: 50px; width: calc({{userbook.whole_page}} / {{user.profile.goal}} * 80%) "> 
-                        {{userbook.bookid.title}} 
-                    </div>
-                {%endfor%}
                     {% for userbook in books %}
-                    <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }}> 
+                        <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }}> 
                     {% comment %} <a href="/bookshelf/{{userbook.id}}"> {% endcomment %}
-                        <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = " margin: 10px; height: 50px; width: calc({{userbook.whole_page}} / {{user.profile.goal}} * 80%) "> 
+                        <div class="book-{{userbook.color}} bookiread" id ="{{userbook.id}}" style = " margin: 10px; height: 50px; width: calc({{userbook.whole_page}} / {{user.profile.goal}} * 80%) "> 
                         {{userbook.bookid.title}} 
-=======
-                  {% for userbook in books %}
-                    <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }}> 
-                  {% comment %} <a href="/bookshelf/{{userbook.id}}"> {% endcomment %}
-                    <div class="book-{{userbook.color}} bookiread" id ="{{userbook.id}}" style = " margin: 10px; height: 50px; width: calc({{userbook.whole_page}} / {{user.profile.goal}} * 80%) "> 
-                     {{userbook.bookid.title}} 
->>>>>>> cb7469326a950202a9f2cacca8417508e2fad2e2
                     </div>
                     </a> 
 
