@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>책읽기</title>
+    {% load static %} 
+    {% load sass_tags %}
+    {% comment %} <link rel="stylesheet" href="{% static 'bookshelf/style.css' %}">  {% endcomment %}
+    <link rel="stylesheet" href="{% sass_src 'bookshelf/style.scss' %}" type="text/css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://openapi.naver.com/v1/search/book_advClientId=5VgMPLkJIVU_85O43zpS"></script>
+  </head>
+  <body>
+    <div class="header">
+        <div class = "login">
+        {% if user.is_authenticated %}
+            {{ user.get_username }}님, 안녕하세요
+            {% comment %} <a href="{% url 'logout'%}?next={{request.path}}">로그아웃</a> {% endcomment %}
+            <br>
+            <a href="#logoutModal" data-toggle="modal">로그아웃</a>
+
+            <div class="search">
+              <form action="{% url 'search_friend' %}" method="GET">
+                <input onkeyup="filter()" type="text" name="friend-value" id="friend-value">
+                <input type="submit" value="검색">
+              </form>
+            </div>
+        {% else %}
+            <a href="#signupModal" data-toggle="modal">회원가입</a> 
+            <a href="#loginModal" data-toggle="modal">로그인</a>
+        {% endif %}
+        </div>
+    </div>
+    {% if user.is_authenticated %}
+    <nav>
+      <div>
+        <button><a href="bookshelf/recommned/">책 추천</a></button>
+      </div>
+      <div class="search">
+        <form action="{% url 'search_friend' %}" method="GET">
+          <input onkeyup="filter()" type="text" name="friend-value">
+          <input type="submit" value="검색">
+        </form>
+        <div class="search-result">
+          {% for f in f_result %}
+            <div class="fr">
+              <p class="frn">{{f.nickname}}</p>
+              <a href="{{f.id}}/follow" class="follow-btn">팔로우</a>
+            </div>
+          {% empty %}
+            검색결과가 없습니다.
+          {% endfor %}
+        </div>
+      </div>
+      <div>
+        {% for friend in follows %} 
+          <div class="friend-list" style="display: none;"> 
+            <p>{{friend.nickname}}</p>
+            <button class="to-friend-btn"> 놀러가기 </button>
+            <button class="unfollow-btn"> 언팔 </button>
+            {% csrf_token %}
+          </div>
+        {% endfor %}
+      <button class ="more-friendlist-btn">친구목록 펼치기</button>
+        </div>
+    </nav>
+    {% endif %}
+  </body>
+  {% block content %}
+
+  {% endblock %}
+
+  {% include 'bookshelf/new.html'%}
+  {% include 'bookshelf/show.html'%}  
+  {% include 'accounts/signup.html' %}
+  {% include 'accounts/login.html' %}
+  {% include 'accounts/logout.html' %}
+  <script src="{% static 'bookshelf/modal.js' %}"></script>
+  </body>
+</html>
