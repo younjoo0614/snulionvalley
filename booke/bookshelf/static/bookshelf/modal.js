@@ -38,7 +38,7 @@ $('#login-form').submit((event) => {
         dataType: "json",
         success(res) {
             console.log(res)
-            //window.location.href='/bookshelf/'
+            window.location.href='/bookshelf/'
         },
         error(response, status, error) {
             console.log(response, status, error);

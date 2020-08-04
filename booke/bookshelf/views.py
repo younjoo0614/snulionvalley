@@ -64,7 +64,6 @@ def get_page(title,num):
 def index(request):
     
     if request.method=='POST':
-        print ('POST done')
         member=request.user.profile
         ta_list=search_title_author(request.POST['title'],0)
         book_title=ta_list[0]
@@ -105,16 +104,13 @@ def index(request):
         
         return JsonResponse({"message":"created"},status=201)
 
-    else:
-        print ('GET done') 
+    else:        
         if request.user.is_authenticated:
-            print('logged in')
             member=request.user.profile
             books=UserBook.objects.filter(userid=member)
             authors=Author.objects.all()
             return render(request,'bookshelf/index.html',{"books":books,"authors":authors})
         else:
-            print('unlogged')
             return render(request,'bookshelf/index.html')
             
 
