@@ -22,7 +22,7 @@ $('#signup-form').submit((event) => {
         error(response, status, error) {
             console.log(response, status, error);
         }
-    })
+    })    
 })
 
 $('#login-form').submit((event) => {
@@ -97,105 +97,68 @@ $('#book-create').submit((event) => {
     // })         
 })
 
-
-
 $('.showmodal').click((e) => {
     e.preventDefault();
-    console.log('show memo');
     const $this = $(e.currentTarget);
     const id = $this.data('id');
     const csrfmiddlewaretoken = $this.data('csrfmiddlewaretoken');
 
     $.ajax({
         type: 'GET',
-
         url: `/bookshelf/${id}`, 
         data: { 
             id: id,
-
             csrfmiddlewaretoken: csrfmiddlewaretoken,
-            // content: $(`input#${fid}[name=content]`).val(),
         },
         dataType: "json",
         success(res) {
             console.log(res)
-            window.location.href=`/bookshelf/${bid}/`
-        },
+            const userbook = res.userbook;
+            const memos = res.memos;
+            let info_div=document.getElementById('info-div')
+            let memo_div=document.getElementById('memo-div');
+            
+            info_div.innerHTML=`<p>책 제목 : ${userbook.title}</p>
+            <p>작가 : ${userbook.author}</p>`;
+            const memoTemplate=memos.map(memo=>`<div>${memo.page} ${memo.content}</div>`).join('');
+            const submit_btn=document.getElementById('submit-memo');
+            submit_btn.dataset.id=`${id}`;
+            memo_div.innerHTML=memoTemplate;
+            },
         error(response, status, error) {
             console.log(response, status, error);
         }
-
-    }).then((data) => {
-        const userbook = data.userbook;
-        const memos = data.memos;
-
-        let $title = document.getElementById('userbook.bookid.title');
-        $($title).find('p').remove();
-
-        const userbookTitle = `<p>책 제목 : ${userbook.title}</p>`;
-        $(userbookTitle).prependTo($title);
-
-        let $author = document.getElementById('userbook.bookid.author.name');
-        $($author).find('p').remove();
-        const userbookAuthor = `<p>작가 : ${userbook.author}</p>`;
-        $(userbookAuthor).prependTo($author);
-
-        const obj=JSON.parse(data)
-        const userbook=obj.userbook
-        const memo_list=obj.memo_list
-        console.log(userbook.title)
-        console.log(userbook.author)
-        let memo_div=document.getElementById('memo-div');
-        let info_div=document.getElementById('info-div')
-        info_div.innerHTML='<div>info_div found</div>'
-        //info_div.innerHTML="<div>책 제목: "+userbook['title']+"</div><div>작가: "+userbook['author']+"</div>"
-        memo_div.innerHTML='<div>memo_div found</div>'
-        //memo_div.innerHTML="<div>지난 감상:"+ memo_json[0][1]+"<br/>"+memo_json[0][0]+memo_json[0][2]+"</div>"
-        // const tempalte = memos.map(
-        //     memo => xxxtemplate(memo)
-        // ).join(".")
-
-        // const xx .inneh = tempalte;
-
     })
 })
-
 
 $('#submit-memo').click( (e) => {
     e.preventDefault()
     const $this = $(e.currentTarget);
     const id = $this.data('id');
-    // 보통 이벤트가 일어난 객체의 id를 가져오는데 이건 책장에서 책등의 id를 가져오는 게 아니라 
-    // modal form의 id를 가져오게 될텐데,, 지금 확인이 안 되지만 일단 이렇게 써둘게요
     const csrfmiddlewaretoken = $this.data('csrfmiddlewaretoken');
-
+    console.log(id);
     $.ajax({
-        url: `/bookshelf/${bid}/memos/`,         
+        url: `/bookshelf/${id}/memos/`,         
         method: 'POST',
+        headers:{'X-CSRFToken':csrfmiddlewaretoken},
         data: {
-            bid:response.userbook.bid,
-            content: $(`input#review`).val(),
-            page: $(`input#review_page`).val(),
+            id:id,
+            content: $(`textarea#review`).val(),
+            page: $(`input#review_pages`).val(),
             csrfmiddlewaretoken: csrfmiddlewaretoken,
         },
         dataType: "json",
         success(res) {
-            console.log(res)
-            window.location.href=`/bookshelf/${id}/`
+            console.log(res);
+            const new_page=res.page;
+            const new_content=res.content;
+            let memo_div=document.getElementById('memo-div');
+            const newTemp=`<div>페이지: ${new_page}</div><div>메모: ${new_content}</div>`;
+            memo_div.innerHTML+=newTemp;
         },
         error(response, status, error) {
             console.log(response, status, error);
         }
-    }).then((context)=>{
-        const data=JSON.parse(context)
-        const title=response.title;
-        const author=response.author;
-        let memo_json=response.memo_json;
-        let info_div=document.getElementById('info-div')
-        info_div.innerHTML="<div>책 제목: "+title+"</div><div>작가: "+author+"</div>"
-        const memo_div=document.getElementById('memo-div');
-        memo_div.innerHTML="<div>지난 감상:"+ memo_json[0][1]+"<br/>"+memo_json[0][0]+memo_json[0][2]+"</div>"
-        
     })
 })
 
