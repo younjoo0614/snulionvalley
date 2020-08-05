@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib import auth
+#from django.contrib import auth
 from .models import Author, Book, UserBook, Memo
 from accounts.models import Profile
 import urllib.request
@@ -10,9 +10,7 @@ from django.http import JsonResponse
 import os
 import sys
 import json
-from django.core.serializers import serialize 
-
-
+#from django.core.serializers import serialize 
 
 # Create your views here.
 
@@ -64,8 +62,9 @@ def get_page(title,num):
     return int(page.group())
 
 def index(request):
+    
     if request.method=='POST':
-        member=request.user.profile 
+        member=request.user.profile
         ta_list=search_title_author(request.POST['title'],0)
         book_title=ta_list[0]
         book_author=ta_list[1]
@@ -105,7 +104,7 @@ def index(request):
         
         return JsonResponse({"message":"created"},status=201)
 
-    else: 
+    else:        
         if request.user.is_authenticated:
             member=request.user.profile
             books=UserBook.objects.filter(userid=member)
@@ -113,20 +112,25 @@ def index(request):
             return render(request,'bookshelf/index.html',{"books":books,"authors":authors})
         else:
             return render(request,'bookshelf/index.html')
-    
+            
+
 def create_book(request):
     return render(request,'bookshelf/new.html')
 
 def list_friends(request):
     follows=request.user.profile.follows
-    return request(request,'index.html',{"follows":follows})
+    context = {
+        'follows':{
+            'nickname':follows.profile
+        }
+    }
+    return JsonResponse(context)
+    # return request(request,'index.html',{"follows":follows})
 
 def delete_book(request,id):
     userbook=UserBook.objects.get(id=id)
     userbook.delete()
     return redirect('/bookshelf')
-
-
 
 def recommend_book(request):
     by_book=Book.objects.all().order_by('-count')
@@ -136,46 +140,48 @@ def recommend_book(request):
 
 def show_memo(request,id):
     userbook=UserBook.objects.get(id=id)
-    memos=Memo.objects.filter(book=userbook)
-    memo_list={}
-    for i in memos:
-        memo_list.update({i.id:{'page':i.page,'created_at':i.created_at,'content':i.content}})
-
+    memo_data=list(Memo.objects.filter(book=userbook).values('id','book','content','page'))
+    
     context = {
-        'userbook':{
-            'title': userbook.bookid.title,
+        'userbook': {
+            'title':userbook.bookid.title,
             'author':userbook.bookid.author.name,
-        },
-        'memo_list':memo_list,
+        }, 
+        'memos': memo_data,
     }
+
+    return JsonResponse(context)
     
     #context=json.dumps(context,ensure_ascii=False)
     # return redirect('bookshelf/show.html',{"userbook":userbook,"memos":memos})
     # return JsonResponse({"message" : "created"}, status=201)
     # return redirect("/bookshelf/%d/" %id)
     # return render(request, 'bookshelf/show.html', {'userbook': userbook, 'memos':memos})
-    return JsonResponse(context)
+    #return JsonResponse(context)
 
 def create_memo(request,id):
-
     if request.method=='POST':
-
+        userbook=UserBook.objects.get(id=id)
         page=request.POST['page']
-
         content=request.POST['content']
-        Memo.objects.create(content=content, page=page,book_id=id )
-
-        new_memo = Memo.objects.latest('id')
-
+        new_memo=Memo.objects.create(content=content, page=page,book_id=id )
+        memo_data = list(Memo.objects.filter(book=userbook).values('id', 'book', 'content','page') )        
+        
         context = {
             # memo의 id도 필요할까?
             # memo 자체에 접근하려면 필요한데 삭제 말고 접근할 일이 없으니 일단 두기
             'page': new_memo.page,
             'content': new_memo.content,
+            #'userbook': {
+            #'title':userbook.bookid.title,
+            #'author':userbook.bookid.author.name,
+            #}, 
+            #'memos': memo_data,
         }
 
         # return redirect('bookself/show.html')
         return JsonResponse(context)
+
     elif request.method=='GET':
         userbook=UserBook.objects.get(id=id)
         memos=Memo.objects.filter(book=userbook)
