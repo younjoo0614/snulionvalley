@@ -425,9 +425,9 @@ input.search_bt:hover {
   animation-fill-mode: both, both; }
 
 .newbook-btn {
-  position: absolute;
-  top: 70%;
-  right: 10%;
+  position: fixed;
+  bottom: 5%;
+  right: 5%;
   display: flex;
   align-items: center;
   justify-content: center; }
@@ -492,14 +492,12 @@ button.friendlist_btn {
 
 .myshelf {
   z-index: 5;
-  padding-top: 30px;
   padding-bottom: 150px;
   width: 70%;
   height: 800px;
   display: block;
-  left: 50%;
-  top: 50%;
-  margin: 0px auto; }
+  margin: 0px auto;
+  position: relative; }
 
 .shelf {
   display: flex;
@@ -554,7 +552,7 @@ button.friendlist_btn {
 .myshelf5 {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 80%;
   height: 120%;
   margin: 0 auto; }
 
@@ -562,29 +560,37 @@ button.friendlist_btn {
   display: flex; }
 
 .book-1 {
-  background-color: #3F7373; }
+  background: linear-gradient(to right, #3F7373, #588988, #3F7373);
+  -webkit-fill-color: transparent;
+  border-radius: 5px 5px 0 0; }
 
 .book-2 {
-  background-color: #89BEBF; }
+  background-color: #89BEBF;
+  border-radius: 10px 10px 0 0; }
 
 .book-3 {
-  background-color: #F28F78; }
+  background-color: #F28F78;
+  background: linear-gradient(to right, #F28F78, #eb7863, #F28F78);
+  -webkit-fill-color: transparent;
+  border-radius: 8px 8px 0 0; }
 
 .book-4 {
-  background-color: #F0C1B5; }
+  background-color: #F0C1B5;
+  border-radius: 15px 15px 0 0; }
 
 .book-5 {
-  background-color: #F2F2F2; }
+  background: linear-gradient(to right, #D6D6D6, #f2f2f2, #D6D6D6);
+  -webkit-fill-color: transparent;
+  border-radius: 5px 5px 0 0; }
 
 .achievement {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
   width: 100%;
-  margin: 0px auto;
-  left: 50%;
-  top: 50%;
+  top: -120px;
   border-radius: 20px;
   font-family: 'Noto Sans KR', sans-serif;
   font-weight: 300; }
