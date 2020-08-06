@@ -28,7 +28,7 @@ urlpatterns = [
     #path('accounts/', include('django.contrib.auth.urls'))
     path('accounts/signup/', accounts.views.signup, name='account_signup'),
     path('accounts/result/', accounts.views.result, name='search_friend'),
-    path('accounts/result/<int:fid>/follow', accounts.views.follow_manager,name='follow_manager'),
+    path('accounts/result/<int:fid>/follow/', accounts.views.follow_manager,name='follow_manager'),
     path('accounts/', include('allauth.urls')), 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

@@ -121,7 +121,7 @@ button.newbook {
   position: relative;
   top: 200px; }
 
-.friend-list > p {
+.friend-list > p, button {
   display: inline; }
 
 .myshelf {
@@ -205,5 +205,17 @@ button.newbook {
   left: 0px;
   background-color: blue;
   height: 50px; }
+
+.recommand {
+  position: relative;
+  top: 100px; }
+
+.search {
+  position: relative;
+  top: 100px; }
+
+.friendlist {
+  position: relative;
+  top: 100px; }
 
 /*# sourceMappingURL=style.css.map */

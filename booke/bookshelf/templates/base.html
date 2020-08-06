@@ -20,13 +20,12 @@
             {% comment %} <a href="{% url 'logout'%}?next={{request.path}}">로그아웃</a> {% endcomment %}
             <br>
             <a href="#logoutModal" data-toggle="modal">로그아웃</a>
-
-            <div class="search">
+            {% comment %} <div class="search">
               <form action="{% url 'search_friend' %}" method="GET">
                 <input onkeyup="filter()" type="text" name="friend-value" id="friend-value">
                 <input type="submit" value="검색">
               </form>
-            </div>
+            </div> {% endcomment %}
         {% else %}
             <a href="#signupModal" data-toggle="modal">회원가입</a> 
             <a href="#loginModal" data-toggle="modal">로그인</a>
@@ -35,7 +34,7 @@
     </div>
     {% if user.is_authenticated %}
     <nav>
-      <div>
+      <div class="recommand">
         <button><a href="bookshelf/recommned/">책 추천</a></button>
       </div>
       <div class="search">
@@ -47,23 +46,24 @@
           {% for f in f_result %}
             <div class="fr">
               <p class="frn">{{f.nickname}}</p>
-              <a href="{{f.id}}/follow" class="follow-btn">팔로우</a>
+              <a href="/accounts/result/{{f.id}}/follow/" class="follow-btn">팔로우</a>
             </div>
           {% empty %}
             검색결과가 없습니다.
           {% endfor %}
         </div>
       </div>
-      <div>
-        {% for friend in follows %} 
-          <div class="friend-list" style="display: none;"> 
-            <p>{{friend.nickname}}</p>
+      <div class="friendlist">
+        {% for friend in follows %}
+          <div class="friend-list" style=> 
+            <p>{{friend.profile.nickname}}</p>
+            {% comment %} <p>{{profile.get(id=friend.id).nickname}}<p> {% endcomment %}
             <button class="to-friend-btn"> 놀러가기 </button>
             <button class="unfollow-btn"> 언팔 </button>
             {% csrf_token %}
           </div>
         {% endfor %}
-      <button class ="more-friendlist-btn">친구목록 펼치기</button>
+      <a class ="more-friendlist-btn">친구목록 펼치기</button>
         </div>
     </nav>
     {% endif %}
