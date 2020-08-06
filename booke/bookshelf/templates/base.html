@@ -56,9 +56,9 @@
 
       <div class="friendlist">
         {% for friend in follows %}
-          <div id="friend_list" class="friend_list" style="display: none;">  
+          <div id="friend_list" class="friend_list" style="display: show;">  
             <div data-id= "{{friend.id}}"> {{friend.nickname}} </div>
-            <button class="to-friend-btn"> 놀러가기 </button>
+            <button class="to-friend-btn"> <a href="/bookshelf/friends/{{friend.id}}">놀러가기 </a></button>
             <button class="unfollow-btn"> 언팔 </button>
             {% comment %} {% csrf_token %} {% endcomment %}
           </div>

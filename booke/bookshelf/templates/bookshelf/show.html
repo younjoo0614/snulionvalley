@@ -12,16 +12,16 @@
                     <div id='info-div'></div>
                     <div id='memo-div'></div>
                     
-                    {% for memo in userbook.memo_set.all %}
+                    {% comment %} {% for memo in userbook.memo_set.all %}
 
                     <div class="form-group">                                           
                         지난 감상: {{ memo.page}},{{ memo.created_at }}<br/>
                         {{ memo.content }}
                     </div>
 
-                    {% endfor %}
-                    <div id='info-div'></div>
-                    <div id='memo-div'></div>
+                    {% endfor %} {% endcomment %}
+                    {% comment %} <div id='info-div'></div>
+                    <div id='memo-div'></div> {% endcomment %}
 
                     <div class="form-group">                                           
                         <label for="review" class="col-form-label">감상</label>

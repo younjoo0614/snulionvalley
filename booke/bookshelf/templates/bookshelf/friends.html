@@ -1,0 +1,223 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% load static %}
+    
+<div class = "first-page">    
+    <div class = "temp"> 
+                <div class = "achievement">
+                    <div class = "aboutpages"> 지금까지: {{friend.already}}쪽 </div>
+                    <div class = "totalpc">
+                        <div class = "achievepc" style="width: calc(500px * {{friend.already}} / {{friend.goal}})"></div>
+                    </div>
+                    <div class = "aboutpages"> 목표독서량: {{friend.goal}}쪽 </div>
+                </div>
+
+                <div class = "myshelf">
+                    {% if friend.goal == 2000 %} 
+                        <div class = "myshelf1">
+                            <div class = "shelf">
+                                    {% for userbook in ub1 %}
+                                        <a class="showfriendmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000);"> 
+                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center;"> 
+                                                <div style = "writing-mode: vertical-lr;">
+                                                    {{userbook.bookid.title}} 
+                                                </div>
+                                            </div>
+                                        </a>
+                                    {%endfor%}
+                            </div>
+                        </div>
+                    {% elif friend.goal == 4000 %}
+                        <div class = "myshelf2">
+                            <div class = "shelf">
+                                    {% for userbook in ub1 %}
+                                        <a class="showfriendmodal" href="#showFriendModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000);"> 
+                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center;"> 
+                                                <div style = "writing-mode: vertical-lr;">
+                                                    {{userbook.bookid.title}} 
+                                                </div>
+                                            </div>
+                                        </a>
+                                    {%endfor%}  
+                            </div>       
+                            <div class = "shelf">
+                                    {% for userbook in ub2 %}
+                                        <a class="showfriendmodal" href="#showFriendModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000);"> 
+                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center;"> 
+                                                <div style = "writing-mode: vertical-lr;">
+                                                    {{userbook.bookid.title}} 
+                                                </div>
+                                            </div>
+                                        </a>
+                                    {%endfor%}
+                            </div>
+                        </div>
+                    {% elif friend.goal == 6000 %}
+                        <div class = "myshelf3">
+                                <div class ="shelf">
+                                    {% for userbook in ub1 %}
+                                        <a class="showfriendmodal" href="#showFriendModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000);"> 
+                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center;"> 
+                                                <div style = "writing-mode: vertical-lr;">
+                                                    {{userbook.bookid.title}} 
+                                                </div>
+                                            </div>
+                                        </a>
+                                    {%endfor%}
+                                </div>
+                                <div class="shelf">
+                                    {% for userbook in ub2 %}                                       
+                                        <a class="showfriendmodal" href="#showFriendModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000);"> 
+                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center;"> 
+                                                <div style = "writing-mode: vertical-lr;">
+                                                    {{userbook.bookid.title}} 
+                                                </div>
+                                            </div>
+                                        </a>
+                                    {% endfor %}
+                                </div>
+                                <div class="shelf">
+                                    {% for userbook in ub3 %}                                       
+                                        <a class="showfriendmodal" href="#showFriendModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000);"> 
+                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center;"> 
+                                                <div style = "writing-mode: vertical-lr;">
+                                                    {{userbook.bookid.title}} 
+                                                </div>
+                                            </div>
+                                        </a>
+                                    {% endfor %}
+                                </div>
+                        </div>
+                    {% elif friend.goal == 8000 %}
+                        <div class = "myshelf4">
+                                <div class="shelf">
+                                    {% for userbook in ub1 %}
+                                        <a class="showfriendmodal" href="#showFriendModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000);"> 
+                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center;"> 
+                                                <div style = "writing-mode: vertical-lr;">
+                                                    {{userbook.bookid.title}} 
+                                                </div>
+                                            </div>
+                                        </a>
+                                    {%endfor%}
+                                </div>
+                                <div class="shelf">
+                                    {% for userbook in ub2 %}                                       
+                                        <a class="showfriendmodal" href="#showFriendModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000);"> 
+                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center;"> 
+                                                <div style = "writing-mode: vertical-lr;">
+                                                    {{userbook.bookid.title}} 
+                                                </div>
+                                            </div>
+                                        </a>
+                                    {% endfor %}
+                                </div>
+                                <div class="shelf">
+                                    {% for userbook in ub3 %}                                       
+                                        <a class="showfriendmodal" href="#showFriendModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000);"> 
+                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center;"> 
+                                                <div style = "writing-mode: vertical-lr;">
+                                                    {{userbook.bookid.title}} 
+                                                </div>
+                                            </div>
+                                        </a>
+                                    {% endfor %}
+                                </div>
+                                <div class="shelf">
+                                    {% for userbook in ub4 %}                                       
+                                        <a class="showfriendmodal" href="#showFriendModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000);"> 
+                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center;"> 
+                                                <div style = "writing-mode: vertical-lr;">
+                                                    {{userbook.bookid.title}} 
+                                                </div>
+                                            </div>
+                                        </a>
+                                    {% endfor %}
+                                </div>      
+                        </div>
+                    {% elif friend.goal == 10000 %}
+                        <div class = "myshelf5">
+                                <div class="shelf">
+                                    {% for userbook in ub1 %}
+                                        <a class="showfriendmodal" href="#showFriendModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000);"> 
+                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center;"> 
+                                                <div style = "writing-mode: vertical-lr;">
+                                                    {{userbook.bookid.title}} 
+                                                </div>
+                                            </div>
+                                        </a>
+                                    {%endfor%}
+                                </div>
+                                <div class="shelf">
+                                    {% for userbook in ub2 %}                                       
+                                        <a class="showfriendmodal" href="#showFriendModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000);"> 
+                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center;"> 
+                                                <div style = "writing-mode: vertical-lr;">
+                                                    {{userbook.bookid.title}} 
+                                                </div>
+                                            </div>
+                                        </a>
+                                    {% endfor %}
+                                </div>
+                                <div class="shelf">
+                                    {% for userbook in ub3 %}                                       
+                                        <a class="showfriendmodal" href="#showFriendModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000);"> 
+                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center;"> 
+                                                <div style = "writing-mode: vertical-lr;">
+                                                    {{userbook.bookid.title}} 
+                                                </div>
+                                            </div>
+                                        </a>
+                                    {% endfor %}
+                                </div>
+                                <div class="shelf">
+                                    {% for userbook in ub4 %}                                       
+                                        <a class="showfriendmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000);"> 
+                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center;"> 
+                                                <div style = "writing-mode: vertical-lr;">
+                                                    {{userbook.bookid.title}} 
+                                                </div>
+                                            </div>
+                                        </a>
+                                    {% endfor %}
+                                </div>
+                                <div class="shelf">
+                                    {% for userbook in ub5 %}                                       
+                                        <a class="showfriendmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000);"> 
+                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center;"> 
+                                                <div style = "writing-mode: vertical-lr;">
+                                                    {{userbook.bookid.title}} 
+                                                </div>
+                                            </div>
+                                        </a>
+                                    {% endfor %}
+                                </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class = "newbook-btn">        
+                    <button type="button" class="newbook">
+                                <a href="/">돌아가기</a>
+                    </button>        
+                </div>
+                
+    </div>
+
+    <div class = "friendslist-btn">
+        {% if user.is_authenticated %}
+            {% for friend in follows %} <!--마지막 댓글의 경우-->
+                <div class="friend-list" style="display: none;"> <!--나머지 댓글의 경우 toggle-comment라는 클래스를 적용하고 보이지 않게 설정합니다-->
+                    <p>{{friend.nickname}}</p>
+                    <button class="more-friendlist-btn"> Friend list </button>
+                    {% csrf_token %}
+                </div> 
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
+{% include 'bookshelf/showfriend.html'%}  
+
+{% endblock content %}

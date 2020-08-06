@@ -45,7 +45,6 @@ $("#login-form").submit((event) => {
   });
 });
 
-
 $("#book-create").submit((event) => {
   event.preventDefault();
   var colors = document.getElementsByName("color");
@@ -124,9 +123,11 @@ $(".showmodal").click((e) => {
 
       const memoTemplate = memos
         // .map((memo) => `<div>${memo.page} ${memo.content}</div>`)
-        .map((memo) => `<div>${memo.content}  (p.${memo.page})</div>
+        .map(
+          (memo) => `<div>${memo.content}  (p.${memo.page})</div>
         <button type="submit" id= "delete-memo" class="btn btn-primary" data-id="" data-csrfmiddlewaretoken="{{ csrf_token }}">삭제하기</button>
-        `)
+        `
+        )
         .join("");
       const submit_btn = document.getElementById("submit-memo");
       submit_btn.dataset.id = `${id}`;
@@ -184,5 +185,47 @@ $(document).ready(() => {
       $(this).text("MORE COMMENTS");
       $(this).parent().find(".toggle-comment").not(".last-comment").hide();
     }
+  });
+});
+
+$(".showfriendmodal").click((e) => {
+  e.preventDefault();
+  const $this = $(e.currentTarget);
+  const id = $this.data("id");
+  const csrfmiddlewaretoken = $this.data("csrfmiddlewaretoken");
+
+  $.ajax({
+    type: "GET",
+    url: `/bookshelf/${id}`,
+    data: {
+      id: id,
+      csrfmiddlewaretoken: csrfmiddlewaretoken,
+    },
+    dataType: "json",
+    success(res) {
+      console.log(res);
+      const userbook = res.userbook;
+      const memos = res.memos;
+      let info_div_friend = document.getElementById("info-div-friend");
+      let memo_div_friend = document.getElementById("memo-div-friend");
+
+      info_div_friend.innerHTML = `<p>책 제목 : ${userbook.title}</p>
+            <p>작가 : ${userbook.author}</p>
+            <p>메모:</p>`;
+
+      const memoTemplate = memos
+        // .map((memo) => `<div>${memo.page} ${memo.content}</div>`)
+        .map(
+          (memo) => `<div>${memo.content}  (p.${memo.page})</div>
+        `
+        )
+        .join("");
+      memo_div_friend.innerHTML = memoTemplate;
+
+      // document.getElementById("submit-memo").setAttribute("data-id", `${id}`);
+    },
+    error(response, status, error) {
+      console.log(response, status, error);
+    },
   });
 });

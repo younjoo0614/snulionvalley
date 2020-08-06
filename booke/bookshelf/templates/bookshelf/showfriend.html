@@ -1,0 +1,19 @@
+<div class="modal fade" id="showFriendModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createModalLabel">상세정보</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+                <form id='memo-create-friend' data-csrfmiddlewaretoken="{{ csrf_token }}"> 
+                    <div id='info-div-friend'></div>
+                    <div id='memo-div-friend'></div>
+                
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
