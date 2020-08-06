@@ -207,3 +207,13 @@ def delete_memo(request,id,mid):
     m=Memo.objects.get(id=mid)
     m.delete()    
     return redirect('bookshelf/show.html')
+
+def friends_shelf(request,id):
+    member=user.profile(id=id)
+    books=UserBook.objects.filter(userid=member)
+    authors=Author.objects.all()
+    # follow도 index get일 때 같이 처리
+    follows=Follow.objects.filter(followed_by=request.user.profile)
+    id_list=[person.id for person in follows]
+    follow_list=Profile.objects.filter(id__in=id_list)
+    res_follows=list(follow_list.values('nickname','id'))

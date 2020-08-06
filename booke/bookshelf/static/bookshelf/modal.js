@@ -123,13 +123,15 @@ $(".showmodal").click((e) => {
 
       const memoTemplate = memos
         // .map((memo) => `<div>${memo.page} ${memo.content}</div>`)
-        .map((memo) => `<div>${memo.content}  (p.${memo.page})</div>`)
+        .map((memo) => `<div>${memo.content}  (p.${memo.page})</div>
+        <button type="submit" id= "delete-memo" class="btn btn-primary" data-id="" data-csrfmiddlewaretoken="{{ csrf_token }}">삭제하기</button>
+        `)
         .join("");
       const submit_btn = document.getElementById("submit-memo");
       submit_btn.dataset.id = `${id}`;
       memo_div.innerHTML = memoTemplate;
 
-      document.getElementById("submit-memo").setAttribute("data-id", `${id}`);
+      // document.getElementById("submit-memo").setAttribute("data-id", `${id}`);
     },
     error(response, status, error) {
       console.log(response, status, error);
