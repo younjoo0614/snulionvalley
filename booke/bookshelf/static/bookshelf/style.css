@@ -79,11 +79,18 @@ body {
   vertical-align: middle; }
 
 .back_img {
-  width: 100%; }
+  width: 100%;
+  position: absolute;
+  z-index: 0; }
+
+.back_img1 {
+  width: 100%;
+  z-index: 1;
+  position: relative; }
 
 .newbook-btn {
-  position: absolute;
-  top: 670px;
+  position: fixed;
+  bottom: 5%;
   right: 5%;
   background-color: none; }
 
@@ -114,6 +121,13 @@ button.newbook {
 .friend-list > p {
   display: inline; }
 
+.myshelf {
+  padding-top: 30px;
+  padding-bottom: 150px;
+  width: 100%;
+  display: block;
+  height: 1000px; }
+
 .shelf {
   display: flex;
   width: 100%;
@@ -125,28 +139,28 @@ button.newbook {
 .myshelf1 {
   display: flex;
   flex-direction: column;
-  width: 70%;
+  width: 80%;
   height: 20%;
   margin: 0 auto; }
 
 .myshelf2 {
   display: flex;
   flex-direction: column;
-  width: 70%;
+  width: 80%;
   height: 40%;
   margin: 0 auto; }
 
 .myshelf3 {
   display: flex;
   flex-direction: column;
-  width: 70%;
+  width: 80%;
   height: 60%;
   margin: 0 auto; }
 
 .myshelf4 {
   display: flex;
   flex-direction: column;
-  width: 70%;
+  width: 80%;
   height: 100%;
   margin: 0 auto; }
 
@@ -176,11 +190,14 @@ button.newbook {
   background-color: #F2F2F2; }
 
 .achievement {
-  display: block;
+  text-align: center;
   margin: 0px auto; }
 
+.aboutpages {
+  display: inline-block; }
+
 .totalpc {
-  display: block;
+  display: inline-block;
   margin: 0px auto;
   width: 500px;
   background-color: pink;
@@ -190,5 +207,9 @@ button.newbook {
   left: 0px;
   background-color: blue;
   height: 50px; }
+
+.booktitle {
+  font-size: 5px;
+  text-align: center; }
 
 /*# sourceMappingURL=style.css.map */

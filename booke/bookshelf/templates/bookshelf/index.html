@@ -1,5 +1,52 @@
 {% extends 'base.html' %}
 {% load static %}
+<script>
+    let pagenow=0;
+    for (let i = 0; i<userbook_list.length; i++){
+        pagenow+=userbook_list[i].whole_page;
+        if (pagenow<=2000){
+            let shelf=document.getElementById('shelf1');
+            shelf.innerHTML = "<p>아아</p>";
+            {% comment %} `<a class="showmodal" href="#showModal" data-toggle="modal" data-id=${userbook.id}}>
+                                    <div class="book-${userbook.color}" id ="${userbook.id}" style = "height: 80%; width: calc(${userbook.whole_page} / 2000 * 100)%; vertical-align: middle; writing-mode: vertical-rl"> 
+                                        ${userbook.bookid.title}
+                                    </div>
+                                </a>`  {% endcomment %}
+        }
+        else if (pagenow<=4000) {
+            let shelf=document.getElementById('shelf2');
+            shelf.innerHTML =  `<a class="showmodal" href="#showModal" data-toggle="modal" data-id=${userbook.id}}> 
+                                    <div class="book-${userbook.color}" id ="${userbook.id}" style = "height: 80%; width: calc(${userbook.whole_page} / 2000 * 100)%; vertical-align: middle; writing-mode: vertical-rl"> 
+                                        ${userbook.bookid.title}
+                                    </div>
+                                </a>` 
+        }
+        else if (pagenow<=6000) {
+            let shelf=document.getElementById('shelf3');
+            shelf.innerHTML =  `<a class="showmodal" href="#showModal" data-toggle="modal" data-id=${userbook.id}> 
+                                    <div class="book-${userbook.color}" id ="${userbook.id}" style = "height: 80%; width: calc(${userbook.whole_page} / 2000 * 100)%; vertical-align: middle; writing-mode: vertical-rl"> 
+                                        ${userbook.bookid.title}
+                                    </div>
+                                </a>` 
+        }
+        else if (pagenow<=8000) {
+            let shelf=document.getElementById('shelf4');
+            shelf.innerHTML =  `<a class="showmodal" href="#showModal" data-toggle="modal" data-id=${userbook.id}> 
+                                    <div class="book-${userbook.color}" id ="${userbook.id}" style = "height: 80%; width: calc(${userbook.whole_page} / 2000 * 100)%; vertical-align: middle; writing-mode: vertical-rl"> 
+                                        ${userbook.bookid.title}
+                                    </div>
+                                </a>` 
+        }
+        else {
+            let shelf=document.getElementById('shelf5');
+            shelf.innerHTML =  `<a class="showmodal" href="#showModal" data-toggle="modal" data-id=${userbook.id}> 
+                                    <div class="book-${userbook.color}" id ="${userbook.id}" style = "height: 80%; width: calc(${userbook.whole_page} / 2000 * 100)%; vertical-align: middle; writing-mode: vertical-rl"> 
+                                        ${userbook.bookid.title}
+                                    </div>
+                                </a>` 
+        }
+    }
+</script>
 
 {% block content %}
 {% load static %}
@@ -9,22 +56,21 @@
             {% if user.is_authenticated %}
             
                 <div class = "achievement">
-                    <div> 지금까지: {{user.profile.already}}쪽 </div>
+                    <div class = "aboutpages"> 지금까지: {{user.profile.already}}쪽 </div>
                     <div class = "totalpc">
                         <div class = "achievepc" style="width: calc(500px * {{user.profile.already}} / {{user.profile.goal}}"></div>
                     </div>
-                    <div> 목표독서량: {{user.profile.goal}}쪽 </div>
+                    <div class = "aboutpages"> 목표독서량: {{user.profile.goal}}쪽 </div>
                 </div>
 
-                {% for already in profile %}
                 <div class = "myshelf">
                     {% if user.profile.goal == 1000 %} 
                         <div class = "myshelf1">
                             <div class="shelf">
                                 {% for userbook in books %}
                                     <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }}> 
-                                        <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = " margin: 10px; height: 50px; width: calc({{userbook.whole_page}} / {{user.profile.goal}} * 80%) "> 
-                                            {{userbook.bookid.title}} 
+                                        <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = " margin: 10px; height: 50px; width: calc({{userbook.whole_page}} / {{user.profile.goal}} * 80)% "> 
+                                            <div class="booktitle"> {{userbook.bookid.title}} </div>
                                         </div>
                                     </a> 
                                 {% endfor %} 
@@ -32,7 +78,7 @@
                         </div>
                     {% elif user.profile.goal == 2000 %}
                         <div class = "myshelf2">
-                            {% if 0 <= {{user.profile.already}} <= 1000 %} 
+                            {% if user.profile.already <= 1000 %} 
                                 <div class="shelf">
                                     {% for userbook in books %}
                                         <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }}> 
@@ -42,7 +88,7 @@
                                         </a> 
                                     {% endfor %} 
                                 </div>
-                            {% elif 1001 <= {{user.profile.already}} %}
+                            {% elif 1001 <= user.profile.already %}
                                 <div class="shelf">
                                     {% for userbook in books %}
                                         <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }}> 
@@ -56,7 +102,7 @@
                         </div>
                     {% elif user.profile.goal == 3000 %}
                         <div class = "myshelf3">
-                            {% if 0 <= {{user.profile.already}} <= 1000 %}
+                            {% if user.profile.already <= 1000 %}
                                 <div class="shelf">
                                     {% for userbook in books %}
                                         <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }}> 
@@ -66,7 +112,7 @@
                                         </a> 
                                     {% endfor %} 
                                 </div>
-                            {% elif 1001 <= {{user.profile.already}} <= 2000 %}
+                            {% elif 1001 <= user.profile.already <= 2000 %}
                                 <div class="shelf">
                                     {% for userbook in books %}
                                         <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }}> 
@@ -76,7 +122,7 @@
                                         </a> 
                                     {% endfor %} 
                                 </div>
-                            {% elif 2001 <= {{user.profile.already}} <= 3000 %}
+                            {% elif 2001 <= user.profile.already <= 3000 %}
                                 <div class="shelf">
                                     {% for userbook in books %}
                                         <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }}> 
@@ -90,110 +136,136 @@
                         </div>
                     {% elif user.profile.goal == 5000 %}
                         <div class = "myshelf4">
-                            {% if 0 <= {{user.profile.already}} <= 1000 %}
                                 <div class="shelf">
                                     {% for userbook in books %}
-                                        <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }}> 
-                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = " margin: 10px; height: 50px; width: calc({{userbook.whole_page}} / {{user.profile.goal}} * 80%) "> 
-                                                {{userbook.bookid.title}} 
-                                            </div>
-                                        </a> 
-                                    {% endfor %}                                
+                                    {% if user.profile.already <= 1000 %}
+                                            <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }}> 
+                                                <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "margin: 10px; height: 50px; width: calc({{userbook.whole_page}} / 1000 * 100)%"> 
+                                                    {{userbook.bookid.title}} 
+                                                </div>
+                                            </a>                              
                                 </div>
-                            {% elif 1001 <= {{user.profile.already}} <= 2000 %}
                                 <div class="shelf">
-                                    {% for userbook in books %}
-                                        <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }}> 
-                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = " margin: 10px; height: 50px; width: calc({{userbook.whole_page}} / {{user.profile.goal}} * 80%) "> 
-                                                {{userbook.bookid.title}} 
-                                            </div>
-                                        </a> 
-                                    {% endfor %}   
+                                    {% elif user.profile.already <= 2000 %}
+                                            {% comment %} {% for userbook in books %} {% endcomment %}
+                                                <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }}> 
+                                                    <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "margin: 10px; height: 50px; width: calc({{userbook.whole_page}} / 1000 * 100)%"> 
+                                                        {{userbook.bookid.title}} 
+                                                    </div>
+                                                </a> 
+                                            {% comment %} {%endfor%}  {% endcomment %}
                                 </div>
-                            {% elif 2001 <= {{user.profile.already}} <= 3000 %}
                                 <div class="shelf">
-                                    {% for userbook in books %}
-                                        <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }}> 
-                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = " margin: 10px; height: 50px; width: calc({{userbook.whole_page}} / {{user.profile.goal}} * 80%) "> 
-                                                {{userbook.bookid.title}} 
-                                            </div>
-                                        </a> 
-                                    {% endfor %}   
+                                    {% elif user.profile.already <= 3000 %}
+                                            {% comment %} {% for userbook in books %} {% endcomment %}
+                                                <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }}> 
+                                                    <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "margin: 10px; height: 50px; width: calc({{userbook.whole_page}} / 1000 * 100)%"> 
+                                                        {{userbook.bookid.title}} 
+                                                    </div>
+                                                </a> 
+                                            {% comment %} {%endfor%}  {% endcomment %}
                                 </div>
-                            {% elif 3001 <= {{user.profile.already}} <= 4000 %}
                                 <div class="shelf">
-                                    {% for userbook in books %}
-                                        <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }}> 
-                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = " margin: 10px; height: 50px; width: calc({{userbook.whole_page}} / {{user.profile.goal}} * 80%) "> 
-                                                {{userbook.bookid.title}} 
-                                            </div>
-                                        </a> 
-                                    {% endfor %}   
+                                    {% elif user.profile.already <= 4000 %}
+                                            {% comment %} {% for userbook in books %} {% endcomment %}
+                                                <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }}> 
+                                                    <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "margin: 10px; height: 50px; width: calc({{userbook.whole_page}} / 1000 * 100)%"> 
+                                                        {{userbook.bookid.title}} 
+                                                    </div>
+                                                </a> 
+                                            {% comment %} {%endfor%}   {% endcomment %}
                                 </div>
-                            {% elif 4001 <= {{user.profile.already}} %}
                                 <div class="shelf">
-                                    {% for userbook in books %}
-                                        <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }}> 
-                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = " margin: 10px; height: 50px; width: calc({{userbook.whole_page}} / {{user.profile.goal}} * 80%) "> 
-                                                {{userbook.bookid.title}} 
-                                            </div>
-                                        </a> 
-                                    {% endfor %}   
+                                    {% elif user.profile.already > 4000 %}
+                                            {% comment %} {% for userbook in books %} {% endcomment %}
+                                                <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }}> 
+                                                    <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "margin: 10px; height: 50px; width: calc({{userbook.whole_page}} / 1000 * 100)%%Z"> 
+                                                        {{userbook.bookid.title}} 
+                                                    </div>
+                                                </a> 
                                 </div>
-                            {%endif%}
+                                    {%endif%} 
+                                {%endfor%}           
                         </div>
                     {% elif user.profile.goal == 10000 %}
                         <div class = "myshelf5">
-                            {% if 0 <= {{user.profile.already}} <= 2000 %}
-                                <div class="shelf">
-                                    {% for userbook in books %}
-                                        <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }}> 
-                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = " margin: 10px; height: 50px; width: calc({{userbook.whole_page}} / {{user.profile.goal}} * 80%) "> 
-                                                {{userbook.bookid.title}} 
-                                            </div>
-                                        </a> 
-                                    {% endfor %}                                
+                            {% if user.profile.already == 0 %}
+                                <div class="shelf"></div>
+                                <div class="shelf"></div>
+                                <div class="shelf"></div>
+                                <div class="shelf"></div>
+                                <div class="shelf"></div>
+                            {% else %}
+                                {% for userbook in books %}
+                                    <div class="shelf" id="shelf1">
+                                                {% comment %} <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }}> 
+                                                    <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 80%; width: calc({{userbook.whole_page}} / 2000 * 100)%; vertical-align: middle"> 
+                                                        {{userbook.bookid.title}} 
+                                                    </div>
+                                                </a>  {% endcomment %}
+                                    </div>
+                                    <div class="shelf" id="shelf2">
+                                        {% comment %} {% if user.profile.already <= 2000 %}
+                                                <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }}> 
+                                                    <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 80%; width: calc({{userbook.whole_page}} / 2000 * 100)%; vertical-align: middle"> 
+                                                        {{userbook.bookid.title}} 
+                                                    </div>
+                                                </a>  {% endcomment %}
+                                    </div>
+                                <div class="shelf" id="shelf3">
+                                    {% comment %} {% if user.profile.already <= 2000 %}
+                                            <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }}> 
+                                                <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 80%; width: calc({{userbook.whole_page}} / 2000 * 100)%; vertical-align: middle"> 
+                                                    {{userbook.bookid.title}} 
+                                                </div>
+                                            </a>  {% endcomment %}
                                 </div>
-                            {% elif 2001 <= {{user.profile.already}} <= 4000 %}
-                                <div class="shelf">
-                                    {% for userbook in books %}
-                                        <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }}> 
-                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = " margin: 10px; height: 50px; width: calc({{userbook.whole_page}} / {{user.profile.goal}} * 80%) "> 
-                                                {{userbook.bookid.title}} 
-                                            </div>
-                                        </a> 
-                                    {% endfor %}   
+                            
+                                <div class="shelf" id="shelf4">
+                                    {% comment %} {% elif user.profile.already <= 4000 %}
+                                        {% for userbook in books %}
+                                            <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }}> 
+                                                <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 80%; width: calc({{userbook.whole_page}} / 2000 * 100)%; vertical-align: middle"> 
+                                                    {{userbook.bookid.title}} 
+                                                </div>
+                                            </a> 
+                                        {% endfor %}    {% endcomment %}
                                 </div>
-                            {% elif 4001 <= {{user.profile.already}} <= 6000 %}
-                                <div class="shelf">
-                                    {% for userbook in books %}
-                                        <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }}> 
-                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = " margin: 10px; height: 50px; width: calc({{userbook.whole_page}} / {{user.profile.goal}} * 80%) "> 
-                                                {{userbook.bookid.title}} 
-                                            </div>
-                                        </a> 
-                                    {% endfor %}   
+                            
+                                <div class="shelf" id="shelf5">
+                                    {% comment %} {% elif user.profile.already <= 6000 %}
+                                        {% for userbook in books %}
+                                            <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }}> 
+                                                <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 80%; width: calc({{userbook.whole_page}} / 2000 * 100)%; vertical-align: middle"> 
+                                                    {{userbook.bookid.title}} 
+                                                </div>
+                                            </a> 
+                                        {% endfor %}  {% endcomment %}
                                 </div>
-                            {% elif 6001 <= {{user.profile.already}} <= 8000 %}
-                                <div class="shelf">
-                                    {% for userbook in books %}
-                                        <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }}> 
-                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = " margin: 10px; height: 50px; width: calc({{userbook.whole_page}} / {{user.profile.goal}} * 80%) "> 
-                                                {{userbook.bookid.title}} 
-                                            </div>
-                                        </a> 
-                                    {% endfor %}   
+                            
+                                {% comment %} <div class="shelf">
+                                    {% elif user.profile.already <= 8000 %}
+                                        {% for userbook in books %}
+                                            <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }}> 
+                                                <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 80%; width: calc({{userbook.whole_page}} / 2000 * 100)%; vertical-align: middle"> 
+                                                    {{userbook.bookid.title}} 
+                                                </div>
+                                            </a> 
+                                        {% endfor %}  
                                 </div>
-                            {% elif 8001 <= {{user.profile.already}} %}
+                            
                                 <div class="shelf">
-                                    {% for userbook in books %}
-                                        <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }}> 
-                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = " margin: 10px; height: 50px; width: calc({{userbook.whole_page}} / {{user.profile.goal}} * 80%) "> 
-                                                {{userbook.bookid.title}} 
-                                            </div>
-                                        </a> 
-                                    {% endfor %}   
+                                    {% elif user.profile.already > 8000 %}
+                                        {% for userbook in books %}
+                                            <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }}> 
+                                                <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 80%; width: calc({{userbook.whole_page}} / 2000 * 100)%; vertical-align: middle"> 
+                                                    {{userbook.bookid.title}} 
+                                                </div>
+                                            </a> 
+                                        {% endfor %}   
                                 </div>
+                                    {%endif%} {% endcomment %}
+                                {%endfor%}
                             {%endif%}
                         </div>
                     {% endif %}

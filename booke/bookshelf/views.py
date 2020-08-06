@@ -109,8 +109,9 @@ def index(request):
         if request.user.is_authenticated:
             member=request.user.profile
             books=UserBook.objects.filter(userid=member)
+            userbook_list=list(books.values('whole_page', 'id'))
             authors=Author.objects.all()
-            return render(request,'bookshelf/index.html',{"books":books,"authors":authors})
+            return render(request,'bookshelf/index.html',{"books":books,"authors":authors, "userbook_list":userbook_list})
         else:
             return render(request,'bookshelf/index.html')
     
@@ -136,17 +137,14 @@ def recommend_book(request):
 
 def show_memo(request,id):
     userbook=UserBook.objects.get(id=id)
-    memos=Memo.objects.filter(book=userbook)
-    memo_list={}
-    for i in memos:
-        memo_list.update({i.id:{'page':i.page,'created_at':i.created_at,'content':i.content}})
+    memo_data=list(Memo.objects.filter(book=userbook).values('id','book','content','page'))
 
     context = {
         'userbook':{
             'title': userbook.bookid.title,
             'author':userbook.bookid.author.name,
         },
-        'memo_list':memo_list,
+        'memos':memo_data,
     }
     
     #context=json.dumps(context,ensure_ascii=False)
