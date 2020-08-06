@@ -3,12 +3,12 @@
 
 {% block content %}
 {% load static %}
+
     
 <div class = "first-page">  
     <div class="back"> 
         <img class="back_img" src="{% static 'bookshelf/back.png' %}"/>
     </div>
-
     <div class = "temp"> 
             {% if user.is_authenticated %}
                 <div class = "achievement">
@@ -202,7 +202,6 @@
                         </div>
                     {% endif %}
                 </div>
-
                 <div class = "newbook-btn">        
                     <button type="button" data-toggle="modal" data-target="#createModal" class="newbook">
                         책 꽂아넣기
@@ -223,7 +222,7 @@
 
     <div class = "friendslist-btn">
         {% if user.is_authenticated %}
-            {% for friend in follows %} <!--마지막 댓글의 경우-->
+            {% for friend in follows %}
                 <div class="friend-list" style="display: none;"> <!--나머지 댓글의 경우 toggle-comment라는 클래스를 적용하고 보이지 않게 설정합니다-->
                     <p>{{friend.nickname}}</p>
                     <button class="more-friendlist-btn"> Friend list </button>
