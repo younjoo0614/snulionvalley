@@ -7,7 +7,6 @@
 <div class = "first-page">    
     <div class = "temp"> 
             {% if user.is_authenticated %}
-            
                 <div class = "achievement">
                     <div class = "aboutpages"> 지금까지: {{user.profile.already}}쪽 </div>
                     <div class = "totalpc">
@@ -198,20 +197,21 @@
                                 </div>
                         </div>
                     {% endif %}
-                    
+                </div>
+
                 <div class = "newbook-btn">        
                     <button type="button" data-toggle="modal" data-target="#createModal" class="newbook">
-                        <img src="{% static 'bookshelf/newbook.png'  %}">
+                        책 꽂아넣기
                     </button>        
                 </div>
                 
             {% else %}
+            
                 <div class="back"> 
                     <img class="back_img" src="{% static 'bookshelf/back.png' %}"/>
                     <img class="back_img1" src="{% static 'bookshelf/logo.png' %}"/>
                 </div>
             {% endif %}
-
     </div>
 
     <div class = "friendslist-btn">
