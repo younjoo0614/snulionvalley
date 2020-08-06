@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 #from django.contrib import auth
 from .models import Author, Book, UserBook, Memo
-from accounts.models import Profile
+from accounts.models import Profile, Follow
 import urllib.request
 from bs4 import BeautifulSoup
 from urllib.parse import quote_plus
@@ -104,12 +104,44 @@ def index(request):
         
         return JsonResponse({"message":"created"},status=201)
 
+
     else:        
         if request.user.is_authenticated:
             member=request.user.profile
             books=UserBook.objects.filter(userid=member)
             authors=Author.objects.all()
-            return render(request,'bookshelf/index.html',{"books":books,"authors":authors})
+            page=0
+            list1=[]
+            list2=[]
+            list3=[]
+            list4=[]
+            list5=[]
+            for bo in books:
+                page+=bo.whole_page
+                if page<=2000:
+                    list1.append(bo.id)
+                elif page<=4000:
+                    list2.append(bo.id)
+                elif page<=6000:
+                    list3.append(bo.id)
+                elif page<=8000:
+                    list4.append(bo.id)
+                else:
+                    list5.append(bo.id)
+            ub1=UserBook.objects.filter(id__in=list1)
+            ub2=UserBook.objects.filter(id__in=list2)
+            ub3=UserBook.objects.filter(id__in=list3)
+            ub4=UserBook.objects.filter(id__in=list4)
+            ub5=UserBook.objects.filter(id__in=list5)
+
+            # follow도 index get일 때 같이 처리
+            follows=Follow.objects.filter(followed_by=request.user.profile)
+            id_list=[person.id for person in follows]
+            follow_list=Profile.objects.filter(id__in=id_list)
+            res_follows=list(follow_list.values('nickname','id'))
+
+            return render(request,'bookshelf/index.html',{"books":books,"authors":authors,"follows":res_follows,"ub1":ub1,"ub2":ub2,"ub3":ub3,"ub4":ub4,"ub5":ub5})
+
         else:
             return render(request,'bookshelf/index.html')
             
@@ -117,16 +149,21 @@ def index(request):
 def create_book(request):
     return render(request,'bookshelf/new.html')
 
-def list_friends(request):
-    
-    follows=list(request.user.profile.follows.values('nickname','id'))
 
-    context = {
-        'follows':follows
-    }
-    print('response')
-    return JsonResponse(context)
-    # return request(request,'index.html',{"follows":follows})
+# def list_friends(request):
+#     follows=Follow.objects.filter(followed_by=request.user.profile)
+#     print(type(follows))
+#     id_list=[person.id for person in follows]
+#     follow_list=Profile.objects.filter(id__in=id_list)
+#     res_follows=list(follow_list.values('nickname','id'))
+
+#     context = {
+#         'follows':res_follows
+#     }
+    
+#     print(context)
+#     return JsonResponse(context)
+
 
 def delete_book(request,id):
     userbook=UserBook.objects.get(id=id)
@@ -142,13 +179,14 @@ def recommend_book(request):
 def show_memo(request,id):
     userbook=UserBook.objects.get(id=id)
     memo_data=list(Memo.objects.filter(book=userbook).values('id','book','content','page'))
-    
+
     context = {
         'userbook': {
             'title':userbook.bookid.title,
             'author':userbook.bookid.author.name,
-        }, 
-        'memos': memo_data,
+        },
+        'memos':memo_data,
+
     }
 
     return JsonResponse(context)
@@ -165,7 +203,7 @@ def create_memo(request,id):
         userbook=UserBook.objects.get(id=id)
         page=request.POST['page']
         content=request.POST['content']
-        new_memo=Memo.objects.create(content=content, page=page,book_id=id )
+        new_memo=Memo.objects.create(content=content, page=page, book_id=id )
         memo_data = list(Memo.objects.filter(book=userbook).values('id', 'book', 'content','page') )        
         
         context = {

@@ -56,10 +56,11 @@
 
       <div class="friendlist">
         {% for friend in follows %}
-          <div id="friend_list" class="friend_list"> 
+          <div id="friend_list" class="friend_list" style="display: none;">  
+            <div data-id= "{{friend.id}}"> {{friend.nickname}} </div>
             <button class="to-friend-btn"> 놀러가기 </button>
             <button class="unfollow-btn"> 언팔 </button>
-            {% csrf_token %}
+            {% comment %} {% csrf_token %} {% endcomment %}
           </div>
         {% endfor %}
         <button class ="friendlist_btn" data-csrfmiddlewaretoken="{{ csrf_token }}">친구목록 펼치기</button>
