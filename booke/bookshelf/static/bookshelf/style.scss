@@ -156,7 +156,27 @@ body {
 .back_img1 {
   width: 100%;
   z-index: 1;
-  position: relative; }
+  position: absolute; }
+
+.back_img1 {
+  width: 100%;
+  z-index: 1;
+  position: absolute; }
+
+.back_img2 {
+  width: 100%;
+  z-index: 2;
+  position: absolute; }
+
+.back_img3 {
+  width: 100%;
+  z-index: 3;
+  position: absolute; }
+
+.back_img4 {
+  width: 100%;
+  z-index: 4;
+  position: absolute; }
 
 // .newbook-btn {
 //   position: fixed;
