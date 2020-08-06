@@ -79,23 +79,6 @@ $("#book-create").submit((event) => {
       console.log(response, status, error);
     },
   });
-  // .then(res => {
-
-  //     var colors = document.getElementsByName('color');
-  //     var color_value;
-  //     for(var i = 0; i < colors.length; i++){
-  //         if(colors[i].checked){
-  //             color_value = colors[i].value;
-  //             // console.log(color_value)
-  //         }
-  //         // return color_value;
-  //     }
-  //     console.log(color_value);
-  //     console.log(`${res.id}`);
-  //     console.log($(`#${res.id}`));
-  //     // document.getElementById(`${res.id}`).classList.add(`btn-${color_value}`);
-  //     $(`#${res.id}`).addClass(`book-${color_value}`);
-  // })
 });
 
 
@@ -200,6 +183,48 @@ $("#delete-book").click((e) => {
         },
     })
 })
+
+$(".showfriendmodal").click((e) => {
+    e.preventDefault();
+    const $this = $(e.currentTarget);
+    const id = $this.data("id");
+    const csrfmiddlewaretoken = $this.data("csrfmiddlewaretoken");
+  
+    $.ajax({
+      type: "GET",
+      url: `/bookshelf/${id}`,
+      data: {
+        id: id,
+        csrfmiddlewaretoken: csrfmiddlewaretoken,
+      },
+      dataType: "json",
+      success(res) {
+        console.log(res);
+        const userbook = res.userbook;
+        const memos = res.memos;
+        let info_div_friend = document.getElementById("info-div-friend");
+        let memo_div_friend = document.getElementById("memo-div-friend");
+  
+        info_div_friend.innerHTML = `<p>책 제목 : ${userbook.title}</p>
+              <p>작가 : ${userbook.author}</p>
+              <p>메모:</p>`;
+  
+        const memoTemplate = memos
+          // .map((memo) => `<div>${memo.page} ${memo.content}</div>`)
+          .map(
+            (memo) => `<div>${memo.content}  (p.${memo.page})</div>
+          `
+          )
+          .join("");
+        memo_div_friend.innerHTML = memoTemplate;
+  
+        // document.getElementById("submit-memo").setAttribute("data-id", `${id}`);
+      },
+      error(response, status, error) {
+        console.log(response, status, error);
+      },
+    });
+  });
 
       
 $(document).ready(() => {

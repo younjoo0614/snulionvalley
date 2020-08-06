@@ -292,19 +292,15 @@ input.search_bt:hover{
   animation-delay:1s, 1s;
   animation-fill-mode: both, both;}
 
-// .newbook-btn {
-//   position: fixed;
-//   bottom: 5%;
-//   right: 5%;
-//   background-color: none; }
 
   .newbook-btn {
-    position: absolute;
-    top: 70%;
-    right: 10%;
+    position: fixed;
+    bottom: 5%;
+    right: 5%;
     display: flex;
     align-items: center;
-    justify-content: center; }
+    justify-content: center;
+   }
 
 .back {
   position: relative;
@@ -441,24 +437,19 @@ button.friendlist_btn{
   display: flex; }
 
 .book-1 {
-  background-color: #3F7373; 
-}
+  background-color: #3F7373; }
 
 .book-2 {
-  background-color: #89BEBF;
-}
+  background-color: #89BEBF; }
 
 .book-3 {
-  background-color: #F28F78;
-}
+  background-color: #F28F78; }
 
 .book-4 {
-  background-color: #F0C1B5;
-}
+  background-color: #F0C1B5; }
 
 .book-5 {
-  background-color: #F2F2F2;
-}
+  background-color: #F2F2F2; }
 
 .achievement {
   display: flex;

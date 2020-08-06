@@ -1,9 +1,10 @@
-{% extends 'base.html' %}
-
-{% block content %}
-
-    {% for book in books %}
-        <li>{{ book.title }}</li>
-    {% endfor %}
-
-{% endblock content %}
+    <ol>
+        {% for book in by_books%}
+            <li><img src={{book.image}}></img> {{ book.title }} {{book.author}}</li>
+        {% endfor %}
+    </ol>
+    <ol>
+        {% for book in by_author %}
+            <li><img src={{ book.image }}></img>{{book.title}} {{book.author}} </li>
+        {% endfor %}
+    </ol>

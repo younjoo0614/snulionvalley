@@ -71,3 +71,26 @@ $(".friendlist_btn").on("click", function (event) {
     $(".friend_list").hide();
   }
 });
+
+$(".to-friend-btn").click((e) => {
+  e.preventDefault();
+  const $this = $(e.currentTarget);
+  const id = $this.data("id");
+  const csrfmiddlewaretoken = $this.data("csrfmiddlewaretoken");
+
+  $.ajax({
+    type: "GET",
+    url: `/friend/${id}`,
+    data: {
+      id: id,
+      csrfmiddlewaretoken: csrfmiddlewaretoken,
+    },
+    dataType: "json",
+    success(res) {
+      console.log(res);
+    },
+    error(response, status, error) {
+      console.log(response, status, error);
+    },
+  });
+});

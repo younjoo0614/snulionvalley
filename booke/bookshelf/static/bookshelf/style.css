@@ -425,9 +425,9 @@ input.search_bt:hover {
   animation-fill-mode: both, both; }
 
 .newbook-btn {
-  position: absolute;
-  top: 70%;
-  right: 10%;
+  position: fixed;
+  bottom: 5%;
+  right: 5%;
   display: flex;
   align-items: center;
   justify-content: center; }
