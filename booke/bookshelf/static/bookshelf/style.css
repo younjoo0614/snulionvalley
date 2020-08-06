@@ -425,9 +425,9 @@ input.search_bt:hover {
   animation-fill-mode: both, both; }
 
 .newbook-btn {
-  position: absolute;
-  top: 70%;
-  right: 10%;
+  position: fixed;
+  bottom: 5%;
+  right: 5%;
   display: flex;
   align-items: center;
   justify-content: center; }
@@ -492,21 +492,21 @@ button.friendlist_btn {
 
 .myshelf {
   z-index: 5;
-  padding-top: 30px;
-  padding-bottom: 150px;
   width: 70%;
   height: 800px;
   display: block;
-  left: 50%;
-  top: 50%;
-  margin: 0px auto; }
+  margin: 0px auto;
+  position: relative; }
 
 .shelf {
   display: flex;
   width: 100%;
-  height: 100%;
+  height: 200px;
   background-color: #DDDDDD;
-  border: 30px solid #f2f2f2; }
+  border-top: 30px solid #f2f2f2;
+  border-right: 30px solid #f2f2f2;
+  border-bottom: 10px solid #f2f2f2;
+  border-left: 30px solid #f2f2f2; }
 
 .shelf a {
   text-decoration: none;
@@ -526,36 +526,36 @@ button.friendlist_btn {
 .myshelf1 {
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 50%;
   height: 20%;
   margin: 0 auto; }
 
 .myshelf2 {
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 50%;
   height: 40%;
   margin: 0 auto; }
 
 .myshelf3 {
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 50%;
   height: 60%;
   margin: 0 auto; }
 
 .myshelf4 {
   display: flex;
   flex-direction: column;
-  width: 80%;
-  height: 100%;
+  width: 50%;
+  height: 80%;
   margin: 0 auto; }
 
 .myshelf5 {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: 120%;
+  width: 50%;
+  height: 100%;
   margin: 0 auto; }
 
 .fr {
@@ -577,14 +577,13 @@ button.friendlist_btn {
   background-color: #F2F2F2; }
 
 .achievement {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
   width: 100%;
-  margin: 0px auto;
-  left: 50%;
-  top: 50%;
+  top: -120px;
   border-radius: 20px;
   font-family: 'Noto Sans KR', sans-serif;
   font-weight: 300; }

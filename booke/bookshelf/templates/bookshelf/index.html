@@ -24,11 +24,13 @@
                         <div class = "myshelf1">
                             <div class = "shelf">
                                     {% for userbook in ub1 %}
-                                        <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000); height: 104px;"> 
-                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center; text-align: center; vertical-align:middle;"> 
-                                                <div style = "writing-mode: vertical-lr; text-orientation: upright; letter-spacing: 0em; word-spacing: -1em;">
+                                        <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000); height: 125px;"> 
+                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center; text-align: center; vertical-align:middle; flex-direction: column"> 
+                                                <div style = "display: absolute;  width: 15px; height: 3px; background-color: white; margin-top: 10px; margin-bottom: 3px;"> </div>
+                                                <div style = "writing-mode: vertical-lr; text-orientation: upright; letter-spacing: 0em; word-spacing: -0.5em; word-break: keep-all;">
                                                     {{userbook.bookid.title}} 
                                                 </div>
+                                                <div style = "display: absolute; margin-bottom: 10px; margin-top: 3px; width: 15px; height: 3px; background-color: white;"> </div>
                                             </div>
                                         </a>
                                     {%endfor%}
@@ -38,22 +40,26 @@
                         <div class = "myshelf2">
                             <div class = "shelf">
                                     {% for userbook in ub1 %}
-                                        <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000); height: 104px;"> 
-                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center; text-align: center; vertical-align:middle;"> 
-                                                <div style = "writing-mode: vertical-lr; text-orientation: upright; letter-spacing: 0em; word-spacing: -1em;">
+                                        <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000); height: 125px;"> 
+                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center; text-align: center; vertical-align:middle; flex-direction: column"> 
+                                                <div style = "display: absolute;  width: 15px; height: 3px; background-color: white; margin-top: 10px; margin-bottom: 3px;"> </div>
+                                                <div style = "writing-mode: vertical-lr; text-orientation: upright; letter-spacing: 0em; word-spacing: -0.5em; word-break: keep-all;">
                                                     {{userbook.bookid.title}} 
                                                 </div>
+                                                <div style = "display: absolute; margin-bottom: 10px; margin-top: 3px; width: 15px; height: 3px; background-color: white;"> </div>
                                             </div>
                                         </a>
                                     {%endfor%}  
                             </div>       
                             <div class = "shelf">
                                     {% for userbook in ub2 %}
-                                        <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000); height: 104px;"> 
-                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center; text-align: center; vertical-align:middle;"> 
-                                                <div style = "writing-mode: vertical-lr; text-orientation: upright; letter-spacing: 0em; word-spacing: -1em;">
+                                        <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000); height: 125px;"> 
+                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center; text-align: center; vertical-align:middle; flex-direction: column"> 
+                                                <div style = "display: absolute;  width: 15px; height: 3px; background-color: white; margin-top: 10px; margin-bottom: 3px;"> </div>
+                                                <div style = "writing-mode: vertical-lr; text-orientation: upright; letter-spacing: 0em; word-spacing: -0.5em; word-break: keep-all;">
                                                     {{userbook.bookid.title}} 
                                                 </div>
+                                                <div style = "display: absolute; margin-bottom: 10px; margin-top: 3px; width: 15px; height: 3px; background-color: white;"> </div>
                                             </div>
                                         </a>
                                     {%endfor%}
@@ -63,33 +69,39 @@
                         <div class = "myshelf3">
                                 <div class ="shelf">
                                     {% for userbook in ub1 %}
-                                        <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000); height: 104px;"> 
-                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center; text-align: center; vertical-align:middle;"> 
-                                                <div style = "writing-mode: vertical-lr; text-orientation: upright; letter-spacing: 0em; word-spacing: -1em;">
+                                        <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000); height: 125px;"> 
+                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center; text-align: center; vertical-align:middle; flex-direction: column"> 
+                                                <div style = "display: absolute;  width: 15px; height: 3px; background-color: white; margin-top: 10px; margin-bottom: 3px;"> </div>
+                                                <div style = "writing-mode: vertical-lr; text-orientation: upright; letter-spacing: 0em; word-spacing: -0.5em; word-break: keep-all;">
                                                     {{userbook.bookid.title}} 
                                                 </div>
+                                                <div style = "display: absolute; margin-bottom: 10px; margin-top: 3px; width: 15px; height: 3px; background-color: white;"> </div>
                                             </div>
                                         </a>
                                     {%endfor%}
                                 </div>
                                 <div class="shelf">
                                     {% for userbook in ub2 %}                                       
-                                        <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000); height: 104px;"> 
-                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center; text-align: center; vertical-align:middle;"> 
-                                                <div style = "writing-mode: vertical-lr; text-orientation: upright; letter-spacing: 0em; word-spacing: -1em;">
+                                        <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000); height: 125px;"> 
+                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center; text-align: center; vertical-align:middle; flex-direction: column"> 
+                                                <div style = "display: absolute;  width: 15px; height: 3px; background-color: white; margin-top: 10px; margin-bottom: 3px;"> </div>
+                                                <div style = "writing-mode: vertical-lr; text-orientation: upright; letter-spacing: 0em; word-spacing: -0.5em; word-break: keep-all;">
                                                     {{userbook.bookid.title}} 
                                                 </div>
+                                                <div style = "display: absolute; margin-bottom: 10px; margin-top: 3px; width: 15px; height: 3px; background-color: white;"> </div>
                                             </div>
                                         </a>
                                     {% endfor %}
                                 </div>
                                 <div class="shelf">
                                     {% for userbook in ub3 %}                                       
-                                        <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000); height: 104px;"> 
-                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center; text-align: center; vertical-align:middle;"> 
-                                                <div style = "writing-mode: vertical-lr; text-orientation: upright; letter-spacing: 0em; word-spacing: -1em;">
+                                        <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000); height: 125px;"> 
+                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center; text-align: center; vertical-align:middle; flex-direction: column"> 
+                                                <div style = "display: absolute;  width: 15px; height: 3px; background-color: white; margin-top: 10px; margin-bottom: 3px;"> </div>
+                                                <div style = "writing-mode: vertical-lr; text-orientation: upright; letter-spacing: 0em; word-spacing: -0.5em; word-break: keep-all;">
                                                     {{userbook.bookid.title}} 
                                                 </div>
+                                                <div style = "display: absolute; margin-bottom: 10px; margin-top: 3px; width: 15px; height: 3px; background-color: white;"> </div>
                                             </div>
                                         </a>
                                     {% endfor %}
@@ -99,44 +111,52 @@
                         <div class = "myshelf4">
                                 <div class="shelf">
                                     {% for userbook in ub1 %}
-                                        <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000); height: 104px;"> 
-                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center; text-align: center; vertical-align:middle;"> 
-                                                <div style = "writing-mode: vertical-lr; text-orientation: upright; letter-spacing: 0em; word-spacing: -1em;">
+                                        <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000); height: 125px;"> 
+                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center; text-align: center; vertical-align:middle; flex-direction: column"> 
+                                                <div style = "display: absolute;  width: 15px; height: 3px; background-color: white; margin-top: 10px; margin-bottom: 3px;"> </div>
+                                                <div style = "writing-mode: vertical-lr; text-orientation: upright; letter-spacing: 0em; word-spacing: -0.5em; word-break: keep-all;">
                                                     {{userbook.bookid.title}} 
                                                 </div>
+                                                <div style = "display: absolute; margin-bottom: 10px; margin-top: 3px; width: 15px; height: 3px; background-color: white;"> </div>
                                             </div>
                                         </a>
                                     {%endfor%}
                                 </div>
                                 <div class="shelf">
                                     {% for userbook in ub2 %}                                       
-                                        <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000); height: 104px;"> 
-                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center; text-align: center; vertical-align:middle;"> 
-                                                <div style = "writing-mode: vertical-lr; text-orientation: upright; letter-spacing: 0em; word-spacing: -1em;">
+                                        <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000); height: 125px;"> 
+                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center; text-align: center; vertical-align:middle; flex-direction: column"> 
+                                                <div style = "display: absolute;  width: 15px; height: 3px; background-color: white; margin-top: 10px; margin-bottom: 3px;"> </div>
+                                                <div style = "writing-mode: vertical-lr; text-orientation: upright; letter-spacing: 0em; word-spacing: -0.5em; word-break: keep-all;">
                                                     {{userbook.bookid.title}} 
                                                 </div>
+                                                <div style = "display: absolute; margin-bottom: 10px; margin-top: 3px; width: 15px; height: 3px; background-color: white;"> </div>
                                             </div>
                                         </a>
                                     {% endfor %}
                                 </div>
                                 <div class="shelf">
                                     {% for userbook in ub3 %}                                       
-                                        <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000); height: 104px;"> 
-                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center; text-align: center; vertical-align:middle;"> 
-                                                <div style = "writing-mode: vertical-lr; text-orientation: upright; letter-spacing: 0em; word-spacing: -1em;">
+                                        <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000); height: 125px;"> 
+                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center; text-align: center; vertical-align:middle; flex-direction: column"> 
+                                                <div style = "display: absolute;  width: 15px; height: 3px; background-color: white; margin-top: 10px; margin-bottom: 3px;"> </div>
+                                                <div style = "writing-mode: vertical-lr; text-orientation: upright; letter-spacing: 0em; word-spacing: -0.5em; word-break: keep-all;">
                                                     {{userbook.bookid.title}} 
                                                 </div>
+                                                <div style = "display: absolute; margin-bottom: 10px; margin-top: 3px; width: 15px; height: 3px; background-color: white;"> </div>
                                             </div>
                                         </a>
                                     {% endfor %}
                                 </div>
                                 <div class="shelf">
                                     {% for userbook in ub4 %}                                       
-                                        <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000); height: 104px;"> 
-                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center; text-align: center; vertical-align:middle;"> 
-                                                <div style = "writing-mode: vertical-lr; text-orientation: upright; letter-spacing: 0em; word-spacing: -1em;">
+                                        <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000); height: 125px;"> 
+                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center; text-align: center; vertical-align:middle; flex-direction: column"> 
+                                                <div style = "display: absolute;  width: 15px; height: 3px; background-color: white; margin-top: 10px; margin-bottom: 3px;"> </div>
+                                                <div style = "writing-mode: vertical-lr; text-orientation: upright; letter-spacing: 0em; word-spacing: -0.5em; word-break: keep-all;">
                                                     {{userbook.bookid.title}} 
                                                 </div>
+                                                <div style = "display: absolute; margin-bottom: 10px; margin-top: 3px; width: 15px; height: 3px; background-color: white;"> </div>
                                             </div>
                                         </a>
                                     {% endfor %}
@@ -146,55 +166,65 @@
                         <div class = "myshelf5">
                                 <div class="shelf">
                                     {% for userbook in ub1 %}
-                                        <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000); height: 104px;"> 
-                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center; text-align: center; vertical-align:middle;"> 
-                                                <div style = "writing-mode: vertical-lr; text-orientation: upright; letter-spacing: 0em; word-spacing: -1em;">
+                                        <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000); height: 125px;"> 
+                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center; text-align: center; vertical-align:middle; flex-direction: column"> 
+                                                <div style = "display: absolute;  width: 15px; height: 3px; background-color: white; margin-top: 10px; margin-bottom: 3px;"> </div>
+                                                <div style = "writing-mode: vertical-lr; text-orientation: upright; letter-spacing: 0em; word-spacing: -0.5em; word-break: keep-all;">
                                                     {{userbook.bookid.title}} 
                                                 </div>
+                                                <div style = "display: absolute; margin-bottom: 10px; margin-top: 3px; width: 15px; height: 3px; background-color: white;"> </div>
                                             </div>
                                         </a>
                                     {%endfor%}
                                 </div>
                                 <div class="shelf">
                                     {% for userbook in ub2 %}                                       
-                                        <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000); height: 104px;"> 
-                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center; text-align: center; vertical-align:middle;"> 
-                                                <div style = "writing-mode: vertical-lr; text-orientation: upright; letter-spacing: 0em; word-spacing: -1em;">
+                                        <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000); height: 125px;"> 
+                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center; text-align: center; vertical-align:middle; flex-direction: column"> 
+                                                <div style = "display: absolute;  width: 15px; height: 3px; background-color: white; margin-top: 10px; margin-bottom: 3px;"> </div>
+                                                <div style = "writing-mode: vertical-lr; text-orientation: upright; letter-spacing: 0em; word-spacing: -0.5em; word-break: keep-all;">
                                                     {{userbook.bookid.title}} 
                                                 </div>
+                                                <div style = "display: absolute; margin-bottom: 10px; margin-top: 3px; width: 15px; height: 3px; background-color: white;"> </div>
                                             </div>
                                         </a>
                                     {% endfor %}
                                 </div>
                                 <div class="shelf">
                                     {% for userbook in ub3 %}                                       
-                                        <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000); height: 104px;"> 
-                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center; text-align: center; vertical-align:middle;"> 
-                                                <div style = "writing-mode: vertical-lr; text-orientation: upright; letter-spacing: 0em; word-spacing: -1em;">
+                                        <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000); height: 125px;"> 
+                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center; text-align: center; vertical-align:middle; flex-direction: column"> 
+                                                <div style = "display: absolute;  width: 15px; height: 3px; background-color: white; margin-top: 10px; margin-bottom: 3px;"> </div>
+                                                <div style = "writing-mode: vertical-lr; text-orientation: upright; letter-spacing: 0em; word-spacing: -0.5em; word-break: keep-all;">
                                                     {{userbook.bookid.title}} 
                                                 </div>
+                                                <div style = "display: absolute; margin-bottom: 10px; margin-top: 3px; width: 15px; height: 3px; background-color: white;"> </div>
                                             </div>
                                         </a>
                                     {% endfor %}
                                 </div>
                                 <div class="shelf">
                                     {% for userbook in ub4 %}                                       
-                                        <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000); height: 104px;"> 
-                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center; text-align: center; vertical-align:middle;"> 
-                                                <div style = "writing-mode: vertical-lr; text-orientation: upright; letter-spacing: 0em; word-spacing: -1em;">
+                                        <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000); height: 125px;"> 
+                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center; text-align: center; vertical-align:middle; flex-direction: column"> 
+                                                <div style = "display: absolute;  width: 15px; height: 3px; background-color: white; margin-top: 10px; margin-bottom: 3px;"> </div>
+                                                <div style = "writing-mode: vertical-lr; text-orientation: upright; letter-spacing: 0em; word-spacing: -0.5em; word-break: keep-all;">
                                                     {{userbook.bookid.title}} 
                                                 </div>
+                                                <div style = "display: absolute; margin-bottom: 10px; margin-top: 3px; width: 15px; height: 3px; background-color: white;"> </div>
                                             </div>
                                         </a>
                                     {% endfor %}
                                 </div>
                                 <div class="shelf">
                                     {% for userbook in ub5 %}                                       
-                                        <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000); height: 104px;"> 
-                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center; text-align: center; vertical-align:middle;"> 
-                                                <div style = "writing-mode: vertical-lr; text-orientation: upright; letter-spacing: 0em; word-spacing: -1em;">
+                                        <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000); height: 125px;"> 
+                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center; text-align: center; vertical-align:middle; flex-direction: column"> 
+                                                <div style = "display: absolute;  width: 15px; height: 3px; background-color: white; margin-top: 10px; margin-bottom: 3px;"> </div>
+                                                <div style = "writing-mode: vertical-lr; text-orientation: upright; letter-spacing: 0em; word-spacing: -0.5em; word-break: keep-all;">
                                                     {{userbook.bookid.title}} 
                                                 </div>
+                                                <div style = "display: absolute; margin-bottom: 10px; margin-top: 3px; width: 15px; height: 3px; background-color: white;"> </div>
                                             </div>
                                         </a>
                                     {% endfor %}

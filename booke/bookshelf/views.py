@@ -114,30 +114,64 @@ def index(request):
             count=0
             list1=[]
             list2=[]
-            list3=[]
-            list4=[]
-            list5=[]
             for bo in books:
                 page+=bo.whole_page
                 if page<=2000:
                     if count==0: list1.append(bo.id)
                     elif count==1: list2.append(bo.id)
-                    elif count==2: list3.append(bo.id)
-                    elif count==3: list4.append(bo.id)
-                    elif count==4: list5.append(bo.id)
                 else:
                     page=bo.whole_page
                     count+=1
                     if count==0: list1.append(bo.id)
                     elif count==1: list2.append(bo.id)
-                    elif count==2: list3.append(bo.id)
-                    elif count==3: list4.append(bo.id)
-                    elif count==4: list5.append(bo.id)
             ub1=UserBook.objects.filter(id__in=list1)
             ub2=UserBook.objects.filter(id__in=list2)
+
+            list3=[]
+            list4=[]
+            for bo in books:
+                page+=bo.whole_page
+                if page<=3000:
+                    if count==0: list3.append(bo.id)
+                    elif count==1: list4.append(bo.id)
+                else:
+                    page=bo.whole_page
+                    count+=1
+                    if count==0: list3.append(bo.id)
+                    elif count==1: list4.append(bo.id)
             ub3=UserBook.objects.filter(id__in=list3)
             ub4=UserBook.objects.filter(id__in=list4)
+
+            list5=[]
+            list6=[]
+            for bo in books:
+                page+=bo.whole_page
+                if page<=4000:
+                    if count==0: list5.append(bo.id)
+                    elif count==1: list6.append(bo.id)
+                else:
+                    page=bo.whole_page
+                    count+=1
+                    if count==0: list5.append(bo.id)
+                    elif count==1: list6.append(bo.id)
             ub5=UserBook.objects.filter(id__in=list5)
+            ub6=UserBook.objects.filter(id__in=list6)
+
+            list7=[]
+            list8=[]
+            for bo in books:
+                page+=bo.whole_page
+                if page<=5000:
+                    if count==0: list7.append(bo.id)
+                    elif count==1: list8.append(bo.id)
+                else:
+                    page=bo.whole_page
+                    count+=1
+                    if count==0: list7.append(bo.id)
+                    elif count==1: list8.append(bo.id)
+            ub7=UserBook.objects.filter(id__in=list7)
+            ub8=UserBook.objects.filter(id__in=list8)
+            
 
             # follow도 index get일 때 같이 처리
             follows=Follow.objects.filter(followed_by=request.user.profile)
@@ -145,7 +179,7 @@ def index(request):
             follow_list=Profile.objects.filter(id__in=id_list)
             res_follows=list(follow_list.values('nickname','id'))
 
-            return render(request,'bookshelf/index.html',{"books":books,"authors":authors,"follows":res_follows,"ub1":ub1,"ub2":ub2,"ub3":ub3,"ub4":ub4,"ub5":ub5})
+            return render(request,'bookshelf/index.html',{"books":books,"authors":authors,"follows":res_follows,"ub1":ub1,"ub2":ub2,"ub3":ub3,"ub4":ub4,"ub5":ub5,"ub6":ub6,"ub7":ub7,"ub8":ub8})
         else:
             return render(request,'bookshelf/index.html')
             
@@ -171,6 +205,9 @@ def create_book(request):
 def delete_book(request,id):
     userbook=UserBook.objects.get(id=id)
     userbook.delete()
+    userp=request.user.profile
+    userp.already-=userbook.whole_page
+    userp.save()
     context={
         'id':userbook.id,
     }
