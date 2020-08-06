@@ -10,7 +10,7 @@ from django.http import JsonResponse
 import os
 import sys
 import json
-#from django.core.serializers import serialize 
+from django.core.serializers import serialize 
 
 # Create your views here.
 
@@ -112,7 +112,6 @@ def index(request):
             authors=Author.objects.all()
             page=0
             count=0
-
             list1=[]
             list2=[]
             list3=[]
@@ -134,7 +133,6 @@ def index(request):
                     elif count==2: list3.append(bo.id)
                     elif count==3: list4.append(bo.id)
                     elif count==4: list5.append(bo.id)
-
             ub1=UserBook.objects.filter(id__in=list1)
             ub2=UserBook.objects.filter(id__in=list2)
             ub3=UserBook.objects.filter(id__in=list3)
