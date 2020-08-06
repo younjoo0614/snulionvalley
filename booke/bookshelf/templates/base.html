@@ -56,13 +56,13 @@
 
       <div class="friendlist">
         {% for friend in follows %}
-          <div class="friend_list" id="friend_list"> 
+          <div id="friend_list" class="friend_list"> 
             <button class="to-friend-btn"> 놀러가기 </button>
             <button class="unfollow-btn"> 언팔 </button>
             {% csrf_token %}
           </div>
         {% endfor %}
-        <button class ="friendlist_btn">친구목록 펼치기</button>
+        <button class ="friendlist_btn" data-csrfmiddlewaretoken="{{ csrf_token }}">친구목록 펼치기</button>
       </div>
 
     </nav>
@@ -78,5 +78,6 @@
   {% include 'account/login.html' %}
   {% include 'account/logout.html' %}
   <script src="{% static 'bookshelf/modal.js' %}"></script>
+  <script src="{% static 'bookshelf/myjs.js' %}"></script>
   </body>
 </html>

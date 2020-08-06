@@ -12,6 +12,10 @@
 //         });
 //         }
 //     )
+    $( document ).ready(function() {
+    });
+
+
 
     $('.friendlist_btn').click((e) => {
         e.preventDefault();
@@ -28,7 +32,8 @@
             success(res) {
                 console.log(res)
                 const follows = res.follows;
-                let friend_list=document.getElementById('friend_list')
+                let friend_list=document.getElementById('friend_list');
+                console.log(friend_list);
                 
                 const friendTemplate=follows.map( profile=> `<div class="friend_list" data-id='${profile.id}'>${profile.nickname}</div>`)
                 
