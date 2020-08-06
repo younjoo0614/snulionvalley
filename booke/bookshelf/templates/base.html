@@ -53,18 +53,19 @@
           {% endfor %}
         </div>
       </div>
+
       <div class="friendlist">
         {% for friend in follows %}
-          <div class="friend-list" style=> 
-            <p>{{friend.profile.nickname}}</p>
-            {% comment %} <p>{{profile.get(id=friend.id).nickname}}<p> {% endcomment %}
+          <div id="friend_list" class="friend_list" style="display: none;">  
+            <div data-id= "{{friend.id}}"> {{friend.nickname}} </div>
             <button class="to-friend-btn"> 놀러가기 </button>
             <button class="unfollow-btn"> 언팔 </button>
-            {% csrf_token %}
+            {% comment %} {% csrf_token %} {% endcomment %}
           </div>
         {% endfor %}
-      <a class ="more-friendlist-btn">친구목록 펼치기</button>
-        </div>
+        <button class ="friendlist_btn" data-csrfmiddlewaretoken="{{ csrf_token }}">친구목록 펼치기</button>
+      </div>
+
     </nav>
     {% endif %}
   </body>
@@ -78,5 +79,6 @@
   {% include 'account/login.html' %}
   {% include 'account/logout.html' %}
   <script src="{% static 'bookshelf/modal.js' %}"></script>
+  <script src="{% static 'bookshelf/myjs.js' %}"></script>
   </body>
 </html>

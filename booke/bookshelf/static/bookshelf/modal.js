@@ -64,7 +64,7 @@ $("#book-create").submit((event) => {
       title: $(`input#title`).val(),
       // author: $(`input#author`).val(),
       // page: $(`input#page`).val(),
-      // author: $(`input#author`).val(),
+      author: $(`input#author`).val(),
       color: color_value,
       csrfmiddlewaretoken: $(event.currentTarget).data("csrfmiddlewaretoken"),
     },
@@ -118,10 +118,12 @@ $(".showmodal").click((e) => {
       let memo_div = document.getElementById("memo-div");
 
       info_div.innerHTML = `<p>책 제목 : ${userbook.title}</p>
-            <p>작가 : ${userbook.author}</p>`;
+            <p>작가 : ${userbook.author}</p>
+            <p>메모:</p>`;
 
       const memoTemplate = memos
-        .map((memo) => `<div>${memo.page} ${memo.content}</div>`)
+        // .map((memo) => `<div>${memo.page} ${memo.content}</div>`)
+        .map((memo) => `<div>${memo.content}  (p.${memo.page})</div>`)
         .join("");
       const submit_btn = document.getElementById("submit-memo");
       submit_btn.dataset.id = `${id}`;
@@ -157,7 +159,9 @@ $("#submit-memo").click((e) => {
       const new_page = res.page;
       const new_content = res.content;
       let memo_div = document.getElementById("memo-div");
-      const newTemp = `<div>페이지: ${new_page}</div><div>메모: ${new_content}</div>`;
+      // const newTemp = `<div>페이지: ${new_page}</div><div>메모: ${new_content}</div>`;
+      const newTemp = `<div>${new_content}  (p.${new_page})</div>`;
+
       memo_div.innerHTML += newTemp;
     },
     error(response, status, error) {
