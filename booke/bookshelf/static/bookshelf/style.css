@@ -124,9 +124,12 @@ button.newbook {
 .myshelf {
   padding-top: 30px;
   padding-bottom: 150px;
-  width: 100%;
+  width: 60%;
   display: block;
-  height: 1000px; }
+  height: 1000px;
+  left: 50%;
+  top: 50%;
+  margin: 0px auto; }
 
 .shelf {
   display: flex;
@@ -191,7 +194,9 @@ button.newbook {
 
 .achievement {
   text-align: center;
-  margin: 0px auto; }
+  margin: 0px auto;
+  left: 50%;
+  top: 50%; }
 
 .aboutpages {
   display: inline-block; }
