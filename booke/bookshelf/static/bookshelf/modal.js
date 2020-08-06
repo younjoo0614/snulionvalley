@@ -22,6 +22,7 @@ $("#signup-form").submit((event) => {
       console.log(response, status, error);
     },
   });
+
 });
 
 $("#login-form").submit((event) => {
@@ -63,7 +64,8 @@ $("#book-create").submit((event) => {
     method: "POST",
     data: {
       title: $(`input#title`).val(),
-
+      // author: $(`input#author`).val(),
+      // page: $(`input#page`).val(),
       author: $(`input#author`).val(),
       color: color_value,
       csrfmiddlewaretoken: $(event.currentTarget).data("csrfmiddlewaretoken"),
@@ -77,7 +79,25 @@ $("#book-create").submit((event) => {
       console.log(response, status, error);
     },
   });
+  // .then(res => {
+
+  //     var colors = document.getElementsByName('color');
+  //     var color_value;
+  //     for(var i = 0; i < colors.length; i++){
+  //         if(colors[i].checked){
+  //             color_value = colors[i].value;
+  //             // console.log(color_value)
+  //         }
+  //         // return color_value;
+  //     }
+  //     console.log(color_value);
+  //     console.log(`${res.id}`);
+  //     console.log($(`#${res.id}`));
+  //     // document.getElementById(`${res.id}`).classList.add(`btn-${color_value}`);
+  //     $(`#${res.id}`).addClass(`book-${color_value}`);
+  // })
 });
+
 
 $(".showmodal").click((e) => {
   e.preventDefault();
@@ -145,7 +165,6 @@ $("#submit-memo").click((e) => {
       let memo_div = document.getElementById("memo-div");
       // const newTemp = `<div>페이지: ${new_page}</div><div>메모: ${new_content}</div>`;
       const newTemp = `<div>${new_content}  (p.${new_page})</div>`;
-
       memo_div.innerHTML += newTemp;
     },
     error(response, status, error) {
@@ -182,6 +201,7 @@ $("#delete-book").click((e) => {
     })
 })
 
+      
 $(document).ready(() => {
   $(".more-comment-btn").on("click", function (event) {
     $(this).toggleClass("showing-comment");

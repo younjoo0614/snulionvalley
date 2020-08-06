@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-#from django.contrib import auth
+from django.contrib import auth
 from django.contrib.auth import login as django_login
 from django.contrib.auth import authenticate as django_authenticate
 from django.http import JsonResponse
@@ -54,11 +54,11 @@ def follow_manager(request, fid):
         f = Follow()
         f.followed_by, f.follow = followed_by, follow
         f.save()
-    return redirect('/bookshelf')
+    return redirect('/bookshelf/')
 
 def result(request):
     fs = Profile.objects.all()
     f = request.GET['friend-value']
     if f:
-        fs = Profile.objects.filter(nickname__startswith=f)
+        fs = Profile.objects.filter(nickname__contains=f)
     return render(request, 'bookshelf/index.html', {'f_result':fs})

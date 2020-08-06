@@ -104,6 +104,7 @@ def index(request):
         
         return JsonResponse({"message":"created"},status=201)
 
+
     else:        
         if request.user.is_authenticated:
             member=request.user.profile
@@ -111,6 +112,7 @@ def index(request):
             authors=Author.objects.all()
             page=0
             count=0
+
             list1=[]
             list2=[]
             list3=[]
@@ -132,15 +134,20 @@ def index(request):
                     elif count==2: list3.append(bo.id)
                     elif count==3: list4.append(bo.id)
                     elif count==4: list5.append(bo.id)
-                    
 
-                
             ub1=UserBook.objects.filter(id__in=list1)
             ub2=UserBook.objects.filter(id__in=list2)
             ub3=UserBook.objects.filter(id__in=list3)
             ub4=UserBook.objects.filter(id__in=list4)
             ub5=UserBook.objects.filter(id__in=list5)
-            return render(request,'bookshelf/index.html',{"books":books,"authors":authors,"ub1":ub1,"ub2":ub2,"ub3":ub3,"ub4":ub4,"ub5":ub5})
+
+            # follow도 index get일 때 같이 처리
+            follows=Follow.objects.filter(followed_by=request.user.profile)
+            id_list=[person.id for person in follows]
+            follow_list=Profile.objects.filter(id__in=id_list)
+            res_follows=list(follow_list.values('nickname','id'))
+
+            return render(request,'bookshelf/index.html',{"books":books,"authors":authors,"follows":res_follows,"ub1":ub1,"ub2":ub2,"ub3":ub3,"ub4":ub4,"ub5":ub5})
         else:
             return render(request,'bookshelf/index.html')
             
@@ -148,17 +155,20 @@ def index(request):
 def create_book(request):
     return render(request,'bookshelf/new.html')
 
-def list_friends(request):
-    follows=Follow.objects.filter(followed_by=request.user.profile)
-    id_list=[person.id for person in folows]
-    follow_list=Profile.objects.filter(id__in=id_list)
-    res_follow=list(follow_list.values('nickname','id'))
+# def list_friends(request):
+#     follows=Follow.objects.filter(followed_by=request.user.profile)
+#     print(type(follows))
+#     id_list=[person.id for person in follows]
+#     follow_list=Profile.objects.filter(id__in=id_list)
+#     res_follows=list(follow_list.values('nickname','id'))
 
-    context={
-        'follows':res_follow
-    }
+#     context = {
+#         'follows':res_follows
+#     }
+    
+#     print(context)
+#     return JsonResponse(context)
 
-    return JsonResponse(context)
 
 def delete_book(request,id):
     userbook=UserBook.objects.get(id=id)
@@ -178,7 +188,7 @@ def recommend_book(request):
 def show_memo(request,id):
     userbook=UserBook.objects.get(id=id)
     memo_data=list(Memo.objects.filter(book=userbook).values('id','book','content','page'))
-    
+
     context = {
         'userbook': {
             'title':userbook.bookid.title,
@@ -186,6 +196,7 @@ def show_memo(request,id):
             'id':userbook.id,
         }, 
         'memos': memo_data,
+
     }
 
     return JsonResponse(context)
@@ -202,7 +213,7 @@ def create_memo(request,id):
         userbook=UserBook.objects.get(id=id)
         page=request.POST['page']
         content=request.POST['content']
-        new_memo=Memo.objects.create(content=content, page=page,book_id=id )
+        new_memo=Memo.objects.create(content=content, page=page, book_id=id )
         memo_data = list(Memo.objects.filter(book=userbook).values('id', 'book', 'content','page') )        
         
         context = {
