@@ -3,7 +3,20 @@
 
 {% block content %}
 {% load static %}
-    
+<script>
+    let pagenow=0;
+    for (let i =0;i< userbook.length;i++){ 
+        pagenow+=userbook[i].page;
+        let str=``;
+        if (pagenow<2000){
+            let sh=document.getElementById('myshelf1')
+            
+        }
+        else if (pagenow<4000) {
+            let shelf=document.getElementById('myshelf2')
+        }
+    }
+</script>
 <div class = "first-page">    
     <div class = "temp"> 
             {% if user.is_authenticated %}

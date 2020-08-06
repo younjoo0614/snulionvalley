@@ -146,14 +146,12 @@ def index(request):
             res_follows=list(follow_list.values('nickname','id'))
 
             return render(request,'bookshelf/index.html',{"books":books,"authors":authors,"follows":res_follows,"ub1":ub1,"ub2":ub2,"ub3":ub3,"ub4":ub4,"ub5":ub5})
-
         else:
             return render(request,'bookshelf/index.html')
             
 
 def create_book(request):
     return render(request,'bookshelf/new.html')
-
 
 # def list_friends(request):
 #     follows=Follow.objects.filter(followed_by=request.user.profile)
@@ -173,7 +171,11 @@ def create_book(request):
 def delete_book(request,id):
     userbook=UserBook.objects.get(id=id)
     userbook.delete()
-    return redirect('/bookshelf')
+    context={
+        'id':userbook.id,
+    }
+    print('delete done')
+    return JsonResponse(context)
 
 def recommend_book(request):
     by_book=Book.objects.all().order_by('-count')
@@ -189,8 +191,9 @@ def show_memo(request,id):
         'userbook': {
             'title':userbook.bookid.title,
             'author':userbook.bookid.author.name,
-        },
-        'memos':memo_data,
+            'id':userbook.id,
+        }, 
+        'memos': memo_data,
 
     }
 
@@ -212,14 +215,14 @@ def create_memo(request,id):
         memo_data = list(Memo.objects.filter(book=userbook).values('id', 'book', 'content','page') )        
         
         context = {
-            # memo의 id도 필요할까?
-            # memo 자체에 접근하려면 필요한데 삭제 말고 접근할 일이 없으니 일단 두기
+            'new_memo_id':new_memo.id,
             'page': new_memo.page,
             'content': new_memo.content,
-            #'userbook': {
-            #'title':userbook.bookid.title,
-            #'author':userbook.bookid.author.name,
-            #}, 
+            'userbook': {
+            'title':userbook.bookid.title,
+            'author':userbook.bookid.author.name,
+            'id':userbook.id,
+            }, 
             #'memos': memo_data,
         }
 
@@ -234,7 +237,7 @@ def create_memo(request,id):
     # return render(request,'#showModal',{"userbook":userbook,"memos":memos})
     
 
-def delete_memo(request,id,mid):
+def delete_memo(request,bid,mid):
     m=Memo.objects.get(id=mid)
     m.delete()    
-    return redirect('bookshelf/show.html')
+    return JsonResponse({"message":"created"},status=201)
