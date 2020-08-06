@@ -34,7 +34,7 @@
     </div>
     {% if user.is_authenticated %}
     <div class="nav">
-      <div class="recommand undernav">
+      <div class="recommand undernav" style="display:none">
         <button><a href="bookshelf/recommned/">책 추천</a></button>
       </div>
       <div class="search undernav">
@@ -55,6 +55,7 @@
       </div>
 
       <div class="friendlist undernav">
+        <button class ="friendlist_btn" data-csrfmiddlewaretoken="{{ csrf_token }}">친구목록 펼치기</button>
         {% for friend in follows %}
           <div id="friend_list" class="friend_list" style="display: none;">  
             <div data-id= "{{friend.id}}"> {{friend.nickname}} </div>
@@ -63,7 +64,6 @@
             {% comment %} {% csrf_token %} {% endcomment %}
           </div>
         {% endfor %}
-        <button class ="friendlist_btn" data-csrfmiddlewaretoken="{{ csrf_token }}">친구목록 펼치기</button>
       </div>
 
     </div>
