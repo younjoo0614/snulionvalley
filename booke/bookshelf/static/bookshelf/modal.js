@@ -22,6 +22,7 @@ $("#signup-form").submit((event) => {
       console.log(response, status, error);
     },
   });
+
 });
 
 $("#login-form").submit((event) => {
@@ -97,6 +98,7 @@ $("#book-create").submit((event) => {
   // })
 });
 
+
 $(".showmodal").click((e) => {
   e.preventDefault();
   const $this = $(e.currentTarget);
@@ -122,12 +124,13 @@ $(".showmodal").click((e) => {
             <p>작가 : ${userbook.author}</p>
             <p>메모:</p>`;
 
-      const memoTemplate = memos
-        // .map((memo) => `<div>${memo.page} ${memo.content}</div>`)
-        .map((memo) => `<div>${memo.content}  (p.${memo.page})</div>`)
+      const memoTemplate = memos.map((memo) => `<div>${memo.content}  (p.${memo.page})</div>
+      <button type="submit" class="delete-memo" data-bid =${id} data-mid=${memo.id}>삭제</button>`)
         .join("");
       const submit_btn = document.getElementById("submit-memo");
       submit_btn.dataset.id = `${id}`;
+      const delete_btn=document.getElementById("delete-book");
+      delete_btn.dataset.id = `${id}`;
       memo_div.innerHTML = memoTemplate;
 
       document.getElementById("submit-memo").setAttribute("data-id", `${id}`);
@@ -162,7 +165,6 @@ $("#submit-memo").click((e) => {
       let memo_div = document.getElementById("memo-div");
       // const newTemp = `<div>페이지: ${new_page}</div><div>메모: ${new_content}</div>`;
       const newTemp = `<div>${new_content}  (p.${new_page})</div>`;
-
       memo_div.innerHTML += newTemp;
     },
     error(response, status, error) {
@@ -171,6 +173,35 @@ $("#submit-memo").click((e) => {
   });
 });
 
+$("#delete-book").click((e) => {
+    e.preventDefault();
+    const $this = $(e.currentTarget);
+    const id =$this.data("id");
+    const csrfmiddlewaretoken = $this.data('csrfmiddlewaretoken');
+
+    $.ajax({
+        type: 'POST',
+        url: `/bookshelf/${id}/delete/`,
+        data: {
+            id:id,
+            csrfmiddlewaretoken: csrfmiddlewaretoken,
+        },
+        dataType: 'json',
+        success: function(response) {
+            console.log(response);
+
+            window.location.href="/bookshelf/";
+        },
+        error: function(response, status, error) {
+            console.log(response, status, error);
+        },
+        complete: function(response) {
+            console.log(response);
+        },
+    })
+})
+
+      
 $(document).ready(() => {
   $(".more-comment-btn").on("click", function (event) {
     $(this).toggleClass("showing-comment");
