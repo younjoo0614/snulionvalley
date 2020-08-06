@@ -17,14 +17,18 @@ from django.contrib import admin
 from django.urls import path
 import bookshelf.views
 import accounts.views
-from django.conf.urls import include
+from django.conf.urls import include, url
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', bookshelf.views.index, name='index'),
     path('bookshelf/', include('bookshelf.urls')),
-    # path('accounts/', include('django.contrib.auth.urls')),
-    # path('accounts/signup/', accounts.views.signup, name='signup'),
+    #path('accounts/', include('django.contrib.auth.urls'))
     path('accounts/signup/', accounts.views.signup, name='account_signup'),
-    path('accounts/', include('allauth.urls')),
-] 
+    path('accounts/result/', accounts.views.result, name='search_friend'),
+    path('accounts/result/<int:fid>/follow', accounts.views.follow_manager,name='follow_manager'),
+    path('accounts/', include('allauth.urls')), 
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+

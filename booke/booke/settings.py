@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bookshelf.apps.BookshelfConfig',
     'accounts.apps.AccountsConfig',
+    'sass_processor',
 
     #allauth
     'allauth',
@@ -132,7 +133,10 @@ STATICFILES_DIRS = (
 	os.path.join(BASE_DIR, 'booke', 'static'),
 )
 
-LOGIN_REDIRECT_URL = "/bookshelf/"
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR),"static", "media")
+
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
@@ -142,3 +146,6 @@ AUTHENTICATION_BACKENDS = (
 SITE_ID = 1
 
 ACCOUNT_LOGOUT_ON_GET = True 
+
+SASS_PROCESSOR_ENABLED =  True
+SASS_PROCESSOR_ROOT =  os.path.join(BASE_DIR, 'bookshelf', 'static')

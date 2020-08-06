@@ -1,0 +1,30 @@
+<div class="modal fade" id="showModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createModalLabel">상세정보</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+                <form id='memo-create' data-csrfmiddlewaretoken="{{ csrf_token }}"> 
+                    <div id='info-div'></div>
+                    <div id='memo-div'></div>
+                    
+                    <div class="form-group">                                           
+                        <label for="review" class="col-form-label">감상</label>
+                        <input type="integer" name="review_pages" class="form-control" id="review_pages" placeholder="페이지를 적어주세요" required>
+                        <textarea name="review" class="form-control" id="review" placeholder="감상을 적어주세요."></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button> 
+                        <button type="submit" id= "submit-memo" class="btn btn-primary" data-id="" data-mid="" data-csrfmiddlewaretoken="{{ csrf_token }}">추가하기</button>
+                        <button id="delete-book" class="btn btn-primary" data-id="" data-csrfmiddlewaretoken="{{ csrf_token }}">책 삭제하기</button>
+                    </div>                    
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
