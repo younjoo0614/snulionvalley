@@ -225,7 +225,7 @@ def recommend_book(request):
 
 def show_memo(request,id):
     userbook=UserBook.objects.get(id=id)
-    memo_data=list(Memo.objects.filter(book=userbook).values('id','book','content','page'))
+    memo_data=list(Memo.objects.filter(book=userbook).values('id','book','content','page', 'created_at'))
 
     context = {
         'userbook': {
@@ -262,6 +262,7 @@ def create_memo(request,id):
             'title':userbook.bookid.title,
             'author':userbook.bookid.author.name,
             'id':userbook.id,
+            'created_at': new_memo.created_at,
             }, 
             #'memos': memo_data,
         }
@@ -281,3 +282,14 @@ def delete_memo(request,bid,mid):
     m=Memo.objects.get(id=mid)
     m.delete()    
     return JsonResponse({"message":"created"},status=201)
+
+    # userbook=UserBook.objects.get(id=id)
+    # userbook.delete()
+    # userp=request.user.profile
+    # userp.already-=userbook.whole_page
+    # userp.save()
+    # context={
+    #     'id':userbook.id,
+    # }
+    # print('delete done')
+    # return JsonResponse(context)
