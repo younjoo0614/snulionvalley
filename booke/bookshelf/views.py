@@ -109,9 +109,31 @@ def index(request):
         if request.user.is_authenticated:
             member=request.user.profile
             books=UserBook.objects.filter(userid=member)
-            userbook_list=list(books.values('whole_page', 'id'))
             authors=Author.objects.all()
-            return render(request,'bookshelf/index.html',{"books":books,"authors":authors, "userbook_list":userbook_list})
+            page=0
+            list1=[]
+            list2=[]
+            list3=[]
+            list4=[]
+            list5=[]
+            for bo in books:
+                page+=bo.whole_page
+                if page<=2000:
+                    list1.append(bo.id)
+                elif page<=4000:
+                    list2.append(bo.id)
+                elif page<=6000:
+                    list3.append(bo.id)
+                elif page<=8000:
+                    list4.append(bo.id)
+                else:
+                    list5.append(bo.id)
+            ub1=UserBook.objects.filter(id__in=list1)
+            ub2=UserBook.objects.filter(id__in=list2)
+            ub3=UserBook.objects.filter(id__in=list3)
+            ub4=UserBook.objects.filter(id__in=list4)
+            ub5=UserBook.objects.filter(id__in=list5)
+            return render(request,'bookshelf/index.html',{"books":books,"authors":authors,"ub1":ub1,"ub2":ub2,"ub3":ub3,"ub4":ub4,"ub5":ub5})
         else:
             return render(request,'bookshelf/index.html')
     
