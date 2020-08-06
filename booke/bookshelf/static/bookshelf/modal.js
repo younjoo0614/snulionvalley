@@ -147,7 +147,7 @@ $("#submit-memo").click((e) => {
       const new_content = res.content;
       let memo_div = document.getElementById("memo-div");
       // const newTemp = `<div>페이지: ${new_page}</div><div>메모: ${new_content}</div>`;
-      const newTemp = `<div>${new_content}  (p.${new_page})</div>`;
+      const newTemp = `<div>${new_content}  (p.${new_page})</div><button data-bid="${res.id}" data-mid="${res.new_memo_id}">삭제</button>`;
       memo_div.innerHTML += newTemp;
     },
     error(response, status, error) {
@@ -157,6 +157,34 @@ $("#submit-memo").click((e) => {
 });
 
 $("#delete-book").click((e) => {
+    e.preventDefault();
+    const $this = $(e.currentTarget);
+    const id =$this.data("id");
+    const csrfmiddlewaretoken = $this.data('csrfmiddlewaretoken');
+
+    $.ajax({
+        type: 'POST',
+        url: `/bookshelf/${id}/delete/`,
+        data: {
+            id:id,
+            csrfmiddlewaretoken: csrfmiddlewaretoken,
+        },
+        dataType: 'json',
+        success: function(response) {
+            console.log(response);
+
+            window.location.href="/bookshelf/";
+        },
+        error: function(response, status, error) {
+            console.log(response, status, error);
+        },
+        complete: function(response) {
+            console.log(response);
+        },
+    })
+})
+
+$(".delete-book").click((e) => {
     e.preventDefault();
     const $this = $(e.currentTarget);
     const id =$this.data("id");

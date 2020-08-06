@@ -257,32 +257,71 @@ def delete_memo(request,bid,mid):
 
 def friends_shelf(request,id):
     member=Profile.objects.get(user_id=id)
-    print(member)
     books=UserBook.objects.filter(userid=member)
     authors=Author.objects.all()
     page=0
-    list1=list2=list3=list4=list5=[]
-    for bo in books:
-        page+=bo.whole_page
-        if page<=2000:
-            list1.append(bo.id)
-        elif page<=4000:
-            list2.append(bo.id)
-        elif page<=6000:
-            list3.append(bo.id)
-        elif page<=8000:
-            list4.append(bo.id)
-        else:
-            list5.append(bo.id)
+    count=0
+    list1=[]
+    list2=[]
+    list3=[]
+    list4=[]            
+    list5=[]
+    list6=[]
+    list7=[]            
+    list8=[]
+    if member.goal <= 4000:
+        for bo in books:
+            page+=bo.whole_page
+            if page<=2000:
+                if count==0: list1.append(bo.id)
+                elif count==1: list2.append(bo.id)
+            else:
+                page=bo.whole_page
+                count+=1
+                list2.append(bo.id)
+
+    elif member.goal == 6000:
+        for bo in books:
+            page+=bo.whole_page
+            if page<=3000:
+                if count==0: list3.append(bo.id)
+                elif count==1: list4.append(bo.id)
+            else:
+                page=bo.whole_page
+                count+=1
+                list4.append(bo.id)
+
+    elif member.goal == 8000:
+        for bo in books:
+            page+=bo.whole_page
+            if page<=4000:
+                if count==0: list5.append(bo.id)
+                elif count==1: list6.append(bo.id)
+            else:
+                page=bo.whole_page
+                count+=1
+                list6.append(bo.id)
+
+    elif member.goal == 10000:
+        for bo in books:
+            page+=bo.whole_page
+            if page<=5000:
+                if count==0: list7.append(bo.id)
+                elif count==1: list8.append(bo.id)
+            else:
+                page=bo.whole_page
+                count+=1
+                list8.append(bo.id)
+
+
     ub1=UserBook.objects.filter(id__in=list1)
     ub2=UserBook.objects.filter(id__in=list2)
     ub3=UserBook.objects.filter(id__in=list3)
     ub4=UserBook.objects.filter(id__in=list4)
     ub5=UserBook.objects.filter(id__in=list5)
+    ub6=UserBook.objects.filter(id__in=list6)
+    ub7=UserBook.objects.filter(id__in=list7)
+    ub8=UserBook.objects.filter(id__in=list8)
 
-    follows=Follow.objects.filter(followed_by=request.user.profile)
-    id_list=[person.id for person in follows]
-    follow_list=Profile.objects.filter(id__in=id_list)
-    res_follows=list(follow_list.values('nickname','id'))
+    return render(request,'bookshelf/friends.html',{"friend":member,"books":books,"authors":authors,"follows":res_follows,"ub1":ub1,"ub2":ub2,"ub3":ub3,"ub4":ub4,"ub5":ub5,"ub6":ub6,"ub7":ub7,"ub8":ub8}) 
 
-    return render(request,'bookshelf/friends.html',{"friend":member,"books":books,"authors":authors,"follows":res_follows,"ub1":ub1,"ub2":ub2,"ub3":ub3,"ub4":ub4,"ub5":ub5}) 
