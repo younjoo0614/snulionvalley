@@ -320,7 +320,8 @@ input.search_bt:hover{
   cursor: pointer;
   font-family: 'Noto Sans KR', sans-serif;
   font-weight: 500;
-  outline: none; }
+  outline: none; 
+}
 
 .newbook:hover {
   background-color: #3F7373;
@@ -342,7 +343,8 @@ input.search_bt:hover{
 
 button.newbook {
   border: none;
-  background-color: none; }
+  background-color: none;
+}
 
 button.friendlist_btn{
   position: relative; 
@@ -362,6 +364,7 @@ button.friendlist_btn{
 
 .myshelf {
   z-index: 5;
+  padding-bottom: 150px;
   width:70%;
   height: 800px;
   display: block;
@@ -374,10 +377,7 @@ button.friendlist_btn{
   width: 100%;
   height: 200px;
   background-color: #DDDDDD;
-  border-top: 30px solid #f2f2f2; 
-  border-right: 30px solid #f2f2f2; 
-  border-bottom: 10px solid #f2f2f2; 
-  border-left: 30px solid #f2f2f2; 
+  border: 30px solid #f2f2f2; 
 }
 
 .shelf a{
@@ -400,55 +400,65 @@ button.friendlist_btn{
 .myshelf1 {
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 70%;
   height: 20%;
   margin: 0 auto; }
 
 .myshelf2 {
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 70%;
   height: 40%;
   margin: 0 auto; }
 
 .myshelf3 {
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 70%;
   height: 60%;
   margin: 0 auto; }
 
 .myshelf4 {
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 70%;
   height: 80%;
   margin: 0 auto; }
 
 .myshelf5 {
   display: flex;
   flex-direction: column;
-  width: 50%;
-  height: 100%;
+  width: 70%;
+  height: 120%;
   margin: 0 auto; }
 
 .fr {
   display: flex; }
 
 .book-1 {
-  background-color: #3F7373; }
+  background: linear-gradient(to right, #3F7373,#588988,#3F7373);
+  -webkit-fill-color: transparent;
+  border-radius: 5px 5px 0 0;
+}
 
 .book-2 {
-  background-color: #89BEBF; }
+  background-color: #89BEBF;
+  border-radius: 10px 10px 0 0; }
 
 .book-3 {
-  background-color: #F28F78; }
+  background-color: #F28F78;
+  background: linear-gradient(to right,#F28F78,#eb7863,#F28F78);
+  -webkit-fill-color: transparent;
+  border-radius: 8px 8px 0 0; }
 
 .book-4 {
-  background-color: #F0C1B5; }
+  background-color: #F0C1B5;
+  border-radius: 15px 15px 0 0; }
 
 .book-5 {
-  background-color: #F2F2F2; }
+  background: linear-gradient(to right, #D6D6D6,#f2f2f2,#D6D6D6);
+  -webkit-fill-color: transparent;
+  border-radius: 5px 5px 0 0; }
 
   .achievement {
     position: relative;

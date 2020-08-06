@@ -18,7 +18,7 @@ def signup(request):
         user.profile.goal = goal
         user.profile.taste = taste
         user.save()
-       
+        
         login_user = django_authenticate(username=username, password=password)
         django_login(request, login_user)
         

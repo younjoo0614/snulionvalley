@@ -114,61 +114,64 @@ def index(request):
             count=0
             list1=[]
             list2=[]
-            for bo in books:
-                page+=bo.whole_page
-                if page<=2000:
-                    if count==0: list1.append(bo.id)
-                    elif count==1: list2.append(bo.id)
-                else:
-                    page=bo.whole_page
-                    count+=1
-                    if count==0: list1.append(bo.id)
-                    elif count==1: list2.append(bo.id)
-            ub1=UserBook.objects.filter(id__in=list1)
-            ub2=UserBook.objects.filter(id__in=list2)
-
             list3=[]
-            list4=[]
-            for bo in books:
-                page+=bo.whole_page
-                if page<=3000:
-                    if count==0: list3.append(bo.id)
-                    elif count==1: list4.append(bo.id)
-                else:
-                    page=bo.whole_page
-                    count+=1
-                    if count==0: list3.append(bo.id)
-                    elif count==1: list4.append(bo.id)
-            ub3=UserBook.objects.filter(id__in=list3)
-            ub4=UserBook.objects.filter(id__in=list4)
-
+            list4=[]            
             list5=[]
             list6=[]
-            for bo in books:
-                page+=bo.whole_page
-                if page<=4000:
-                    if count==0: list5.append(bo.id)
-                    elif count==1: list6.append(bo.id)
-                else:
-                    page=bo.whole_page
-                    count+=1
-                    if count==0: list5.append(bo.id)
-                    elif count==1: list6.append(bo.id)
+            list7=[]            
+            list8=[]
+
+            if request.user.profile.goal <= 4000:
+                for bo in books:
+                    page+=bo.whole_page
+                    if page<=2000:
+                        if count==0: list1.append(bo.id)
+                        elif count==1: list2.append(bo.id)
+                    else:
+                        page=bo.whole_page
+                        count+=1
+                        list2.append(bo.id)
+
+            elif request.user.profile.goal == 6000:
+                for bo in books:
+                    page+=bo.whole_page
+                    if page<=3000:
+                        if count==0: list3.append(bo.id)
+                        elif count==1: list4.append(bo.id)
+                    else:
+                        page=bo.whole_page
+                        count+=1
+                        list4.append(bo.id)
+
+            elif request.user.profile.goal == 8000:
+                for bo in books:
+                    page+=bo.whole_page
+                    if page<=4000:
+                        if count==0: list5.append(bo.id)
+                        elif count==1: list6.append(bo.id)
+                    else:
+                        page=bo.whole_page
+                        count+=1
+                        list6.append(bo.id)
+
+            elif request.user.profile.goal == 10000:
+                for bo in books:
+                    page+=bo.whole_page
+                    if page<=5000:
+                        if count==0: list7.append(bo.id)
+                        elif count==1: list8.append(bo.id)
+                    else:
+                        page=bo.whole_page
+                        count+=1
+                        list8.append(bo.id)
+
+
+            ub1=UserBook.objects.filter(id__in=list1)
+            ub2=UserBook.objects.filter(id__in=list2)
+            ub3=UserBook.objects.filter(id__in=list3)
+            ub4=UserBook.objects.filter(id__in=list4)
             ub5=UserBook.objects.filter(id__in=list5)
             ub6=UserBook.objects.filter(id__in=list6)
-
-            list7=[]
-            list8=[]
-            for bo in books:
-                page+=bo.whole_page
-                if page<=5000:
-                    if count==0: list7.append(bo.id)
-                    elif count==1: list8.append(bo.id)
-                else:
-                    page=bo.whole_page
-                    count+=1
-                    if count==0: list7.append(bo.id)
-                    elif count==1: list8.append(bo.id)
             ub7=UserBook.objects.filter(id__in=list7)
             ub8=UserBook.objects.filter(id__in=list8)
             
