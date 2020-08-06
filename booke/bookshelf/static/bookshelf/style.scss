@@ -174,8 +174,20 @@ input.search_bt:hover{
   margin: 10px;
 }
 
-.recommand .undernav{
-  display: none;
+.recommand_book{
+  padding: 5px;
+  color: white;
+  font-weight: 500;
+  margin: 5px;
+}
+
+.recommand_book:hover{
+  padding: 5px;
+  color: white;
+  font-weight: 500;
+  margin: 5px;
+  text-decoration: none;
+  border-bottom: solid 1px white;
 }
 
 .login {
@@ -292,19 +304,13 @@ input.search_bt:hover{
   animation-delay:1s, 1s;
   animation-fill-mode: both, both;}
 
-// .newbook-btn {
-//   position: fixed;
-//   bottom: 5%;
-//   right: 5%;
-//   background-color: none; }
-
-  .newbook-btn {
-    position: absolute;
-    top: 70%;
-    right: 10%;
-    display: flex;
-    align-items: center;
-    justify-content: center; }
+.newbook-btn {
+  position: fixed;
+  bottom: 5%;
+  right: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
 
 .back {
   position: relative;
@@ -326,7 +332,8 @@ input.search_bt:hover{
   cursor: pointer;
   font-family: 'Noto Sans KR', sans-serif;
   font-weight: 500;
-  outline: none; }
+  outline: none; 
+}
 
 .newbook:hover {
   background-color: #3F7373;
@@ -348,7 +355,8 @@ input.search_bt:hover{
 
 button.newbook {
   border: none;
-  background-color: none; }
+  background-color: none;
+}
 
 button.friendlist_btn{
   position: relative; 
@@ -368,22 +376,21 @@ button.friendlist_btn{
 
 .myshelf {
   z-index: 5;
-  padding-top: 30px;
   padding-bottom: 150px;
   width:70%;
   height: 800px;
   display: block;
-  left: 50%;
-  top: 50%;
   margin: 0px auto;
+  position: relative;
 }
 
 .shelf {
   display: flex;
   width: 100%;
-  height: 100%;
+  height: 200px;
   background-color: #DDDDDD;
-  border: 30px solid #f2f2f2; }
+  border: 30px solid #f2f2f2; 
+}
 
 .shelf a{
   text-decoration: none;
@@ -400,79 +407,92 @@ button.friendlist_btn{
   transform: translateY(-10px);
   box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease 0s;
+  
+  .maxlength{
+    height: 100%;
+    width: 20px;
+    overflow:visible;
+    text-overflow:ellipsis;
+  }
 }
 
 .myshelf1 {
   display: flex;
   flex-direction: column;
-  width: 80%;
-  height: 20%;
+  width: 70%;
+  height: 100%;
   margin: 0 auto; }
 
 .myshelf2 {
   display: flex;
   flex-direction: column;
-  width: 80%;
-  height: 40%;
+  width: 70%;
+  height: 100%;
   margin: 0 auto; }
 
 .myshelf3 {
   display: flex;
   flex-direction: column;
-  width: 80%;
-  height: 60%;
+  width: 70%;
+  height: 100%;
   margin: 0 auto; }
 
 .myshelf4 {
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 70%;
   height: 100%;
   margin: 0 auto; }
 
 .myshelf5 {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: 120%;
+  width: 80%;
+  height: 100%;
   margin: 0 auto; }
 
 .fr {
   display: flex; }
 
 .book-1 {
-  background-color: #3F7373; 
+  background: linear-gradient(to right, #3F7373,#356969,#3F7373);
+  -webkit-fill-color: transparent;
+  border-radius: 5px 5px 0 0;
 }
 
 .book-2 {
-  background-color: #89BEBF;
-}
+  // background-color: #89BEBF;
+  background: linear-gradient(to right,#89BEBF, #7db2b3, #89BEBF);
+  -webkit-fill-color: transparent;
+  border-radius: 3px 3px 0 0; }
 
 .book-3 {
-  background-color: #F28F78;
-}
+  background: linear-gradient(to right,#F28F78,#eb7863,#F28F78);
+  -webkit-fill-color: transparent;
+  border-radius: 3px 3px 0 0; }
 
 .book-4 {
-  background-color: #F0C1B5;
-}
+  background: linear-gradient(to right,#F0C1B5,#e9ae9f,#F0C1B5);
+  -webkit-fill-color: transparent;
+  border-radius: 10px 10px 0 0; }
 
 .book-5 {
-  background-color: #F2F2F2;
-}
+  background: linear-gradient(to right, #f2f2f2,#e2e2e2,#f2f2f2);
+  -webkit-fill-color: transparent;
+  border-radius: 5px 5px 0 0; }
 
-.achievement {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  width: 100%;
-  margin: 0px auto;
-  left: 50%;
-  top: 50%;
-  border-radius: 20px;
-  font-family: 'Noto Sans KR', sans-serif;
-  font-weight: 300;
-}
+  .achievement {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    top:-120px;
+    border-radius: 20px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 300;
+  }
 
 .aboutpages {
   display: inline-block; }
@@ -510,5 +530,12 @@ button.friendlist_btn{
 .friendlist {
   position: relative;
   top: 100px; }
+
+.maxlength{
+  height:100%;
+  width: 20px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
 
 /*# sourceMappingURL=style.css.map */

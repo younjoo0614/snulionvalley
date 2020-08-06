@@ -201,6 +201,8 @@ $("#delete-book").click((e) => {
     })
 })
 
+// $("#delete-memo").click(e)
+
       
 $(document).ready(() => {
   $(".more-comment-btn").on("click", function (event) {
