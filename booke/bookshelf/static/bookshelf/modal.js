@@ -124,7 +124,7 @@ $(".showmodal").click((e) => {
             <p>작가 : ${userbook.author}</p>
             <p>메모:</p>`;
 
-      const memoTemplate = memos.map((memo) => `<div>${memo.content}  (p.${memo.page})</div>
+      const memoTemplate = memos.map((memo) => `<div>${memo.content}  (p.${memo.page}) (날짜: ${memo.created_at})</div>
       <button type="submit" class="delete-memo" data-bid =${id} data-mid=${memo.id}>삭제</button>`)
         .join("");
       const submit_btn = document.getElementById("submit-memo");
@@ -162,6 +162,7 @@ $("#submit-memo").click((e) => {
       console.log(res);
       const new_page = res.page;
       const new_content = res.content;
+      const created_at = res.created_at;
       let memo_div = document.getElementById("memo-div");
       // const newTemp = `<div>페이지: ${new_page}</div><div>메모: ${new_content}</div>`;
       const newTemp = `<div>${new_content}  (p.${new_page})</div>`;
@@ -201,7 +202,34 @@ $("#delete-book").click((e) => {
     })
 })
 
-// $("#delete-memo").click(e)
+$("#delete-memo").click((e)=> {
+  e.preventDefault();
+    const $this = $(e.currentTarget);
+    const id =$.data("id");
+    const csrfmiddlewaretoken = $this.data('csrfmiddlewaretoken');
+
+    $.ajax({
+        type: 'POST',
+        url: `/${id}/memos/${mid}/delete/`,
+        data: {
+            id:id,
+            mid:mid,
+            csrfmiddlewaretoken: csrfmiddlewaretoken,
+        },
+        dataType: 'json',
+        success: function(response) {
+            console.log(response);
+
+            // window.location.href="/bookshelf/";
+        },
+        error: function(response, status, error) {
+            console.log(response, status, error);
+        },
+        complete: function(response) {
+            console.log(response);
+        },
+    })
+});
 
       
 $(document).ready(() => {
