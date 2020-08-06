@@ -3,21 +3,12 @@
 
 {% block content %}
 {% load static %}
-<script>
-    let pagenow=0;
-    for (let i =0;i< userbook.length;i++){ 
-        pagenow+=userbook[i].page;
-        let str=``;
-        if (pagenow<2000){
-            let sh=document.getElementById('myshelf1')
-            
-        }
-        else if (pagenow<4000) {
-            let shelf=document.getElementById('myshelf2')
-        }
-    }
-</script>
-<div class = "first-page">    
+
+    
+<div class = "first-page">  
+    <div class="back"> 
+        <img class="back_img" src="{% static 'bookshelf/back.png' %}"/>
+    </div>
     <div class = "temp"> 
             {% if user.is_authenticated %}
                 <div class = "achievement">
@@ -221,7 +212,10 @@
             
                 <div class="back"> 
                     <img class="back_img" src="{% static 'bookshelf/back.png' %}"/>
-                    <img class="back_img1" src="{% static 'bookshelf/logo.png' %}"/>
+                    <img class="back_img1" src="{% static 'bookshelf/bar.png' %}"/>
+                    <img class="back_img2" src="{% static 'bookshelf/book1.png' %}"/>
+                    <img class="back_img3" src="{% static 'bookshelf/book2.png' %}"/>
+                    <img class="back_img4" src="{% static 'bookshelf/logo.png' %}"/>
                 </div>
             {% endif %}
     </div>
