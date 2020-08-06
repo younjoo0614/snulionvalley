@@ -134,7 +134,7 @@ button.newbook {
 .shelf {
   display: flex;
   width: 100%;
-  height: 50%;
+  height: 100%;
   background-color: #DDDDDD;
   border: 30px solid #f2f2f2;
   border-radius: 10px; }
@@ -194,9 +194,7 @@ button.newbook {
 
 .achievement {
   text-align: center;
-  margin: 0px auto;
-  left: 50%;
-  top: 50%; }
+  margin: 0px auto; }
 
 .aboutpages {
   display: inline-block; }
@@ -212,9 +210,5 @@ button.newbook {
   left: 0px;
   background-color: blue;
   height: 50px; }
-
-.booktitle {
-  font-size: 5px;
-  text-align: center; }
 
 /*# sourceMappingURL=style.css.map */
