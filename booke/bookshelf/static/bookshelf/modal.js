@@ -79,7 +79,7 @@ $('#book-create').submit((event) => {
         }
     })
     // .then(res => {
-       
+        
     //     var colors = document.getElementsByName('color');
     //     var color_value;
     //     for(var i = 0; i < colors.length; i++){
