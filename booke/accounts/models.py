@@ -11,7 +11,7 @@ class Profile(models.Model):
     goal = models.IntegerField(default=0, blank=True)
     taste = models.CharField(max_length=20, blank=True)
     follows = models.ManyToManyField('self', through = 'Follow', blank=True, related_name = 'followed', symmetrical=False)
-    already=models.IntegerField(default=0, blank=True)
+    already = models.IntegerField(default=0, blank=True)
 
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):  
