@@ -45,6 +45,7 @@ $("#login-form").submit((event) => {
   });
 });
 
+
 $("#book-create").submit((event) => {
   event.preventDefault();
   var colors = document.getElementsByName("color");
