@@ -53,18 +53,18 @@
           {% endfor %}
         </div>
       </div>
+
       <div class="friendlist">
         {% for friend in follows %}
-          <div class="friend_list" id="friend_list" style="display:none"> 
-            <p>{{friend.profile.nickname}}</p>
-            {% comment %} <p>{{profile.get(id=friend.id).nickname}}<p> {% endcomment %}
+          <div class="friend_list" id="friend_list"> 
             <button class="to-friend-btn"> 놀러가기 </button>
             <button class="unfollow-btn"> 언팔 </button>
             {% csrf_token %}
           </div>
         {% endfor %}
-        <a class ="friendlist_btn" href="">친구목록 펼치기</a>
+        <button class ="friendlist_btn">친구목록 펼치기</button>
       </div>
+
     </nav>
     {% endif %}
   </body>
