@@ -11,7 +11,7 @@ $(document).ready(() => {
         }
         });
     }
-    )
+)
 
     $("#friend-value").autocomplete({
         source : function(request, response) {
