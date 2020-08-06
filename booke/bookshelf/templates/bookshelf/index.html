@@ -46,6 +46,7 @@
                             <div class="shelf"></div>
                         </div>
                     {% endif %}
+
                     {% for userbook in books %}
                         <a class="showmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }}> 
                         <div class="book-{{userbook.color}} bookiread" id ="{{userbook.id}}" style = " margin: 10px; height: 50px; width: calc({{userbook.whole_page}} / {{user.profile.goal}} * 80%) "> 
@@ -54,7 +55,9 @@
                     </a> 
 
                     {% endfor %} 
+
                 </div>
+
                 <div class = "newbook-btn">        
                     <button type="button" data-toggle="modal" data-target="#createModal" class="newbook">
                         책 꽂아넣기
@@ -62,6 +65,7 @@
                 </div>
                 
             {% else %}
+            
                 <div class="back"> 
                     <img class="back_img" src="{% static 'bookshelf/back.png' %}"/>
                     <img class="back_img1" src="{% static 'bookshelf/logo.png' %}"/>
