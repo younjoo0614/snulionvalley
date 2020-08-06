@@ -118,12 +118,13 @@ def create_book(request):
     return render(request,'bookshelf/new.html')
 
 def list_friends(request):
-    follows=request.user.profile.follows
+    
+    follows=list(request.user.profile.follows.values('nickname','id'))
+
     context = {
-        'follows':{
-            'nickname':follows.profile
-        }
+        'follows':follows
     }
+    print('response')
     return JsonResponse(context)
     # return request(request,'index.html',{"follows":follows})
 
