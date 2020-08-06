@@ -10,7 +10,7 @@ from django.http import JsonResponse
 import os
 import sys
 import json
-#from django.core.serializers import serialize 
+from django.core.serializers import serialize 
 
 # Create your views here.
 
@@ -111,6 +111,7 @@ def index(request):
             books=UserBook.objects.filter(userid=member)
             authors=Author.objects.all()
             page=0
+            count=0
             list1=[]
             list2=[]
             list3=[]
@@ -119,15 +120,19 @@ def index(request):
             for bo in books:
                 page+=bo.whole_page
                 if page<=2000:
-                    list1.append(bo.id)
-                elif page<=4000:
-                    list2.append(bo.id)
-                elif page<=6000:
-                    list3.append(bo.id)
-                elif page<=8000:
-                    list4.append(bo.id)
+                    if count==0: list1.append(bo.id)
+                    elif count==1: list2.append(bo.id)
+                    elif count==2: list3.append(bo.id)
+                    elif count==3: list4.append(bo.id)
+                    elif count==4: list5.append(bo.id)
                 else:
-                    list5.append(bo.id)
+                    page=bo.whole_page
+                    count+=1
+                    if count==0: list1.append(bo.id)
+                    elif count==1: list2.append(bo.id)
+                    elif count==2: list3.append(bo.id)
+                    elif count==3: list4.append(bo.id)
+                    elif count==4: list5.append(bo.id)
             ub1=UserBook.objects.filter(id__in=list1)
             ub2=UserBook.objects.filter(id__in=list2)
             ub3=UserBook.objects.filter(id__in=list3)

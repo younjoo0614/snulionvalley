@@ -215,16 +215,6 @@ button.newbook {
   top: 50%;
   margin: 0px auto; }
 
-<<<<<<< HEAD
-.shelf{
-display: flex;
-width: 100%;
-height: 100%;
-background-color: #DDDDDD;
-border: 30px solid #f2f2f2;
-border-radius: 10px;
-}
-=======
 .shelf {
   display: flex;
   width: 100%;
@@ -232,7 +222,6 @@ border-radius: 10px;
   background-color: #DDDDDD;
   border: 30px solid #f2f2f2;
   border-radius: 10px; }
->>>>>>> b60870cc66fc92f0faf35723a1acf9479b52ee42
 
 .myshelf1 {
   display: flex;
@@ -273,19 +262,24 @@ border-radius: 10px;
   display: flex; }
 
 .book-1 {
-  background-color: #3F7373; }
+  background-color: #3F7373; 
+}
 
 .book-2 {
-  background-color: #89BEBF; }
+  background-color: #89BEBF;
+}
 
 .book-3 {
-  background-color: #F28F78; }
+  background-color: #F28F78;
+}
 
 .book-4 {
-  background-color: #F0C1B5; }
+  background-color: #F0C1B5;
+}
 
 .book-5 {
-  background-color: #F2F2F2; }
+  background-color: #F2F2F2;
+}
 
 .achievement {
   text-align: center;
@@ -305,11 +299,6 @@ border-radius: 10px;
 
 .achievepc {
   left: 0px;
-<<<<<<< HEAD
-  background-color: blue;   
-  height: 50px; 
-}
-=======
   background-color: blue;
   height: 50px; }
 
@@ -326,4 +315,3 @@ border-radius: 10px;
   top: 100px; }
 
 /*# sourceMappingURL=style.css.map */
->>>>>>> b60870cc66fc92f0faf35723a1acf9479b52ee42

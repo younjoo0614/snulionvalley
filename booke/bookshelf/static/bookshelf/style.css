@@ -245,7 +245,9 @@ button.newbook {
 
 .achievement {
   text-align: center;
-  margin: 0px auto; }
+  margin: 0px auto;
+  left: 50%;
+  top: 50%; }
 
 .aboutpages {
   display: inline-block; }
@@ -262,8 +264,6 @@ button.newbook {
   background-color: blue;
   height: 50px; }
 
-<<<<<<< HEAD
-=======
 .recommand {
   position: relative;
   top: 100px; }
@@ -276,5 +276,6 @@ button.newbook {
   position: relative;
   top: 100px; }
 
->>>>>>> b60870cc66fc92f0faf35723a1acf9479b52ee42
+/*# sourceMappingURL=style.css.map */
+
 /*# sourceMappingURL=style.css.map */
