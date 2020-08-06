@@ -14,7 +14,7 @@ from django.core.serializers import serialize
 
 # Create your views here.
 
-def search_title_author(title,num):
+def search_title_author_image(title,num):
     client_id = "4dDEAG4leXp6OiKVgE7G" 
     client_secret = "gw8Luw9s2F"
     encText = urllib.parse.quote(title)    
@@ -29,12 +29,14 @@ def search_title_author(title,num):
         response_body = response.read()
         dict=json.loads(response_body.decode('utf-8'))
         p=re.compile('<b>|</b>')
-        book_title=p.sub('',dict["items"][0]["title"])
+        book_title=p.sub('',dict["items"][num]["title"])
         while book_title.find('(')!=-1:
             book_title=re.search('.+(?=\()',book_title).group()
         book_author=dict["items"][num]["author"]
-        title_author=[book_title,book_author]
-        return title_author
+        book_image=dict["items"][num]["image"]
+        display=dict["display"]
+        title_author_image=[book_title,book_author,book_image,display]
+        return title_author_image
 
     else:
         print("Error Code:" + rescode)
@@ -61,13 +63,13 @@ def get_page(title,num):
 
     return int(page.group())
 
-def index(request):
-    
+def index(request):    
     if request.method=='POST':
         member=request.user.profile
-        ta_list=search_title_author(request.POST['title'],0)
+        ta_list=search_title_author_image(request.POST['title'],0)
         book_title=ta_list[0]
         book_author=ta_list[1]
+        book_image=ta_list[2]
         color=request.POST['color']
         
         #추가하려는 책의 작가가 이미 있는지 확인하고 없으면 추가
@@ -83,7 +85,7 @@ def index(request):
             is_in_list=Book.objects.get(title__iexact=book_title, author=bookauthor)
 
         except Book.DoesNotExist:
-            Book.objects.create(title=book_title, author=bookauthor)
+            Book.objects.create(title=book_title, author=bookauthor,image=book_image)
         
         book= Book.objects.get(title__iexact=book_title, author=bookauthor)
         # 저장된 횟수 추가
@@ -103,7 +105,6 @@ def index(request):
         # }
         
         return JsonResponse({"message":"created"},status=201)
-
 
     else:        
         if request.user.is_authenticated:
@@ -209,18 +210,29 @@ def delete_book(request,id):
     userbook=UserBook.objects.get(id=id)
     userbook.delete()
     userp=request.user.profile
-    userp.already-=userbook.whole_page
-    userp.save()
+
+    userp.already-=userbook.whole_page  
+    userp.save()  
+
     context={
         'id':userbook.id,
     }
-    print('delete done')
     return JsonResponse(context)
 
 def recommend_book(request):
-    by_book=Book.objects.all().order_by('-count')
+    if Book.objects.count()>=5:
+        by_book=Book.objects.all().order_by('-count')[:5]
+    else :
+        by_book=Book.objects.all().order_by('-count')
     best_author=Author.objects.all().order_by('-count').first()
-    by_author=Book.objects.filter(author=best_author)#.exclude로 자기가 읽은 책 제외해야 함
+    by_author=[]
+    image=[]
+    author=[]
+    for_author=search_title_author_image(best_author.name,0)
+    for i in range(for_author[3]):
+        rec=search_title_author_image(best_author.name,i)
+        by_author.append(Book.objects.create(title=rec[0],author=best_author,image=rec[2]))  
+
     return render(request,'bookshelf/recommend.html',{"by_books":by_book,'by_author':by_author})
 
 def show_memo(request,id):
@@ -283,13 +295,76 @@ def delete_memo(request,bid,mid):
     m.delete()    
     return JsonResponse({"message":"created"},status=201)
 
-    # userbook=UserBook.objects.get(id=id)
-    # userbook.delete()
-    # userp=request.user.profile
-    # userp.already-=userbook.whole_page
-    # userp.save()
-    # context={
-    #     'id':userbook.id,
-    # }
-    # print('delete done')
-    # return JsonResponse(context)
+def friends_shelf(request,id):
+    member=Profile.objects.get(user_id=id)
+    books=UserBook.objects.filter(userid=member)
+    authors=Author.objects.all()
+    page=0
+    count=0
+    list1=[]
+    list2=[]
+    list3=[]
+    list4=[]            
+    list5=[]
+    list6=[]
+    list7=[]            
+    list8=[]
+    if member.goal <= 4000:
+        for bo in books:
+            page+=bo.whole_page
+            if page<=2000:
+                if count==0: list1.append(bo.id)
+                elif count==1: list2.append(bo.id)
+            else:
+                page=bo.whole_page
+                count+=1
+                list2.append(bo.id)
+
+    elif member.goal == 6000:
+        for bo in books:
+            page+=bo.whole_page
+            if page<=3000:
+                if count==0: list3.append(bo.id)
+                elif count==1: list4.append(bo.id)
+            else:
+                page=bo.whole_page
+                count+=1
+                list4.append(bo.id)
+
+    elif member.goal == 8000:
+        for bo in books:
+            page+=bo.whole_page
+            if page<=4000:
+                if count==0: list5.append(bo.id)
+                elif count==1: list6.append(bo.id)
+            else:
+                page=bo.whole_page
+                count+=1
+                list6.append(bo.id)
+
+    elif member.goal == 10000:
+        for bo in books:
+            page+=bo.whole_page
+            if page<=5000:
+                if count==0: list7.append(bo.id)
+                elif count==1: list8.append(bo.id)
+            else:
+                page=bo.whole_page
+                count+=1
+                list8.append(bo.id)
+
+
+    ub1=UserBook.objects.filter(id__in=list1)
+    ub2=UserBook.objects.filter(id__in=list2)
+    ub3=UserBook.objects.filter(id__in=list3)
+    ub4=UserBook.objects.filter(id__in=list4)
+    ub5=UserBook.objects.filter(id__in=list5)
+    ub6=UserBook.objects.filter(id__in=list6)
+    ub7=UserBook.objects.filter(id__in=list7)
+    ub8=UserBook.objects.filter(id__in=list8)
+
+    return render(request,'bookshelf/friends.html',{"friend":member,"books":books,"authors":authors,"follows":res_follows,"ub1":ub1,"ub2":ub2,"ub3":ub3,"ub4":ub4,"ub5":ub5,"ub6":ub6,"ub7":ub7,"ub8":ub8}) 
+
+
+
+

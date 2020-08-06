@@ -304,6 +304,7 @@ input.search_bt:hover{
   animation-delay:1s, 1s;
   animation-fill-mode: both, both;}
 
+
 .newbook-btn {
   position: fixed;
   bottom: 5%;
@@ -311,6 +312,7 @@ input.search_bt:hover{
   display: flex;
   align-items: center;
   justify-content: center; }
+
 
 .back {
   position: relative;
@@ -455,6 +457,7 @@ button.friendlist_btn{
   display: flex; }
 
 .book-1 {
+
   background: linear-gradient(to right, #3F7373,#356969,#3F7373);
   -webkit-fill-color: transparent;
   border-radius: 5px 5px 0 0;
@@ -480,6 +483,7 @@ button.friendlist_btn{
   background: linear-gradient(to right, #f2f2f2,#e2e2e2,#f2f2f2);
   -webkit-fill-color: transparent;
   border-radius: 5px 5px 0 0; }
+
 
   .achievement {
     position: relative;
@@ -531,11 +535,13 @@ button.friendlist_btn{
   position: relative;
   top: 100px; }
 
+
 .maxlength{
   height:100%;
   width: 20px;
   overflow:hidden;
   text-overflow:ellipsis;
 }
+
 
 /*# sourceMappingURL=style.css.map */
