@@ -10,6 +10,7 @@ urlpatterns = [
     path('<int:id>/delete/', views.delete_book, name='delete_book'),# 삭제 버튼이 책장에서 가능할지 아니면 메모보려 들어갔을 때 있을지 정해야 함
     path('<int:id>/memos/', views.create_memo, name='create_memo'),
     path('<int:bid>/memos/<int:mid>/delete/', views.delete_memo, name='delete_memo'),
-    path('friend/<int:id>',views.friends_shelf,name='friends'),
+    path('friends/<int:id>',views.friends_shelf,name='friends'),
+
     # path('list/',views.list_friends, name='list_friends'),    
 ] 

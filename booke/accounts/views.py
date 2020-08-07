@@ -51,9 +51,8 @@ def follow_manager(request, fid):
     if following_already:
         following_already.delete()
     else:
-        f = Follow()
-        f.followed_by, f.follow = followed_by, follow
-        f.save()
+        f=Follow.objects.create(followed_by=followed_by, follow=follow)
+        
     return redirect('/bookshelf/')
 
 def result(request):
@@ -61,4 +60,4 @@ def result(request):
     f = request.GET['friend-value']
     if f:
         fs = Profile.objects.filter(nickname__contains=f)
-        return render(request, 'bookshelf/index.html', {'f_result':fs})
+    return render(request, 'bookshelf/index.html', {'f_result':fs})

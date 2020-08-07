@@ -1,15 +1,15 @@
-$(document).ready(() => {
-  $(".more-friendlist-btn").on("click", function (event) {
-    $(this).toggleClass("showing-friend");
+$(document).ready(() => {});
 
-    if ($(this).hasClass("showing-friend")) {
-      $(this).text("친구목록 닫기");
-      $(this).parent().find(".friend-list").show();
-    } else {
-      $(this).text("친구목록 펼치기");
-      $(this).parent().find(".friend-list").hide();
-    }
-  });
+$(".more-friendlist-btn").on("click", function (event) {
+  $(this).toggleClass("showing-friend");
+
+  if ($(this).hasClass("showing-friend")) {
+    $(this).text("친구목록 닫기");
+    $(".friend_list").show();
+  } else {
+    $(this).text("친구목록 펼치기");
+    $(".friend_list").hide();
+  }
 });
 
 // $(".to-friend-btn").click((e) => {
@@ -20,7 +20,7 @@ $(document).ready(() => {
 
 //   $.ajax({
 //     type: "GET",
-//     url: `/friend/${id}`,
+//     url: `/bookshelf/friend/${id}`,
 //     data: {
 //       id: id,
 //       csrfmiddlewaretoken: csrfmiddlewaretoken,
