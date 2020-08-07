@@ -17,6 +17,7 @@
     <div class="header">
         <div class = "login">
         {% if user.is_authenticated %}
+        <a href="/bookshelf/"><img class="logo" src="{% static 'bookshelf/logo.png' %}"/></a>
             {% comment %} <img class="logo_img" src="{% static 'bookshelf/logo.png' %}"/> {% endcomment %}
             <div class="hi">{{ user.get_username }}님, 안녕하세요</div>
             <div class="logindiv"><a href="#logoutModal" data-toggle="modal">로그아웃</a></div>
@@ -32,11 +33,12 @@
         {% endif %}
         </div>
     </div>
+    
     {% if user.is_authenticated %}
     <div class="nav">
 
       <div class="recommand undernav" style="display:show">
-        <a href="/bookshelf/recommend/">책 추천</a>
+        <a class="recommand_book" href="/bookshelf/recommend/">책 추천</a>
       </div>
       <div class="search undernav">
         <form action="{% url 'search_friend' %}" method="GET">
