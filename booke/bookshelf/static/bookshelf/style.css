@@ -437,7 +437,7 @@ input.search_bt:hover {
 
 .newbook-btn {
   position: fixed;
-  bottom: 5%;
+  bottom: 20%;
   right: 5%;
   display: flex;
   align-items: center;
@@ -528,7 +528,7 @@ button.friendlist_btn {
 .shelf a:hover {
   text-decoration: none;
   color: white;
-  transform: translateY(-10px);
+  transform: translateY(-15px);
   box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease 0s; }
   .shelf a:hover .maxlength {
