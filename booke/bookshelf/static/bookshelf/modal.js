@@ -100,6 +100,7 @@ $(".showmodal").click((e) => {
       console.log(res);
       const userbook = res.userbook;
       const memos = res.memos;
+      const csrftoken=csrfmiddlewaretoken;
       let info_div = document.getElementById("info-div");
       let memo_div = document.getElementById("memo-div");
 
@@ -107,8 +108,8 @@ $(".showmodal").click((e) => {
             <p>작가 : ${userbook.author}</p>
             <p>메모:</p>`;
 
-      const memoTemplate = memos.map((memo) => `<div>${memo.content}  (p.${memo.page}) (날짜: ${memo.created_at})</div>
-      <button type="submit" class="delete-memo" data-bid =${id} data-mid=${memo.id}>삭제</button>`)
+      const memoTemplate = memos.map((memo) => `<div><div>${memo.content}  (p.${memo.page}) (날짜: ${memo.created_at})</div>
+      <button type="submit" class="delete-memo" data-bid =${id} data-mid=${memo.id} >삭제</button></div>`)
         .join("");
       const submit_btn = document.getElementById("submit-memo");
       submit_btn.dataset.id = `${id}`;
@@ -146,9 +147,11 @@ $("#submit-memo").click((e) => {
       const new_page = res.page;
       const new_content = res.content;
       const created_at = res.created_at;
+      
       let memo_div = document.getElementById("memo-div");
       // const newTemp = `<div>페이지: ${new_page}</div><div>메모: ${new_content}</div>`;
-      const newTemp = `<div>${new_content}  (p.${new_page})</div>`;
+      const newTemp = `<div><div>${new_content}  (p.${new_page})</div>
+      <button data-bid="${res.id}" data-mid="${res.new_memo_id}" >삭제</button></div>`;
       memo_div.innerHTML += newTemp;
     },
     error(response, status, error) {
@@ -185,7 +188,6 @@ $("#delete-book").click((e) => {
     })
 })
 
-
 $(".showfriendmodal").click((e) => {
     e.preventDefault();
     const $this = $(e.currentTarget);
@@ -212,12 +214,9 @@ $(".showfriendmodal").click((e) => {
               <p>메모:</p>`;
   
         const memoTemplate = memos
-          // .map((memo) => `<div>${memo.page} ${memo.content}</div>`)
           .map(
-            (memo) => `<div>${memo.content}  (p.${memo.page})</div>
-          `
-          )
-          .join("");
+            (memo) => `<div>${memo.content}  (p.${memo.page})</div>`
+          ).join("");
         memo_div_friend.innerHTML = memoTemplate;
   
         // document.getElementById("submit-memo").setAttribute("data-id", `${id}`);
@@ -228,36 +227,34 @@ $(".showfriendmodal").click((e) => {
     });
   });
 
-// $("#delete-memo").click((e)=> {
-//   e.preventDefault();
-//     const $this = $(e.currentTarget);
-//     const id =$.data("id");
-//     const csrfmiddlewaretoken = $this.data('csrfmiddlewaretoken');
+$(".delete-memo").click((e)=> {
+  e.preventDefault();
+    const $this = $(e.currentTarget);
+    const bid =$this.data("bid");
+    const mid=$this.data("mid");
+    const csrfmiddlewaretoken = $this.data('csrfmiddlewaretoken');
 
-//     $.ajax({
-//         type: 'POST',
-//         url: `/${id}/memos/${mid}/delete/`,
-//         data: {
-//             id:id,
-//             mid:mid,
-//             csrfmiddlewaretoken: csrfmiddlewaretoken,
-//         },
-//         dataType: 'json',
-//         success: function(response) {
-//             console.log(response);
-
-//             // window.location.href="/bookshelf/";
-//         },
-//         error: function(response, status, error) {
-//             console.log(response, status, error);
-//         },
-//         complete: function(response) {
-//             console.log(response);
-//         },
-//     })
-// });
-
-
+    $.ajax({
+        type: 'POST',
+        url: `/bookshelf/${bid}/memos/${mid}/delete/`,
+        data: {
+            bid:bid,
+            mid:mid,
+            csrfmiddlewaretoken: csrfmiddlewaretoken,
+        },
+        dataType: 'json',
+        success: function(response) {
+            console.log(response);
+            $(this).parent().remove();
+        },
+        error: function(response, status, error) {
+            console.log(response, status, error);
+        },
+        complete: function(response) {
+            console.log(response);
+        },
+    })
+});
       
 $(document).ready(() => {
   $(".more-comment-btn").on("click", function (event) {

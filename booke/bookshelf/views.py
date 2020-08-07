@@ -1,7 +1,5 @@
 from django.shortcuts import render, redirect
 #from django.contrib import auth
-from .models import Author, Book, UserBook, Memo
-from accounts.models import Profile, Follow
 import urllib.request
 from bs4 import BeautifulSoup
 from urllib.parse import quote_plus
@@ -11,6 +9,8 @@ import os
 import sys
 import json
 from django.core.serializers import serialize 
+from accounts.models import Profile, Follow
+from .models import Author, Book, UserBook, Memo
 
 # Create your views here.
 
@@ -122,7 +122,7 @@ def index(request):
             list7=[]            
             list8=[]
 
-            if request.user.profile.goal <= 4000:
+            if member.goal <= 4000:
                 for bo in books:
                     page+=bo.whole_page
                     if page<=2000:
@@ -133,7 +133,7 @@ def index(request):
                         count+=1
                         list2.append(bo.id)
 
-            elif request.user.profile.goal == 6000:
+            elif member.goal == 6000:
                 for bo in books:
                     page+=bo.whole_page
                     if page<=3000:
@@ -144,7 +144,7 @@ def index(request):
                         count+=1
                         list4.append(bo.id)
 
-            elif request.user.profile.goal == 8000:
+            elif member.goal == 8000:
                 for bo in books:
                     page+=bo.whole_page
                     if page<=4000:
@@ -155,7 +155,7 @@ def index(request):
                         count+=1
                         list6.append(bo.id)
 
-            elif request.user.profile.goal == 10000:
+            elif member.goal == 10000:
                 for bo in books:
                     page+=bo.whole_page
                     if page<=5000:
@@ -362,9 +362,6 @@ def friends_shelf(request,id):
     ub6=UserBook.objects.filter(id__in=list6)
     ub7=UserBook.objects.filter(id__in=list7)
     ub8=UserBook.objects.filter(id__in=list8)
-
     return render(request,'bookshelf/friends.html',{"friend":member,"books":books,"authors":authors,"follows":res_follows,"ub1":ub1,"ub2":ub2,"ub3":ub3,"ub4":ub4,"ub5":ub5,"ub6":ub6,"ub7":ub7,"ub8":ub8}) 
-
-
 
 
