@@ -11,5 +11,6 @@ urlpatterns = [
     path('<int:id>/memos/', views.create_memo, name='create_memo'),
     path('<int:bid>/memos/<int:mid>/delete/', views.delete_memo, name='delete_memo'),
     path('friends/<int:id>',views.friends_shelf,name='friends'),
+
     # path('list/',views.list_friends, name='list_friends'),    
 ] 

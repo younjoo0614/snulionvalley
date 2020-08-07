@@ -38,6 +38,7 @@
     <div class="nav">
 
       <div class="recommand undernav" style="display:show">
+
         <a class="recommand_book" href="/bookshelf/recommend/">책 추천</a>
       </div>
       <div class="search undernav">
@@ -62,10 +63,10 @@
             {% for friend in follows %}
  
             <div data-id= "{{friend.id}}"> {{friend.nickname}} </div>
+
             <button class="to-friend-btn" data-id="{{ friend.id }}"><a href="/bookshelf/friends/{{friend.id}}">놀러가기</a></button>
             <button class="unfollow-btn"><a href="/accounts/result/{{friend.id}}/follow/">언팔</a></button>
             {% endfor %}
-
           </div>
           <button class ="more-friendlist-btn" data-csrfmiddlewaretoken="{{ csrf_token }}" >친구목록 펼치기</button>
           
@@ -73,7 +74,6 @@
 
     </div>
     {% endif %}
-  </body>
   {% block content %}
 
   {% endblock %}
