@@ -185,7 +185,7 @@ $("#delete-book").click((e) => {
     })
 })
 
-<<<<<<< HEAD
+
 $(".delete-book").click((e) => {
     e.preventDefault();
     const $this = $(e.currentTarget);
@@ -213,8 +213,6 @@ $(".delete-book").click((e) => {
         },
     })
 })
-=======
->>>>>>> 3f6d4d4b1ea3b2d22de64e20f3ffd2bae36f7e58
 
 $(".showfriendmodal").click((e) => {
     e.preventDefault();

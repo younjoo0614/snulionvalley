@@ -12,7 +12,8 @@ $(document).ready(() => {
       });
   }
 
-});
+);
+
 
 $(".to-friend-btn").click((e) => {
   e.preventDefault();
