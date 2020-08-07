@@ -4,39 +4,38 @@ $(document).ready(() => {
   
       if ($(this).hasClass("showing-friend")) {
           $(this).text("친구목록 닫기");
-          $(this).parent().find(".friend-list").show();
+          $(".friend_list").show();
       } else {
           $(this).text("친구목록 펼치기");
-          $(this).parent().find(".friend-list").hide();
+          $(".friend_list").hide();
       }
       });
   }
 
 );
 
+// $(".to-friend-btn").click((e) => {
+//   e.preventDefault();
+//   const $this = $(e.currentTarget);
+//   const id = $this.data("id");
+//   const csrfmiddlewaretoken = $this.data("csrfmiddlewaretoken");
 
-$(".to-friend-btn").click((e) => {
-  e.preventDefault();
-  const $this = $(e.currentTarget);
-  const id = $this.data("id");
-  const csrfmiddlewaretoken = $this.data("csrfmiddlewaretoken");
-
-  $.ajax({
-    type: "GET",
-    url: `/friend/${id}`,
-    data: {
-      id: id,
-      csrfmiddlewaretoken: csrfmiddlewaretoken,
-    },
-    dataType: "json",
-    success(res) {
-      console.log(res);
-    },
-    error(response, status, error) {
-      console.log(response, status, error);
-    },
-  });
-});
+//   $.ajax({
+//     type: "GET",
+//     url: `/friend/${id}`,
+//     data: {
+//       id: id,
+//       csrfmiddlewaretoken: csrfmiddlewaretoken,
+//     },
+//     dataType: "json",
+//     success(res) {
+//       console.log(res);
+//     },
+//     error(response, status, error) {
+//       console.log(response, status, error);
+//     },
+//   });
+// });
 
   $("#friend-value").autocomplete({
       source : function(request, response) {

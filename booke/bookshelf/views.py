@@ -98,11 +98,6 @@ def index(request):
         member.already+=whole_page
         member.save()
         UserBook.objects.create(userid=member,bookid=book,whole_page=whole_page,color=color)
-        # new_book = UserBook.objects.latest('id')
-
-        # res = {
-        #     'id':new_book.id,
-        # }
         
         return JsonResponse({"message":"created"},status=201)
 
@@ -179,7 +174,10 @@ def index(request):
 
             # follow도 index get일 때 같이 처리
             follows=Follow.objects.filter(followed_by=request.user.profile)
-            id_list=[person.id for person in follows]
+            follow_list=[]
+            for follow in follows:
+                follow_list.append(follow.follow)
+            id_list=[person.id for person in follow_list]
             follow_list=Profile.objects.filter(id__in=id_list)
             res_follows=list(follow_list.values('nickname','id'))
 
@@ -208,6 +206,10 @@ def create_book(request):
 
 def delete_book(request,id):
     userbook=UserBook.objects.get(id=id)
+    if userbook.bookid.count==1:
+        userbook.bookid.delete()
+    else:
+        userbook.bookid.count-=1
     userbook.delete()
     userp=request.user.profile
 
@@ -220,20 +222,23 @@ def delete_book(request,id):
     return JsonResponse(context)
 
 def recommend_book(request):
-    if Book.objects.count()>=5:
-        by_book=Book.objects.all().order_by('-count')[:5]
-    else :
-        by_book=Book.objects.all().order_by('-count')
-    best_author=Author.objects.all().order_by('-count').first()
-    by_author=[]
-    image=[]
-    author=[]
-    for_author=search_title_author_image(best_author.name,0)
-    for i in range(for_author[3]):
-        rec=search_title_author_image(best_author.name,i)
-        by_author.append(Book.objects.create(title=rec[0],author=best_author,image=rec[2]))  
+    if Book.objects.count()==0:
+        return redirect('/bookshelf/')
+    else:
+        if Book.objects.count()>=5:
+            by_book=Book.objects.all().order_by('-count')[:6]
+        else :
+            by_book=Book.objects.all().order_by('-count')
+        best_author=Author.objects.all().order_by('-count').first()
+        by_author=[]
+        image=[]
+        author=[]
+        for_author=search_title_author_image(best_author.name,0)
+        for i in range(for_author[3]):
+            rec=search_title_author_image(best_author.name,i)
+            by_author.append(Book.objects.create(title=rec[0],author=best_author,image=rec[2]))  
 
-    return render(request,'bookshelf/recommend.html',{"by_books":by_book,'by_author':by_author})
+        return render(request,'bookshelf/recommend.html',{"by_books":by_book,'by_author':by_author})
 
 def show_memo(request,id):
     userbook=UserBook.objects.get(id=id)
@@ -362,6 +367,12 @@ def friends_shelf(request,id):
     ub6=UserBook.objects.filter(id__in=list6)
     ub7=UserBook.objects.filter(id__in=list7)
     ub8=UserBook.objects.filter(id__in=list8)
+
+    follows=Follow.objects.filter(followed_by=request.user.profile)
+    id_list=[person.id for person in follows]
+    follow_list=Profile.objects.filter(id__in=id_list)
+    res_follows=list(follow_list.values('nickname','id'))
+
     return render(request,'bookshelf/friends.html',{"friend":member,"books":books,"authors":authors,"follows":res_follows,"ub1":ub1,"ub2":ub2,"ub3":ub3,"ub4":ub4,"ub5":ub5,"ub6":ub6,"ub7":ub7,"ub8":ub8}) 
 
 

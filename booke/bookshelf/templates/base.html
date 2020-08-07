@@ -58,15 +58,17 @@
       </div>
 
       <div class="friendlist undernav">
-        <button class ="friendlist_btn" data-csrfmiddlewaretoken="{{ csrf_token }}">친구목록 펼치기</button>
-        {% for friend in follows %}
-          <div id="friend_list" class="friend_list" style="display: show;">  
+          <div class="friend_list" style="display:none;"> 
+            {% for friend in follows %}
+ 
             <div data-id= "{{friend.id}}"> {{friend.nickname}} </div>
-            <button class="to-friend-btn" data-id="{{ friend.id }}"> 놀러가기 </button>
-            <button class="unfollow-btn"> 언팔 </button>
-            {% comment %} {% csrf_token %} {% endcomment %}
+            <button class="to-friend-btn" data-id="{{ friend.id }}"><a href="/bookshelf/friends/{{friend.id}}">놀러가기</a></button>
+            <button class="unfollow-btn"><a href="/accounts/result/{{friend.id}}/follow/">언팔</a></button>
+            {% endfor %}
+
           </div>
-        {% endfor %}
+          <button class ="more-friendlist-btn" data-csrfmiddlewaretoken="{{ csrf_token }}" >친구목록 펼치기</button>
+          
       </div>
 
     </div>
