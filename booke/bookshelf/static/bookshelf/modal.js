@@ -150,7 +150,7 @@ $("#submit-memo").click((e) => {
       
       let memo_div = document.getElementById("memo-div");
       // const newTemp = `<div>페이지: ${new_page}</div><div>메모: ${new_content}</div>`;
-      const newTemp = `<div><div>${new_content}  (p.${new_page})</div>
+      const newTemp = `<div><div>${new_content}  (p.${new_page}) ${created_at}</div>
       <button data-bid="${res.id}" data-mid="${res.new_memo_id}" >삭제</button></div>`;
       memo_div.innerHTML += newTemp;
     },
