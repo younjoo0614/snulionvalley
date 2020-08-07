@@ -61,4 +61,4 @@ def result(request):
     f = request.GET['friend-value']
     if f:
         fs = Profile.objects.filter(nickname__contains=f)
-    return render(request, 'bookshelf/index.html', {'f_result':fs})
+        return render(request, 'bookshelf/index.html', {'f_result':fs})
