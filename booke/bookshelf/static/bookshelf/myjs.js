@@ -11,8 +11,8 @@ $(document).ready(() => {
       }
       });
   }
+)
 
-});
 
 $(".to-friend-btn").click((e) => {
   e.preventDefault();
@@ -22,7 +22,7 @@ $(".to-friend-btn").click((e) => {
 
   $.ajax({
     type: "GET",
-    url: `/friend/${id}`,
+    url: `/bookshelf/friend/${id}`,
     data: {
       id: id,
       csrfmiddlewaretoken: csrfmiddlewaretoken,

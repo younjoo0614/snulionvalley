@@ -18,15 +18,15 @@
                     {% if friend.goal == 2000 %} 
                         <div class = "myshelf1">
                             <div class = "shelf">
-                                    {% for userbook in ub1 %}
-                                        <a class="showfriendmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000);"> 
-                                            <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center;"> 
-                                                <div style = "writing-mode: vertical-lr;">
-                                                    {{userbook.bookid.title}} 
-                                                </div>
+                                {% for userbook in ub1 %}
+                                    <a class="showfriendmodal" href="#showModal" data-toggle="modal" data-id={{ userbook.id }} style = "width: calc(100% * {{userbook.whole_page}}/2000);"> 
+                                        <div class="book-{{userbook.color}}" id ="{{userbook.id}}" style = "height: 100%; display: flex; justify-content: center; align-items: center;"> 
+                                            <div style = "writing-mode: vertical-lr;">
+                                                {{userbook.bookid.title}} 
                                             </div>
-                                        </a>
-                                    {%endfor%}
+                                        </div>
+                                    </a>
+                                {%endfor%}
                             </div>
                         </div>
                     {% elif friend.goal == 4000 %}
