@@ -1,9 +1,48 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>책읽기</title>
+        {% load static %} 
+        {% load sass_tags %}
+        <link rel="stylesheet" href="{% sass_src 'bookshelf/style.scss' %}" type="text/css"/>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Sunflower:wght@300&display=swap" rel="stylesheet">
+    </head>
 
-{% block content %}
+<body>
+<a  href="/bookshelf/"><img class="logo" src="{% static 'bookshelf/logo.png' %}"/></a>
+    <div class="booklist">
+        <div class="bybook">
+            <p>책으로 추천</p>
+            <ol>
+            {% for book in by_books%}
+                <div class="booktitle">
+                    <div><img src={{book.image}}></img></div>
+                    <div class="li_book">
+                        <li>{{ book.title }},</br>
+                        {{book.author}}</li>
+                    </div>
+                </div>
+            {% endfor %}
+            </ol>
+        </div>
+        <div class="bybook">
+            <p>작가로 추천</p>
+            <ol>
+            {% for book in by_author %}
+                <div class="booktitle">
+                    <div><img src={{ book.image }}></img></div>
+                    <div class="li_book">
+                        <li>
+                        {{book.title}},</br>
+                        {{book.author}}
+                        </li>
+                    </div>
+                </div>
+            {% endfor %}
+            </ol>
+        </div>
+    <div>
 
-    {% for book in books %}
-        <li>{{ book.title }}</li>
-    {% endfor %}
-
-{% endblock content %}
+</body>
+</html>
