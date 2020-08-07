@@ -10,7 +10,7 @@ $(document).ready(() => {
             $(this).parent().find(".friend-list").hide();
         }
         });
-    }
+}
 )
 
     $("#friend-value").autocomplete({
