@@ -303,7 +303,7 @@ def delete_memo(request,bid,mid):
 def friends_shelf(request,id):
     member=Profile.objects.get(user_id=id)
     books=UserBook.objects.filter(userid=member)
-    author=Author.objects.get.all()
+    authors=Author.objects.all()
     page=0
     count=0
     list1=[]
