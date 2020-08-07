@@ -362,9 +362,6 @@ def friends_shelf(request,id):
     ub6=UserBook.objects.filter(id__in=list6)
     ub7=UserBook.objects.filter(id__in=list7)
     ub8=UserBook.objects.filter(id__in=list8)
-
     return render(request,'bookshelf/friends.html',{"friend":member,"books":books,"authors":authors,"follows":res_follows,"ub1":ub1,"ub2":ub2,"ub3":ub3,"ub4":ub4,"ub5":ub5,"ub6":ub6,"ub7":ub7,"ub8":ub8}) 
-
-
 
 
