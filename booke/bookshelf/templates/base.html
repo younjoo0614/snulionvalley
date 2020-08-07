@@ -36,7 +36,12 @@
     <div class="nav">
 
       <div class="recommand undernav" style="display:show">
+<<<<<<< HEAD
         <a href="/bookshelf/recommend/">책 추천</a>
+=======
+        <button><a href="/bookshelf/recommend/">책 추천</a></button>
+
+>>>>>>> master
       </div>
       <div class="search undernav">
         <form action="{% url 'search_friend' %}" method="GET">
@@ -60,10 +65,10 @@
             {% for friend in follows %}
  
             <div data-id= "{{friend.id}}"> {{friend.nickname}} </div>
+
             <button class="to-friend-btn" data-id="{{ friend.id }}"><a href="/bookshelf/friends/{{friend.id}}">놀러가기</a></button>
             <button class="unfollow-btn"><a href="/accounts/result/{{friend.id}}/follow/">언팔</a></button>
             {% endfor %}
-
           </div>
           <button class ="more-friendlist-btn" data-csrfmiddlewaretoken="{{ csrf_token }}" >친구목록 펼치기</button>
           
