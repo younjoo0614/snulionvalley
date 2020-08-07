@@ -1,10 +1,46 @@
-    <ol>
-        {% for book in by_books%}
-            <li><img src={{book.image}}></img> {{ book.title }} {{book.author}}</li>
-        {% endfor %}
-    </ol>
-    <ol>
-        {% for book in by_author %}
-            <li><img src={{ book.image }}></img>{{book.title}} {{book.author}} </li>
-        {% endfor %}
-    </ol>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>책읽기</title>
+        {% load static %} 
+        {% load sass_tags %}
+        <link rel="stylesheet" href="{% sass_src 'bookshelf/style.scss' %}" type="text/css"/>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Sunflower:wght@300&display=swap" rel="stylesheet">
+    </head>
+
+<body>
+
+    <div class="booklist">
+        <div class="bybook">
+        <h2>책으로 추천</h2>
+            <ol>
+            {% for book in by_books%}
+                <div class="booktitle">
+                    <div><img src={{book.image}}></img></div>
+                    <li>
+                        <div>{{ book.title }},</br>
+                        {{book.author}}</div>
+                    </li>
+                </div>
+            {% endfor %}
+            </ol>
+        </div>
+        <div class="bybook">
+        <h2>작가로 추천</h2>
+            <ol>
+            {% for book in by_author %}
+                <div class="booktitle">
+                    <div><img src={{ book.image }}></img></div>
+                    <li>
+                        <div>{{book.title}},</br>
+                        {{book.author}}</div>
+                    </li>
+                </div>
+            {% endfor %}
+            </ol>
+        </div>
+    <div>
+
+</body>
+</html>

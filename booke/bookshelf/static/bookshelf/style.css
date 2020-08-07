@@ -216,7 +216,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #222;
+  background-color: #DDDDDD;
   font-family: 'Noto Sans KR', sans-serif;
   font-weight: 100; }
 
@@ -654,6 +654,28 @@ button.friendlist_btn {
   width: 20px;
   overflow: hidden;
   text-overflow: ellipsis; }
+
+.booklist {
+  display: flex;
+  justify-content: between;
+  color: black;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 100; }
+
+.bybook {
+  padding: 15px; }
+
+.booktitle {
+  display: flex;
+  border: solid 10px #F2F2F2;
+  border-radius: 10px;
+  margin: 20px;
+  height: 100%;
+  width: 300px;
+  background-color: #F2F2F2; }
+
+.booklist img {
+  height: 100%; }
 
 /*# sourceMappingURL=style.css.map */
 
