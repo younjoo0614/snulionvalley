@@ -1,7 +1,5 @@
 from django.shortcuts import render, redirect
 #from django.contrib import auth
-from .models import Author, Book, UserBook, Memo
-from accounts.models import Profile, Follow
 import urllib.request
 from bs4 import BeautifulSoup
 from urllib.parse import quote_plus
@@ -11,6 +9,8 @@ import os
 import sys
 import json
 from django.core.serializers import serialize 
+from accounts.models import Profile, Follow
+from .models import Author, Book, UserBook, Memo
 
 # Create your views here.
 
@@ -82,12 +82,12 @@ def index(request):
         bookauthor=Author.objects.get(name__iexact=book_author)
         #추가하려고 하는 책이 이미 있는지 확인하고 없으면 추가
         try:
-            is_in_list=Book.objects.get(title__iexact=book_title, author=bookauthor)
+            is_in_list=Book.objects.get(title__exact=book_title, author=bookauthor)
 
         except Book.DoesNotExist:
             Book.objects.create(title=book_title, author=bookauthor,image=book_image)
         
-        book= Book.objects.get(title__iexact=book_title, author=bookauthor)
+        book= Book.objects.get(title__exact=book_title, author=bookauthor)
         # 저장된 횟수 추가
         book.count+=1
         bookauthor.count+=1
@@ -117,7 +117,7 @@ def index(request):
             list7=[]            
             list8=[]
 
-            if request.user.profile.goal <= 4000:
+            if member.goal <= 4000:
                 for bo in books:
                     page+=bo.whole_page
                     if page<=2000:
@@ -128,7 +128,7 @@ def index(request):
                         count+=1
                         list2.append(bo.id)
 
-            elif request.user.profile.goal == 6000:
+            elif member.goal == 6000:
                 for bo in books:
                     page+=bo.whole_page
                     if page<=3000:
@@ -139,7 +139,7 @@ def index(request):
                         count+=1
                         list4.append(bo.id)
 
-            elif request.user.profile.goal == 8000:
+            elif member.goal == 8000:
                 for bo in books:
                     page+=bo.whole_page
                     if page<=4000:
@@ -150,7 +150,7 @@ def index(request):
                         count+=1
                         list6.append(bo.id)
 
-            elif request.user.profile.goal == 10000:
+            elif member.goal == 10000:
                 for bo in books:
                     page+=bo.whole_page
                     if page<=5000:
@@ -213,7 +213,6 @@ def delete_book(request,id):
         userbook.bookid.save()
     userbook.delete()
     userp=request.user.profile
-
     userp.already-=userbook.whole_page  
     userp.save()  
 
@@ -227,7 +226,7 @@ def recommend_book(request):
         return redirect('/bookshelf/')
     else:
         if Book.objects.count()>=5:
-            by_book=Book.objects.all().order_by('-count')[:6]
+            by_book=Book.objects.all().order_by('-count')[:5]
         else :
             by_book=Book.objects.all().order_by('-count')
         best_author=Author.objects.all().order_by('-count').first()
