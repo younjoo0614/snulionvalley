@@ -373,6 +373,6 @@ def friends_shelf(request,id):
     follow_list=Profile.objects.filter(id__in=id_list)
     res_follows=list(follow_list.values('nickname','id'))
 
-    return render(request,'bookshelf/friends.html',{"friend":member,"books":books,"authors":authors,"follows":res_follows,"ub1":ub1,"ub2":ub2,"ub3":ub3,"ub4":ub4,"ub5":ub5,"ub6":ub6,"ub7":ub7,"ub8":ub8}) 
+    return render(request,'bookshelf/friends.html',{"friend":member,"books":books,"follows":res_follows,"ub1":ub1,"ub2":ub2,"ub3":ub3,"ub4":ub4,"ub5":ub5,"ub6":ub6,"ub7":ub7,"ub8":ub8}) 
 
 
