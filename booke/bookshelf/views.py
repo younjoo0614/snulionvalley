@@ -82,12 +82,12 @@ def index(request):
         bookauthor=Author.objects.get(name__iexact=book_author)
         #추가하려고 하는 책이 이미 있는지 확인하고 없으면 추가
         try:
-            is_in_list=Book.objects.get(title__iexact=book_title, author=bookauthor)
+            is_in_list=Book.objects.get(title__exact=book_title, author=bookauthor)
 
         except Book.DoesNotExist:
             Book.objects.create(title=book_title, author=bookauthor,image=book_image)
         
-        book= Book.objects.get(title__iexact=book_title, author=bookauthor)
+        book= Book.objects.get(title__exact=book_title, author=bookauthor)
         # 저장된 횟수 추가
         book.count+=1
         bookauthor.count+=1
@@ -210,9 +210,9 @@ def delete_book(request,id):
         userbook.bookid.delete()
     else:
         userbook.bookid.count-=1
+        userbook.bookid.save()
     userbook.delete()
     userp=request.user.profile
-
     userp.already-=userbook.whole_page  
     userp.save()  
 
@@ -226,7 +226,7 @@ def recommend_book(request):
         return redirect('/bookshelf/')
     else:
         if Book.objects.count()>=5:
-            by_book=Book.objects.all().order_by('-count')[:6]
+            by_book=Book.objects.all().order_by('-count')[:5]
         else :
             by_book=Book.objects.all().order_by('-count')
         best_author=Author.objects.all().order_by('-count').first()
@@ -303,7 +303,6 @@ def delete_memo(request,bid,mid):
 def friends_shelf(request,id):
     member=Profile.objects.get(user_id=id)
     books=UserBook.objects.filter(userid=member)
-    authors=Author.objects.all()
     page=0
     count=0
     list1=[]
