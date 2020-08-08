@@ -210,6 +210,7 @@ def delete_book(request,id):
         userbook.bookid.delete()
     else:
         userbook.bookid.count-=1
+        userbook.bookid.save()
     userbook.delete()
     userp=request.user.profile
 
