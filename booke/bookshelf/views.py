@@ -308,9 +308,7 @@ def delete_memo(request,bid,mid):
             'id':userbook.id,
         }, 
         'memos': memo_data,
-
     }
-
     return JsonResponse(context)
 
 def friends_shelf(request,id):
