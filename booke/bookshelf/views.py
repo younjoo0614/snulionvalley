@@ -27,14 +27,14 @@ def search_title_author_image(title,num):
     rescode = response.getcode()
     if(rescode==200):
         response_body = response.read()
-        dict=json.loads(response_body.decode('utf-8'))
+        dicti=json.loads(response_body.decode('utf-8'))
         p=re.compile('<b>|</b>')
-        book_title=p.sub('',dict["items"][num]["title"])
+        book_title=p.sub('',dicti["items"][num]["title"])
         while book_title.find('(')!=-1:
             book_title=re.search('.+(?=\()',book_title).group()
-        book_author=dict["items"][num]["author"]
-        book_image=dict["items"][num]["image"]
-        display=dict["display"]
+        book_author=dicti["items"][num]["author"]
+        book_image=dicti["items"][num]["image"]
+        display=dicti["display"]
         title_author_image=[book_title,book_author,book_image,display]
         return title_author_image
 
@@ -283,7 +283,7 @@ def create_memo(request,id):
             }, 
             #'memos': memo_data,
         }
-
+        
         # return redirect('bookself/show.html')
         return JsonResponse(context)
 
@@ -296,9 +296,22 @@ def create_memo(request,id):
     
 
 def delete_memo(request,bid,mid):
+    userbook=UserBook.objects.get(id=bid)
     m=Memo.objects.get(id=mid)
     m.delete()    
-    return JsonResponse({"message":"created"},status=201)
+    memo_data=list(Memo.objects.filter(book=userbook).values('id','book','content','page', 'created_at'))
+
+    context = {
+        'userbook': {
+            'title':userbook.bookid.title,
+            'author':userbook.bookid.author.name,
+            'id':userbook.id,
+        }, 
+        'memos': memo_data,
+
+    }
+
+    return JsonResponse(context)
 
 def friends_shelf(request,id):
     member=Profile.objects.get(user_id=id)

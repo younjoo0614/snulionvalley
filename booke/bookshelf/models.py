@@ -31,8 +31,6 @@ class Memo(models.Model):
     content=models.TextField()
     created_at = models.DateTimeField(default=timezone.now)
     page = models.IntegerField(blank=True, null=True)
+    isopen=models.BooleanField(default=True)
 
-#링크를 걸어서 친구 책장에 가는 것은 지금 url 설계상 불가능
-#유저 id가 url에 들어있게 하는 방법으로 구분하면 가능할 수도 있지만 가능하진지는 확인 필요
-#불가능하다면 userbook object 전체 중 userid가 친구 id에 해당하는 것을 골라 페이지를 만들어보여줘야 할 듯
 #https://github.com/yeonnseok/django-study/wiki/Django-%EB%B3%B5%EC%8A%B5-%EB%B0%8F-%EC%98%88%EC%A0%9C
