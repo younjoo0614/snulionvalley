@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 #from django.contrib import auth
 import urllib.request
+from urllib.error import HTTPError
 from bs4 import BeautifulSoup
 from urllib.parse import quote_plus
 import re
@@ -19,7 +20,12 @@ def search_title_author_image(title,num):
     client_secret = "gw8Luw9s2F"
     encText = urllib.parse.quote(title)    
     url = "https://openapi.naver.com/v1/search/book.json?query=" + encText #+"&display=3&sort=sim" 뒤에 붙는 건 검색결과는 3개만, 정렬방법: 유사도라는 ㅣ뜻
-    request = urllib.request.Request(url)
+    request = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+    try:
+        handler = urllib.request.urlopen(request)
+    except HTTPError as e:
+        content = e.read()
+        print(content)
     request.add_header("X-Naver-Client-Id",client_id)
     request.add_header("X-Naver-Client-Secret",client_secret)
     response = urllib.request.urlopen(request)
