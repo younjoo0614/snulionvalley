@@ -73,7 +73,7 @@ def get_page(title,num):
 
     whole_page= bs.select('.book_info_inner') 
 
-    m=re.search('페이지.\d+',whole_page[0].text)
+    m=re.search('페이지.\d+',bs.text)
     page=re.search('\d+',m.group())
 
     return int(page.group())
@@ -82,7 +82,6 @@ def index(request):
     if request.method=='POST':
         member=request.user.profile
         n=int(request.POST['option'])
-        print(type(n))
         ta_list=search_title_author_image(request.POST['title'],n)
         
         book_title=ta_list[0]
