@@ -46,7 +46,6 @@ $("#login-form").submit((event) => {
   });
 });
 
-
 $("#book-create").submit((event) => {
   event.preventDefault();
   var colors = document.getElementsByName("color");
@@ -54,32 +53,61 @@ $("#book-create").submit((event) => {
   for (var i = 0; i < colors.length; i++) {
     if (colors[i].checked) {
       color_value = colors[i].value;
-      // console.log(color_value)
     }
-    // return color_value;
   }
-
+  const csrfmiddlewaretoken =$(event.currentTarget).data("csrfmiddlewaretoken");
   $.ajax({
-    url: "/bookshelf/",
+    url: "/bookshelf/new/",
     method: "POST",
     data: {
       title: $(`input#title`).val(),
-      // author: $(`input#author`).val(),
-      // page: $(`input#page`).val(),
-      author: $(`input#author`).val(),
       color: color_value,
       csrfmiddlewaretoken: $(event.currentTarget).data("csrfmiddlewaretoken"),
     },
     dataType: "json",
     success(res) {
       console.log(res);
-      window.location.href = "/bookshelf/";
+      let select=document.getElementById('select-book');
+      for (let i=0; i<res.num; i++){
+        book=res[i];
+        select.innerHTML+=`<div class='book-option' data-title="${book.title}" data-id=${i} data-csrfmiddlewaretoken="${ csrfmiddlewaretoken }"><img src='${book.image}'></img>
+        <div> 제목: ${book.title} 작가: ${book.author}</div></div>`
+      }      
+      // window.location.href = "/bookshelf/";
+      $(document).on('click', '.book-option', function(e)  {
+        e.preventDefault();
+        const $this = $(e.currentTarget);
+        const id = $this.data("id");
+        const csrfmiddlewaretoken = $this.data("csrfmiddlewaretoken");
+        console.log(id);
+        $.ajax({
+          url: `/bookshelf/`,
+          method: "POST",
+          data: {
+            title: $(`input#title`).val(),
+            color:color_value,
+            option: id,
+            csrfmiddlewaretoken: csrfmiddlewaretoken,
+          },
+
+          dataType: "json",
+          success(res) {
+            console.log(res);
+            window.location.href='/bookshelf/';
+          },
+          error(response, status, error) {
+            console.log(response, status, error);
+          },
+        });
+      });
+      
     },
     error(response, status, error) {
       console.log(response, status, error);
     },
   });
 });
+
 
 
 $(".showmodal").click((e) => {

@@ -9,28 +9,14 @@
             </div>
             <div class="modal-body">
                 <form id='book-create' data-csrfmiddlewaretoken="{{ csrf_token }}"> 
+                    {% csrf_token %}
                     <div class="form-group">                                           
                         <label for="title" class="col-form-label">책 제목</label>
                         <input type="text" name="title" class="form-control" id="title">
                     </div>
-                    {% comment %} <div class="form-group">                                           
-                        <label for="author" class="col-form-label">작가</label>
-                        <input type="text" name="author" class="form-control" id="author">
-                    </div>
-
-                    <div class="form-group">                                           
-                        <label for="pages" class="col-form-label">페이지 수</label>
-                        <input type="integer" name="pages" class="form-control" id="pages">
-                    </div> {% endcomment %}
-
                     <div class="form-group"> 
                         <label for="color" class="col-form-label">책 색</label>
-                        <div class="color-box">                                        
-                            {% comment %} <button type="button" class="btn-1" value=1>1</button>                     
-                            <button type="button" class="btn-2" value=2>2</button>
-                            <button type="button" class="btn-3" value=3>3</button>
-                            <button type="button" class="btn-4" value=4>4</button>
-                            <button type="button" class="btn-5" value=5>5</button> {% endcomment %}
+                        <div class="color-box">
                             <div class="custom-radios" >
                                 <div>
                                     <input type="radio" id="color-1" name="color" value="1" checked>
@@ -76,9 +62,9 @@
                                     </span>
                                     </label>
                                 </div>
-
-                                </div>
+                            </div>
                         </div>
+                        <div id='select-book'></div>
                     </div>
 
                     <div class="modal-footer">
