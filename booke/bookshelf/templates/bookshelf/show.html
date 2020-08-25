@@ -9,6 +9,7 @@
             </div>
             <div class="modal-body">
                 <form id='memo-create' data-csrfmiddlewaretoken="{{ csrf_token }}"> 
+                    {% csrf_token %}
                     <div id='info-div'></div>
                     <div id='memo-div'></div>
                     

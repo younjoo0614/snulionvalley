@@ -27,14 +27,15 @@ def search_title_author_image(title,num):
     rescode = response.getcode()
     if(rescode==200):
         response_body = response.read()
-        dict=json.loads(response_body.decode('utf-8'))
+        dicti=json.loads(response_body.decode('utf-8'))
         p=re.compile('<b>|</b>')
-        book_title=p.sub('',dict["items"][num]["title"])
+        book_title=p.sub('',dicti["items"][num]["title"])
         while book_title.find('(')!=-1:
             book_title=re.search('.+(?=\()',book_title).group()
-        book_author=dict["items"][num]["author"]
-        book_image=dict["items"][num]["image"]
-        display=dict["display"]
+        book_author=dicti["items"][num]["author"]
+        book_image=dicti["items"][num]["image"]
+        
+        display=dicti["display"]
         title_author_image=[book_title,book_author,book_image,display]
         return title_author_image
 
@@ -43,22 +44,36 @@ def search_title_author_image(title,num):
         
 
 def get_page(title,num):
-    baseUrl = 'https://book.naver.com/search/search.nhn?sm=sta_hty.book&sug=&where=nexearch&query='
+    # baseUrl = 'https://book.naver.com/search/search.nhn?sm=sta_hty.book&sug=&where=nexearch&query='
 
-    url = baseUrl + quote_plus(title) #네이버 책 홈에서 책 제목을 검색해서 나오는 url
-    html = urllib.request.urlopen(url)
-    bsObject = BeautifulSoup(html, "html.parser")
+    # url = baseUrl + quote_plus(title) #네이버 책 홈에서 책 제목을 검색해서 나오는 url
+    # html = urllib.request.urlopen(url)
+    # bsObject = BeautifulSoup(html, "html.parser")
 
-    site_for_page = bsObject.select('li > dl > dt > a') # 책 제목을 검색해서 뜨는 a 태그들 결과들의 링크
+    # site_for_page = bsObject.select('li > dl > dt > a') # 책 제목을 검색해서 뜨는 a 태그들 결과들의 링크
 
-    deturl=site_for_page[num].attrs['href'] # 페이지 수가 써있는 url로 들어옴 index 0으로 한 건 편의를 위함, 추후 바뀔 수 있음
+    # deturl=site_for_page[num].attrs['href'] # 페이지 수가 써있는 url로 들어옴 index 0으로 한 건 편의를 위함, 추후 바뀔 수 있음
+    client_id = "4dDEAG4leXp6OiKVgE7G" 
+    client_secret = "gw8Luw9s2F"
+    encText = urllib.parse.quote(title)    
+    url = "https://openapi.naver.com/v1/search/book.json?query=" + encText #+"&display=3&sort=sim" 뒤에 붙는 건 검색결과는 3개만, 정렬방법: 유사도라는 ㅣ뜻
+    request = urllib.request.Request(url)
+    request.add_header("X-Naver-Client-Id",client_id)
+    request.add_header("X-Naver-Client-Secret",client_secret)
+    response = urllib.request.urlopen(request)
+
+    rescode = response.getcode()
+    if(rescode==200):
+        response_body = response.read()
+        dicti=json.loads(response_body.decode('utf-8'))
+        deturl=dicti["items"][num]["link"]
 
     html=urllib.request.urlopen(deturl)
     bs=BeautifulSoup(html, "html.parser")
 
     whole_page= bs.select('.book_info_inner') 
 
-    m=re.search('페이지.\d+',whole_page[0].text)
+    m=re.search('페이지.\d+',bs.text)
     page=re.search('\d+',m.group())
 
     return int(page.group())
@@ -66,7 +81,9 @@ def get_page(title,num):
 def index(request):    
     if request.method=='POST':
         member=request.user.profile
-        ta_list=search_title_author_image(request.POST['title'],0)
+        n=int(request.POST['option'])
+        ta_list=search_title_author_image(request.POST['title'],n)
+        
         book_title=ta_list[0]
         book_author=ta_list[1]
         book_image=ta_list[2]
@@ -94,7 +111,7 @@ def index(request):
         book.save()
         bookauthor.save()
 
-        whole_page=get_page(book_title,0)
+        whole_page=get_page(book_title,n)
         member.already+=whole_page
         member.save()
         UserBook.objects.create(userid=member,bookid=book,whole_page=whole_page,color=color)
@@ -161,7 +178,6 @@ def index(request):
                         count+=1
                         list8.append(bo.id)
 
-
             ub1=UserBook.objects.filter(id__in=list1)
             ub2=UserBook.objects.filter(id__in=list2)
             ub3=UserBook.objects.filter(id__in=list3)
@@ -171,7 +187,6 @@ def index(request):
             ub7=UserBook.objects.filter(id__in=list7)
             ub8=UserBook.objects.filter(id__in=list8)
             
-
             # follow도 index get일 때 같이 처리
             follows=Follow.objects.filter(followed_by=request.user.profile)
             follow_list=[]
@@ -184,10 +199,20 @@ def index(request):
             return render(request,'bookshelf/index.html',{"books":books,"authors":authors,"follows":res_follows,"ub1":ub1,"ub2":ub2,"ub3":ub3,"ub4":ub4,"ub5":ub5,"ub6":ub6,"ub7":ub7,"ub8":ub8})
         else:
             return render(request,'bookshelf/index.html')
-            
 
 def create_book(request):
-    return render(request,'bookshelf/new.html')
+    title=request.POST['title']
+    num=search_title_author_image(title,0)[3]
+    context={}
+    for i in range(num):
+        temp=search_title_author_image(title,i)
+        context[i]={
+            'title':temp[0],
+            'author':temp[1],
+            'image':temp[2]
+        }
+    context['num']=num   
+    return JsonResponse(context)
 
 # def list_friends(request):
 #     follows=Follow.objects.filter(followed_by=request.user.profile)
@@ -283,7 +308,7 @@ def create_memo(request,id):
             }, 
             #'memos': memo_data,
         }
-
+        
         # return redirect('bookself/show.html')
         return JsonResponse(context)
 
@@ -296,9 +321,20 @@ def create_memo(request,id):
     
 
 def delete_memo(request,bid,mid):
+    userbook=UserBook.objects.get(id=bid)
     m=Memo.objects.get(id=mid)
     m.delete()    
-    return JsonResponse({"message":"created"},status=201)
+    memo_data=list(Memo.objects.filter(book=userbook).values('id','book','content','page', 'created_at'))
+
+    context = {
+        'userbook': {
+            'title':userbook.bookid.title,
+            'author':userbook.bookid.author.name,
+            'id':userbook.id,
+        }, 
+        'memos': memo_data,
+    }
+    return JsonResponse(context)
 
 def friends_shelf(request,id):
     member=Profile.objects.get(user_id=id)

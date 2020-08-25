@@ -46,7 +46,6 @@ $("#login-form").submit((event) => {
   });
 });
 
-
 $("#book-create").submit((event) => {
   event.preventDefault();
   var colors = document.getElementsByName("color");
@@ -54,33 +53,60 @@ $("#book-create").submit((event) => {
   for (var i = 0; i < colors.length; i++) {
     if (colors[i].checked) {
       color_value = colors[i].value;
-      // console.log(color_value)
     }
-    // return color_value;
   }
-
+  const csrfmiddlewaretoken =$(event.currentTarget).data("csrfmiddlewaretoken");
   $.ajax({
-    url: "/bookshelf/",
+    url: "/bookshelf/new/",
     method: "POST",
     data: {
       title: $(`input#title`).val(),
-      // author: $(`input#author`).val(),
-      // page: $(`input#page`).val(),
-      author: $(`input#author`).val(),
       color: color_value,
       csrfmiddlewaretoken: $(event.currentTarget).data("csrfmiddlewaretoken"),
     },
     dataType: "json",
     success(res) {
       console.log(res);
-      window.location.href = "/bookshelf/";
+      let select=document.getElementById('select-book');
+      select.innerHTML=``;
+      for (let i=0; i<res.num; i++){
+        book=res[i];
+        select.innerHTML+=`<div class='book-option' data-title="${book.title}" data-id=${i} data-csrfmiddlewaretoken="${ csrfmiddlewaretoken }"><img src='${book.image}'></img>
+        <div> 제목: ${book.title} 작가: ${book.author}</div></div>`
+      }
+      $(document).on('click', '.book-option', function(e)  {
+        e.preventDefault();
+        const $this = $(e.currentTarget);
+        const id = $this.data("id");
+        const csrfmiddlewaretoken = $this.data("csrfmiddlewaretoken");
+        console.log(id);
+        $.ajax({
+          url: `/bookshelf/`,
+          method: "POST",
+          data: {
+            title: $(`input#title`).val(),
+            color:color_value,
+            option: id,
+            csrfmiddlewaretoken: csrfmiddlewaretoken,
+          },
+
+          dataType: "json",
+          success(res) {
+            console.log(res);
+            window.location.href='/bookshelf/';
+          },
+          error(response, status, error) {
+            console.log(response, status, error);
+          },
+        });
+      });
+      
     },
     error(response, status, error) {
       console.log(response, status, error);
     },
   });
 });
-
 
 $(".showmodal").click((e) => {
   e.preventDefault();
@@ -109,7 +135,7 @@ $(".showmodal").click((e) => {
             <p>메모:</p>`;
 
       const memoTemplate = memos.map((memo) => `<div><div>${memo.content}  (p.${memo.page}) (날짜: ${memo.created_at})</div>
-      <button type="submit" class="delete-memo" data-bid =${id} data-mid=${memo.id} >삭제</button></div>`)
+      <button type="submit" class="delete-memo btn btn-secondary" data-bid =${id} data-mid=${memo.id} data-csrfmiddlewaretoken="${ csrfmiddlewaretoken }">삭제</button></div>`)
         .join("");
       const submit_btn = document.getElementById("submit-memo");
       submit_btn.dataset.id = `${id}`;
@@ -143,21 +169,59 @@ $("#submit-memo").click((e) => {
     },
     dataType: "json",
     success(res) {
-      console.log(res);
-      const new_page = res.page;
-      const new_content = res.content;
-      const created_at = res.created_at;
-      
+      console.log(res.userbook.id);
       let memo_div = document.getElementById("memo-div");
       // const newTemp = `<div>페이지: ${new_page}</div><div>메모: ${new_content}</div>`;
-      const newTemp = `<div><div>${new_content}  (p.${new_page}) ${created_at}</div>
-      <button data-bid="${res.id}" data-mid="${res.new_memo_id}" >삭제</button></div>`;
+      const newTemp = `<div><div>${res.content}  (p.${res.page}) (날짜: ${res.created_at})</div>
+      <button class='delete-memo btn btn-secondary' data-bid="${id}" data-mid="${res.new_memo_id}" data-csrfmiddlewaretoken="${ csrfmiddlewaretoken }" >삭제</button></div>`;
       memo_div.innerHTML += newTemp;
     },
     error(response, status, error) {
       console.log(response, status, error);
     },
   });
+});
+
+$(document).on('click', '.delete-memo', function(e)  {
+  e.preventDefault();
+  const $this = $(e.currentTarget);
+  const bid =$this.data("bid");
+  const mid=$this.data("mid");
+  const csrfmiddlewaretoken = $this.data("csrfmiddlewaretoken");
+  
+  $.ajax({
+      type: 'POST',
+      url: `/bookshelf/${bid}/memos/${mid}/delete/`,
+      data: {
+          bid:bid,
+          mid:mid,
+          csrfmiddlewaretoken: csrfmiddlewaretoken,
+      },
+      dataType: 'json',
+      success(res) {
+        console.log(res);
+        const userbook = res.userbook;
+        const memos = res.memos;
+        const csrftoken=csrfmiddlewaretoken;
+        let info_div = document.getElementById("info-div");
+        let memo_div = document.getElementById("memo-div");
+  
+        info_div.innerHTML = `<p>책 제목 : ${userbook.title}</p>
+              <p>작가 : ${userbook.author}</p>
+              <p>메모:</p>`;
+  
+        const memoTemplate = memos.map((memo) => `<div><div>${memo.content}  (p.${memo.page}) (날짜: ${memo.created_at})</div>
+        <button type="submit" class="delete-memo btn btn-secondary" data-bid =${bid} data-mid=${memo.id} data-csrfmiddlewaretoken="${ csrfmiddlewaretoken }">삭제</button></div>`)
+          .join("");
+        memo_div.innerHTML = memoTemplate;
+      },
+      error: function(response, status, error) {
+          console.log(response, status, error);
+      },
+      complete: function(response) {
+          console.log(response);
+      },
+  })
 });
 
 $("#delete-book").click((e) => {
@@ -226,35 +290,6 @@ $(".showfriendmodal").click((e) => {
       },
     });
   });
-
-$(".delete-memo").click((e)=> {
-  e.preventDefault();
-    const $this = $(e.currentTarget);
-    const bid =$this.data("bid");
-    const mid=$this.data("mid");
-    const csrfmiddlewaretoken = $this.data('csrfmiddlewaretoken');
-
-    $.ajax({
-        type: 'POST',
-        url: `/bookshelf/${bid}/memos/${mid}/delete/`,
-        data: {
-            bid:bid,
-            mid:mid,
-            csrfmiddlewaretoken: csrfmiddlewaretoken,
-        },
-        dataType: 'json',
-        success: function(response) {
-            console.log(response);
-            $(this).parent().remove();
-        },
-        error: function(response, status, error) {
-            console.log(response, status, error);
-        },
-        complete: function(response) {
-            console.log(response);
-        },
-    })
-});
       
 $(document).ready(() => {
   $(".more-comment-btn").on("click", function (event) {
