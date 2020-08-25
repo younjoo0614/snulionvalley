@@ -163,11 +163,61 @@ input.search_bt:hover{
   padding: 3px;
   background-color: transparent;
   margin: 5px;
-  font-size: 12px;
+  font-size: 14px;
   color: white;
+  padding: 10px;
   border-radius: 5px;
-  padding: 5px;
 }
+
+.nav button:hover{
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 500;
+  padding: 3px;
+  background-color: transparent;
+  margin: 5px;
+  font-size: 14px;
+  color: white;
+  padding: 10px;
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
+}
+
+.nav a{
+  color:white;
+  text-decoration:none;
+  position: relative;
+ }
+
+.nav a:hover{
+ text-decoration:none;
+ color: white;
+ border: none;
+ background-color: transparent;
+}
+
+button.to-friend-btn{
+  font-size: 12px;
+  font-weight: 300;
+  padding: 5px;;
+}
+
+button.to-friend-btn:hover{
+  font-size: 12px;
+  font-weight: 300;
+  padding: 5px;;
+}
+
+button.unfollow-btn{
+  font-size: 12px;
+  font-weight: 300;
+  padding: 5px;;
+}
+
+button.unfollow-btn:hover{
+  font-size: 12px;
+  font-weight: 300;
+  padding: 5px;;
+}
+
 
 
 .undernav{
@@ -179,6 +229,7 @@ input.search_bt:hover{
   color: white;
   font-weight: 500;
   margin: 5px;
+  padding: 10px;
 }
 
 .recommand_book:hover{
@@ -188,6 +239,9 @@ input.search_bt:hover{
   margin: 5px;
   text-decoration: none;
   border-bottom: solid 1px white;
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 10px;
 }
 
 .login {
@@ -340,8 +394,17 @@ input.search_bt:hover{
 .newbook:hover {
   background-color: #3F7373;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-  color: #fff;
+  color: white;
   transform: translateY(-7px); }
+
+.newbook a {
+  color: #DDDDDD;
+}
+
+.newbook a:hover {
+  color: white;
+  text-decoration: none;
+}
 
 .color-box {
   display: flex;
@@ -459,7 +522,7 @@ button.friendlist_btn{
 
 .book-1 {
 
-  background: linear-gradient(to right, #3F7373,#356969,#3F7373);
+  background: linear-gradient(to right, #3F7373,#306666,#3F7373);
   -webkit-fill-color: transparent;
   border-radius: 5px 5px 0 0;
 }
