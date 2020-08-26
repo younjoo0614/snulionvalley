@@ -757,6 +757,17 @@ button.friendlist_btn {
 .logo:hover {
   cursor: pointer; }
 
+div.book-option {
+  padding: 15px;
+  display: flex;
+  align-items: center; }
+
+div.book-option div {
+  padding: 10px; }
+
+div.book-option img:hover {
+  cursor: pointer; }
+
 /*# sourceMappingURL=style.css.map */
 
 /*# sourceMappingURL=style.css.map */

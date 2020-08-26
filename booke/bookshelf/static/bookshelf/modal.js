@@ -71,8 +71,13 @@ $("#book-create").submit((event) => {
       select.innerHTML=``;
       for (let i=0; i<res.num; i++){
         book=res[i];
-        select.innerHTML+=`<div class='book-option' data-title="${book.title}" data-id=${i} data-csrfmiddlewaretoken="${ csrfmiddlewaretoken }"><img src='${book.image}'></img>
-        <div> 제목: ${book.title} 작가: ${book.author}</div></div>`
+        select.innerHTML+=`<div class='book-option' data-title="${book.title}" data-id=${i} data-csrfmiddlewaretoken="${ csrfmiddlewaretoken }">
+        <img src='${book.image}'></img>
+        <div>
+          <div class="book-option-title"> 제목: ${book.title}</div>
+          <div class="book-option-author">작가: ${book.author}</div>
+        </div>
+        </div>`
       }
       $(document).on('click', '.book-option', function(e)  {
         e.preventDefault();
