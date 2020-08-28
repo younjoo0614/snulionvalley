@@ -55,12 +55,13 @@ $("#book-create").submit((event) => {
       color_value = colors[i].value;
     }
   }
+  const title=$(`input#title`).val()
   const csrfmiddlewaretoken =$(event.currentTarget).data("csrfmiddlewaretoken");
   $.ajax({
     url: "/bookshelf/new/",
     method: "POST",
     data: {
-      title: $(`input#title`).val(),
+      title: title,
       color: color_value,
       csrfmiddlewaretoken: $(event.currentTarget).data("csrfmiddlewaretoken"),
     },
@@ -85,7 +86,7 @@ $("#book-create").submit((event) => {
           url: `/bookshelf/`,
           method: "POST",
           data: {
-            title: $(`input#title`).val(),
+            title: title,
             color:color_value,
             option: id,
             csrfmiddlewaretoken: csrfmiddlewaretoken,

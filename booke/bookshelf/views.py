@@ -222,7 +222,7 @@ def create_book(request):
                 'author':temp[1],
                 'image':temp[2]
             }
-    else: print("Error Code: "+rescode)
+    else: print("Error Code: "+temp['rescode'])
     context['num']=num   
     return JsonResponse(context)
 
