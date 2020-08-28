@@ -14,7 +14,7 @@ from .models import Author, Book, UserBook, Memo
 
 # Create your views here.
 
-def search_title_author_image(title,num):
+def ready_dicti(title):
     client_id = "4dDEAG4leXp6OiKVgE7G" 
     client_secret = "gw8Luw9s2F"
     encText = urllib.parse.quote(title)    
@@ -28,6 +28,14 @@ def search_title_author_image(title,num):
     if(rescode==200):
         response_body = response.read()
         dicti=json.loads(response_body.decode('utf-8'))
+        return {'dicti':dicti, 'rescode': rescode}
+
+    else: return {'rescode':rescode}
+
+def search_title_author_image(title,num):
+    temp=ready_dicti(title)
+    if temp['rescode']==200:
+        dicti=temp['dicti']
         p=re.compile('<b>|</b>')
         book_title=p.sub('',dicti["items"][num]["title"])
         while book_title.find('(')!=-1:
@@ -40,7 +48,7 @@ def search_title_author_image(title,num):
         return title_author_image
 
     else:
-        print("Error Code:" + rescode)
+        print("Error Code:" + temp['rescode'])
         
 
 def get_page(title,num):
@@ -53,19 +61,9 @@ def get_page(title,num):
     # site_for_page = bsObject.select('li > dl > dt > a') # 책 제목을 검색해서 뜨는 a 태그들 결과들의 링크
 
     # deturl=site_for_page[num].attrs['href'] # 페이지 수가 써있는 url로 들어옴 index 0으로 한 건 편의를 위함, 추후 바뀔 수 있음
-    client_id = "4dDEAG4leXp6OiKVgE7G" 
-    client_secret = "gw8Luw9s2F"
-    encText = urllib.parse.quote(title)    
-    url = "https://openapi.naver.com/v1/search/book.json?query=" + encText #+"&display=3&sort=sim" 뒤에 붙는 건 검색결과는 3개만, 정렬방법: 유사도라는 ㅣ뜻
-    request = urllib.request.Request(url)
-    request.add_header("X-Naver-Client-Id",client_id)
-    request.add_header("X-Naver-Client-Secret",client_secret)
-    response = urllib.request.urlopen(request)
-
-    rescode = response.getcode()
-    if(rescode==200):
-        response_body = response.read()
-        dicti=json.loads(response_body.decode('utf-8'))
+    temp=ready_dicti(title)
+    if temp['rescode']==200:
+        dicti=temp['dicti']       
         deturl=dicti["items"][num]["link"]
 
     html=urllib.request.urlopen(deturl)
@@ -192,6 +190,7 @@ def index(request):
             follow_list=[]
             for follow in follows:
                 follow_list.append(follow.follow)
+            ##follow_list 안에 프로필 객체가 있을 줄 알았으나 그렇지 않아서 아래 과정 생성
             id_list=[person.id for person in follow_list]
             follow_list=Profile.objects.filter(id__in=id_list)
             res_follows=list(follow_list.values('nickname','id'))
@@ -204,13 +203,26 @@ def create_book(request):
     title=request.POST['title']
     num=search_title_author_image(title,0)[3]
     context={}
-    for i in range(num):
-        temp=search_title_author_image(title,i)
-        context[i]={
-            'title':temp[0],
-            'author':temp[1],
-            'image':temp[2]
-        }
+    temp=ready_dicti(title)
+    if temp['rescode']==200:
+        dicti=temp['dicti']
+        p=re.compile('<b>|</b>')
+    
+        for i in range(num):
+            book_title=p.sub('',dicti["items"][i]["title"])
+            while book_title.find('(')!=-1:
+                book_title=re.search('.+(?=\()',book_title).group()
+            book_author=dicti["items"][i]["author"]
+            book_image=dicti["items"][i]["image"]
+        
+            display=dicti["display"]
+            temp=[book_title,book_author,book_image,display]
+            context[i]={
+                'title':temp[0],
+                'author':temp[1],
+                'image':temp[2]
+            }
+    else: print("Error Code: "+rescode)
     context['num']=num   
     return JsonResponse(context)
 
@@ -409,5 +421,3 @@ def friends_shelf(request,id):
     res_follows=list(follow_list.values('nickname','id'))
 
     return render(request,'bookshelf/friends.html',{"friend":member,"books":books,"follows":res_follows,"ub1":ub1,"ub2":ub2,"ub3":ub3,"ub4":ub4,"ub5":ub5,"ub6":ub6,"ub7":ub7,"ub8":ub8}) 
-
-

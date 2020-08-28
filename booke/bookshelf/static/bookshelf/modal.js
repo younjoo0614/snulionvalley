@@ -69,6 +69,7 @@ $("#book-create").submit((event) => {
       console.log(res);
       let select=document.getElementById('select-book');
       select.innerHTML=``;
+      
       for (let i=0; i<res.num; i++){
         book=res[i];
         select.innerHTML+=`<div class='book-option' data-title="${book.title}" data-id=${i} data-csrfmiddlewaretoken="${ csrfmiddlewaretoken }"><img src='${book.image}'></img>
