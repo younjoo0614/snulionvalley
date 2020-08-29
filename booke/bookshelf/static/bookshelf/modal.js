@@ -175,6 +175,8 @@ $("#submit-memo").click((e) => {
       const newTemp = `<div><div>${res.content}  (p.${res.page}) (날짜: ${res.created_at})</div>
       <button class='delete-memo btn btn-secondary' data-bid="${id}" data-mid="${res.new_memo_id}" data-csrfmiddlewaretoken="${ csrfmiddlewaretoken }" >삭제</button></div>`;
       memo_div.innerHTML += newTemp;
+      $(`textarea#review`).val('');
+      $(`input#review_pages`).val('');
     },
     error(response, status, error) {
       console.log(response, status, error);
