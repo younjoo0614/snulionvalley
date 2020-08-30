@@ -273,8 +273,18 @@ def recommend_book(request):
 
 def show_memo(request,id):
     userbook=UserBook.objects.get(id=id)
-    memo_data=list(Memo.objects.filter(book=userbook).values('id','book','content','page', 'created_at'))
+    print(request.user.id, "userid")
+    print(userbook.userid.id, "친구id")
 
+    if request.user.id == userbook.userid.id:
+        memo_data=list(Memo.objects.filter(book=userbook).values('id','book','content','page', 'created_at', 'hide_btn'))
+    else:
+        memo_data=list(Memo.objects.filter(book=userbook, hide=False).values('id','book','content','page', 'created_at', 'hide_btn'))
+    
+    for memo in memo_data:
+        memo['created_at'] = memo['created_at'].strftime('%Y-%m-%d')
+        print(memo['created_at'])
+    
     context = {
         'userbook': {
             'title':userbook.bookid.title,
@@ -299,9 +309,14 @@ def create_memo(request,id):
         userbook=UserBook.objects.get(id=id)
         page=request.POST['page']
         content=request.POST['content']
-        new_memo=Memo.objects.create(content=content, page=page, book_id=id )
-        memo_data = list(Memo.objects.filter(book=userbook).values('id', 'book', 'content','page') )        
+        hide_btn="숨김"
+        new_memo=Memo.objects.create(content=content, page=page, book_id=id, hide_btn=hide_btn)
+        memo_data = list(Memo.objects.filter(book=userbook).values('id', 'book', 'content','page', 'hide_btn') )        
         
+        for memo in memo_data:
+            memo['created_at'] = memo['created_at'].strftime('%Y-%m-%d')
+            print(memo['created_at'])
+
         context = {
             'new_memo_id':new_memo.id,
             'page': new_memo.page,
@@ -330,7 +345,34 @@ def delete_memo(request,bid,mid):
     userbook=UserBook.objects.get(id=bid)
     m=Memo.objects.get(id=mid)
     m.delete()    
-    memo_data=list(Memo.objects.filter(book=userbook).values('id','book','content','page', 'created_at'))
+    memo_data=list(Memo.objects.filter(book=userbook).values('id','book','content','page', 'created_at', 'hide_btn'))
+
+    for memo in memo_data:
+        memo['created_at'] = memo['created_at'].strftime('%Y-%m-%d')
+        print(memo['created_at'])
+
+    context = {
+        'userbook': {
+            'title':userbook.bookid.title,
+            'author':userbook.bookid.author.name,
+            'id':userbook.id,
+        }, 
+        'memos': memo_data,
+    }
+    return JsonResponse(context)
+
+def hide_memo(request, bid, mid):
+    userbook=UserBook.objects.get(id=bid)
+    m=Memo.objects.get(id=mid)
+    m.hide = False if m.hide == True else True
+    m.hide_btn="숨김" if m.hide == True else '보임'
+    m.save()
+    print(m.hide, m.hide_btn)
+    memo_data=list(Memo.objects.filter(book=userbook).values('id','book','content','page', 'created_at', 'hide_btn'))
+   
+    for memo in memo_data:
+        memo['created_at'] = memo['created_at'].strftime('%Y-%m-%d')
+        print(memo['created_at'])
 
     context = {
         'userbook': {
