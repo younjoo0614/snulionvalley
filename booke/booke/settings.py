@@ -132,10 +132,8 @@ STATICFILES_DIRS = (
 	os.path.join(BASE_DIR, 'booke', 'static'),
 )
 
-
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR),"static", "media")
-
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',

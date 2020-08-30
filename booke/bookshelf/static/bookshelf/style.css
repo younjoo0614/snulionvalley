@@ -315,7 +315,7 @@ input.search_bt:hover {
   border-radius: 5px; }
 
 .nav button:hover {
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   font-weight: 500;
   padding: 3px;
   background-color: transparent;
@@ -519,7 +519,8 @@ button.unfollow-btn:hover {
   transform: translateY(-7px); }
 
 .newbook a {
-  color: #dddddd; }
+  color: #DDDDDD; }
+
 
 .newbook a:hover {
   color: white;
@@ -632,7 +633,7 @@ button {
   display: flex; }
 
 .book-1 {
-  background: linear-gradient(to right, #3f7373, #306666, #3f7373);
+  background: linear-gradient(to right, #3F7373, #306666, #3F7373);
   -webkit-fill-color: transparent;
   border-radius: 5px 5px 0 0; }
 

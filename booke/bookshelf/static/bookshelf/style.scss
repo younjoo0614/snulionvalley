@@ -390,10 +390,11 @@ input.search_bt:hover {
   color: white;
   padding: 10px;
   border-radius: 5px;
+
 }
 
-.nav button:hover {
-  font-family: "Noto Sans KR", sans-serif;
+.nav button:hover{
+  font-family: 'Noto Sans KR', sans-serif;
   font-weight: 500;
   padding: 3px;
   background-color: transparent;
@@ -404,42 +405,43 @@ input.search_bt:hover {
   box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
 }
 
-.nav a {
-  color: white;
-  text-decoration: none;
+.nav a{
+  color:white;
+  text-decoration:none;
   position: relative;
+ }
+
+.nav a:hover{
+ text-decoration:none;
+ color: white;
+ border: none;
+ background-color: transparent;
 }
 
-.nav a:hover {
-  text-decoration: none;
-  color: white;
-  border: none;
-  background-color: transparent;
-}
-
-button.to-friend-btn {
+button.to-friend-btn{
   font-size: 12px;
   font-weight: 300;
-  padding: 5px;
+  padding: 5px;;
 }
 
-button.to-friend-btn:hover {
+button.to-friend-btn:hover{
   font-size: 12px;
   font-weight: 300;
-  padding: 5px;
+  padding: 5px;;
 }
 
-button.unfollow-btn {
+button.unfollow-btn{
   font-size: 12px;
   font-weight: 300;
-  padding: 5px;
+  padding: 5px;;
 }
 
-button.unfollow-btn:hover {
+button.unfollow-btn:hover{
   font-size: 12px;
   font-weight: 300;
-  padding: 5px;
+  padding: 5px;;
 }
+
 
 .undernav {
   margin: 10px;
@@ -558,6 +560,7 @@ button.unfollow-btn:hover {
   animation-fill-mode: both, both;
 }
 
+
 .back_img2 {
   width: 100%;
   z-index: 2;
@@ -567,6 +570,7 @@ button.unfollow-btn:hover {
   animation-delay: 0.4s, 0.4s;
   animation-fill-mode: both, both;
 }
+
 
 .back_img3 {
   width: 100%;
@@ -578,6 +582,7 @@ button.unfollow-btn:hover {
   animation-fill-mode: both, both;
 }
 
+
 .back_img4 {
   width: 100%;
   z-index: 4;
@@ -587,6 +592,7 @@ button.unfollow-btn:hover {
   animation-delay: 1s, 1s;
   animation-fill-mode: both, both;
 }
+
 
 .newbook-btn {
   position: fixed;
@@ -625,11 +631,11 @@ button.unfollow-btn:hover {
   background-color: #3f7373;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
   color: white;
-  transform: translateY(-7px);
-}
+  transform: translateY(-7px); }
+
 
 .newbook a {
-  color: #dddddd;
+  color: #DDDDDD;
 }
 
 .newbook a:hover {
@@ -761,7 +767,7 @@ button {
 }
 
 .book-1 {
-  background: linear-gradient(to right, #3f7373, #306666, #3f7373);
+  background: linear-gradient(to right, #3F7373,#306666,#3F7373);
   -webkit-fill-color: transparent;
   border-radius: 5px 5px 0 0;
 }
