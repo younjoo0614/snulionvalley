@@ -135,8 +135,8 @@ $(".showmodal").click((e) => {
             <p>메모:</p>`;
 
       const memoTemplate = memos.map((memo) => `<div><div>${memo.content}  (p.${memo.page}) (날짜: ${memo.created_at})</div>
-      <button type="submit" class="delete-memo btn btn-secondary" data-bid =${id} data-mid=${memo.id} data-csrfmiddlewaretoken="${ csrfmiddlewaretoken }">삭제</button></div>`)
-        .join("");
+      <button type="submit" class="delete-memo btn btn-secondary" data-bid =${id} data-mid=${memo.id} data-csrfmiddlewaretoken="${ csrfmiddlewaretoken }">삭제</button>
+      <button type="submit" class="hide-memo btn btn-secondary" data-bid =${id} data-mid=${memo.id} data-csrfmiddlewaretoken="${ csrfmiddlewaretoken }">${memo.hide_btn}</button></div>`).join("");
       const submit_btn = document.getElementById("submit-memo");
       submit_btn.dataset.id = `${id}`;
       const delete_btn=document.getElementById("delete-book");
@@ -173,7 +173,8 @@ $("#submit-memo").click((e) => {
       let memo_div = document.getElementById("memo-div");
       // const newTemp = `<div>페이지: ${new_page}</div><div>메모: ${new_content}</div>`;
       const newTemp = `<div><div>${res.content}  (p.${res.page}) (날짜: ${res.created_at})</div>
-      <button class='delete-memo btn btn-secondary' data-bid="${id}" data-mid="${res.new_memo_id}" data-csrfmiddlewaretoken="${ csrfmiddlewaretoken }" >삭제</button></div>`;
+      <button class='delete-memo btn btn-secondary' data-bid="${id}" data-mid="${res.new_memo_id}" data-csrfmiddlewaretoken="${ csrfmiddlewaretoken }" >삭제</button>
+      <button type="submit" class="hide-memo btn btn-secondary" data-bid =${id} data-mid=${memo.id} data-csrfmiddlewaretoken="${ csrfmiddlewaretoken }">${memo.hide_btn}</button></div>`;
       memo_div.innerHTML += newTemp;
     },
     error(response, status, error) {
@@ -211,7 +212,55 @@ $(document).on('click', '.delete-memo', function(e)  {
               <p>메모:</p>`;
   
         const memoTemplate = memos.map((memo) => `<div><div>${memo.content}  (p.${memo.page}) (날짜: ${memo.created_at})</div>
-        <button type="submit" class="delete-memo btn btn-secondary" data-bid =${bid} data-mid=${memo.id} data-csrfmiddlewaretoken="${ csrfmiddlewaretoken }">삭제</button></div>`)
+        <button type="submit" class="delete-memo btn btn-secondary" data-bid =${bid} data-mid=${memo.id} data-csrfmiddlewaretoken="${ csrfmiddlewaretoken }">삭제</button>
+        <button type="submit" class="hide-memo btn btn-secondary" data-bid =${bid} data-mid=${memo.id} data-csrfmiddlewaretoken="${ csrfmiddlewaretoken }">${memo.hide_btn}</button>
+        </div>`)
+          .join("");
+        memo_div.innerHTML = memoTemplate;
+      },
+      error: function(response, status, error) {
+          console.log(response, status, error);
+      },
+      complete: function(response) {
+          console.log(response);
+      },
+  })
+});
+
+
+
+$(document).on('click', '.hide-memo', function(e)  {
+  e.preventDefault();
+  const $this = $(e.currentTarget);
+  const bid =$this.data("bid");
+  const mid=$this.data("mid");
+  const csrfmiddlewaretoken = $this.data("csrfmiddlewaretoken");
+  
+  $.ajax({
+      type: 'POST',
+      url: `/bookshelf/${bid}/memos/${mid}/hide/`,
+      data: {
+          bid:bid,
+          mid:mid,
+          csrfmiddlewaretoken: csrfmiddlewaretoken,
+      },
+      dataType: 'json',
+      success(res) {
+        console.log(res);
+        const userbook = res.userbook;
+        const memos = res.memos;
+        const csrftoken=csrfmiddlewaretoken;
+        let info_div = document.getElementById("info-div");
+        let memo_div = document.getElementById("memo-div");
+  
+        info_div.innerHTML = `<p>책 제목 : ${userbook.title}</p>
+              <p>작가 : ${userbook.author}</p>
+              <p>메모:</p>`;
+  
+        const memoTemplate = memos.map((memo) => `<div><div>${memo.content}  (p.${memo.page}) (날짜: ${memo.created_at})</div>
+        <button type="submit" class="delete-memo btn btn-secondary" data-bid =${bid} data-mid=${memo.id} data-csrfmiddlewaretoken="${ csrfmiddlewaretoken }">삭제</button>
+        <button type="submit" class="hide-memo btn btn-secondary" data-bid =${bid} data-mid=${memo.id} data-csrfmiddlewaretoken="${ csrfmiddlewaretoken }">${memo.hide_btn}</button>
+        </div>`)
           .join("");
         memo_div.innerHTML = memoTemplate;
       },
