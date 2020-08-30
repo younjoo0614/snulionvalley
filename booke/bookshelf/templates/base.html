@@ -63,9 +63,15 @@
             {% for friend in follows %}
  
             <div data-id= "{{friend.id}}"> {{friend.nickname}} </div>
-
-            <button class="to-friend-btn" data-id="{{ friend.id }}"><a href="/bookshelf/friends/{{friend.id}}">놀러가기</a></button>
-            <button class="unfollow-btn"><a href="/accounts/result/{{friend.id}}/follow/">언팔</a></button>
+            <div style="display: flex; flex-direction: row;">
+            {% comment %} <button class="to-friend-btn" data-fid="{{ friend.id }}" data-csrfmiddlewaretoken="{{ csrf_token }}">놀러가기</button> {% endcomment %}
+              <form id="to-friend"action="/bookshelf/friends/" method="POST" data-csrfmiddlewaretoken="{{ csrf_token }}">
+                  {% csrf_token %}
+                  <input type="hidden" name="fid" value="{{friend.id}}" />
+                  <button class="to-friend-btn" type="submit" form="to-friend">놀러가기</button>
+              </form>           
+              <button class="unfollow-btn"><a href="/accounts/result/{{friend.id}}/follow/">언팔</a></button>
+            </div>
             {% endfor %}
           </div>
           <button class ="more-friendlist-btn" data-csrfmiddlewaretoken="{{ csrf_token }}" >친구목록 펼치기</button>
