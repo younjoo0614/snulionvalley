@@ -156,6 +156,12 @@ $("#submit-memo").click((e) => {
   const $this = $(e.currentTarget);
   const id = $this.data("id");
   const csrfmiddlewaretoken = $this.data("csrfmiddlewaretoken");
+  let today = new Date()
+  let year = today.getFullYear();
+  let month = today.getMonth();
+  let date = today.getDate();
+  let created_at = year + '-' + month + '-' + date
+
   console.log(id);
   $.ajax({
     url: `/bookshelf/${id}/memos/`,
@@ -172,9 +178,9 @@ $("#submit-memo").click((e) => {
       console.log(res.userbook.id);
       let memo_div = document.getElementById("memo-div");
       // const newTemp = `<div>페이지: ${new_page}</div><div>메모: ${new_content}</div>`;
-      const newTemp = `<div><div>${res.content}  (p.${res.page}) (날짜: ${res.created_at})</div>
+      const newTemp = `<div><div>${res.content}  (p.${res.page}) (날짜: ${created_at})</div>
       <button class='delete-memo btn btn-secondary' data-bid="${id}" data-mid="${res.new_memo_id}" data-csrfmiddlewaretoken="${ csrfmiddlewaretoken }" >삭제</button>
-      <button type="submit" class="hide-memo btn btn-secondary" data-bid =${id} data-mid=${memo.id} data-csrfmiddlewaretoken="${ csrfmiddlewaretoken }">${memo.hide_btn}</button></div>`;
+      <button type="submit" class="hide-memo btn btn-secondary" data-bid =${id} data-mid=${res.new_memo_id} data-csrfmiddlewaretoken="${ csrfmiddlewaretoken }">보임</button></div>`;
       memo_div.innerHTML += newTemp;
     },
     error(response, status, error) {
