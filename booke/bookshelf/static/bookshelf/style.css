@@ -208,7 +208,8 @@
   100% {
     opacity: 100; } }
 
-html, body {
+html,
+body {
   width: 100%;
   margin: 0; }
 
@@ -216,8 +217,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #DDDDDD;
-  font-family: 'Noto Sans KR', sans-serif;
+  background-color: #dddddd;
+  font-family: "Noto Sans KR", sans-serif;
   font-weight: 100; }
 
 a:hover {
@@ -241,7 +242,7 @@ a:hover {
       vertical-align: middle;
       cursor: pointer;
       border-radius: 50%;
-      border: 2px solid #FFFFFF;
+      border: 2px solid #ffffff;
       box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
       background-repeat: no-repeat;
       background-position: center;
@@ -249,17 +250,17 @@ a:hover {
       line-height: 44px; }
       .custom-radios input[type="radio"] + label span img {
         opacity: 0;
-        transition: all .3s ease; }
+        transition: all 0.3s ease; }
   .custom-radios input#color-1[type="radio"] + label span {
-    background-color: #3F7373; }
+    background-color: #3f7373; }
   .custom-radios input#color-2[type="radio"] + label span {
-    background-color: #89BEBF; }
+    background-color: #89bebf; }
   .custom-radios input#color-3[type="radio"] + label span {
-    background-color: #F28F78; }
+    background-color: #f28f78; }
   .custom-radios input#color-4[type="radio"] + label span {
-    background-color: #F0C1B5; }
+    background-color: #f0c1b5; }
   .custom-radios input#color-5[type="radio"] + label span {
-    background-color: #F2F2F2; }
+    background-color: #f2f2f2; }
   .custom-radios input[type="radio"]:checked + label span img {
     opacity: 1; }
 
@@ -284,7 +285,7 @@ body {
   flex-direction: column;
   left: 5%;
   top: 13%;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-weight: 300; }
 
 .nav input {
@@ -303,7 +304,7 @@ input.search_bt:hover {
 .nav button {
   border: none;
   border-bottom: solid 1px white;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-weight: 500;
   padding: 3px;
   background-color: transparent;
@@ -392,7 +393,7 @@ button.unfollow-btn:hover {
   text-transform: uppercase;
   letter-spacing: 2.5px;
   font-weight: 500;
-  color: #F2F2F2;
+  color: #f2f2f2;
   border: none;
   border-radius: 15px;
   transition: all 0.3s ease 0s;
@@ -406,7 +407,7 @@ button.unfollow-btn:hover {
 
 .logindiv a {
   color: white;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   cursor: pointer;
   padding: 8px;
   border-bottom: solid 1px white; }
@@ -418,12 +419,12 @@ button.unfollow-btn:hover {
   cursor: pointer;
   padding: 8px;
   box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
-  color: #DDDDDD;
+  color: #dddddd;
   transform: translateY(-7px); }
 
 .hi {
   color: white;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-weight: 300;
   position: relative;
   line-height: 55px; }
@@ -450,8 +451,8 @@ button.unfollow-btn:hover {
   z-index: 1;
   position: absolute;
   animation-name: slide-in-bottom, fade;
-  animation-duration: 1s, 1s;
-  animation-delay: 0.4s, 0.4s;
+  animation-duration: 1.5s, 1.5s;
+  animation-delay: 0.2s, 0.2s;
   animation-fill-mode: both, both; }
 
 .back_img2 {
@@ -459,8 +460,8 @@ button.unfollow-btn:hover {
   z-index: 2;
   position: absolute;
   animation-name: slide-in-left, fade;
-  animation-duration: 1s, 1s;
-  animation-delay: 1s, 1s;
+  animation-duration: 1.5s, 1.5s;
+  animation-delay: 0.4s, 0.4s;
   animation-fill-mode: both, both; }
 
 .back_img3 {
@@ -468,8 +469,8 @@ button.unfollow-btn:hover {
   z-index: 3;
   position: absolute;
   animation-name: slide-in-right, fade;
-  animation-duration: 1s, 1s;
-  animation-delay: 1s, 1s;
+  animation-duration: 1.5s, 1.5s;
+  animation-delay: 0.4s, 0.4s;
   animation-fill-mode: both, both; }
 
 .back_img4 {
@@ -477,8 +478,8 @@ button.unfollow-btn:hover {
   z-index: 4;
   position: absolute;
   animation-name: bounce-in-top, fade;
-  animation-duration: 1s, 1s;
-  animation-delay: 1.2s, 1.2s;
+  animation-duration: 1.5s, 1.5s;
+  animation-delay: 1s, 1s;
   animation-fill-mode: both, both; }
 
 .newbook-btn {
@@ -500,25 +501,26 @@ button.unfollow-btn:hover {
   text-transform: uppercase;
   letter-spacing: 2.5px;
   font-weight: 500;
-  color: #DDDDDD;
+  color: #dddddd;
   background-color: #fff;
   border: none;
   border-radius: 20px;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease 0s;
   cursor: pointer;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-weight: 500;
   outline: none; }
 
 .newbook:hover {
-  background-color: #3F7373;
+  background-color: #3f7373;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
   color: white;
   transform: translateY(-7px); }
 
 .newbook a {
   color: #DDDDDD; }
+
 
 .newbook a:hover {
   color: white;
@@ -545,13 +547,14 @@ button.friendlist_btn {
   padding: 8px;
   color: white;
   background-color: transparent;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-weight: 300;
   border-bottom: solid 1px white;
   font-size: 18px;
   border-radius: 0px; }
 
-.friend_list > p, button {
+.friend_list > p,
+button {
   display: inline; }
 
 .myshelf {
@@ -567,13 +570,13 @@ button.friendlist_btn {
   display: flex;
   width: 100%;
   height: 250px;
-  background-color: #DDDDDD;
+  background-color: #dddddd;
   border: 30px solid #f2f2f2; }
 
 .shelf a {
   text-decoration: none;
   color: black;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-weight: 100;
   letter-spacing: 3px;
   transition: all 0.3s ease 0s; }
@@ -635,17 +638,17 @@ button.friendlist_btn {
   border-radius: 5px 5px 0 0; }
 
 .book-2 {
-  background: linear-gradient(to right, #89BEBF, #7db2b3, #89BEBF);
+  background: linear-gradient(to right, #89bebf, #7db2b3, #89bebf);
   -webkit-fill-color: transparent;
   border-radius: 3px 3px 0 0; }
 
 .book-3 {
-  background: linear-gradient(to right, #F28F78, #eb7863, #F28F78);
+  background: linear-gradient(to right, #f28f78, #eb7863, #f28f78);
   -webkit-fill-color: transparent;
   border-radius: 3px 3px 0 0; }
 
 .book-4 {
-  background: linear-gradient(to right, #F0C1B5, #e9ae9f, #F0C1B5);
+  background: linear-gradient(to right, #f0c1b5, #e9ae9f, #f0c1b5);
   -webkit-fill-color: transparent;
   border-radius: 10px 10px 0 0; }
 
@@ -663,7 +666,7 @@ button.friendlist_btn {
   width: 100%;
   top: -100px;
   border-radius: 20px;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-weight: 300; }
 
 .aboutpages {
@@ -672,23 +675,23 @@ button.friendlist_btn {
 .totalpc {
   display: inline-block;
   width: 500px;
-  background-color: #F2F2F2;
+  background-color: #f2f2f2;
   margin: 20px;
   height: 50px;
   border-radius: 20px;
   animation-name: scale-up-hor-left, fade;
   animation-duration: 1s, 0.5s;
-  animation-delay: 0.2s, 0.2S;
+  animation-delay: 0.2s, 0.2s;
   animation-fill-mode: both, both; }
 
 .achievepc {
   left: 0px;
-  background-color: #89BEBF;
+  background-color: #89bebf;
   height: 50px;
   border-radius: 20px 0 0 20px;
   animation-name: scale-up-hor-left, fade;
   animation-duration: 1s, 0.5s;
-  animation-delay: 0.2s, 0.2S;
+  animation-delay: 0.2s, 0.2s;
   animation-fill-mode: both, both; }
 
 .recommand {
@@ -713,7 +716,7 @@ button.friendlist_btn {
   display: flex;
   justify-content: space-between;
   color: black;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-weight: 100;
   overflow: scroll;
   position: relative;
@@ -730,12 +733,12 @@ button.friendlist_btn {
 
 .booktitle {
   display: flex;
-  border: solid 10px #F2F2F2;
+  border: solid 10px #f2f2f2;
   border-radius: 2px;
   margin: 20px;
   height: 100%;
   width: 300px;
-  background-color: #F2F2F2;
+  background-color: #f2f2f2;
   overflow: scroll; }
 
 .booklist img {
