@@ -309,9 +309,9 @@ def create_memo(request,id):
         userbook=UserBook.objects.get(id=id)
         page=request.POST['page']
         content=request.POST['content']
-        hide_btn="숨김"
+        hide_btn="보임"
         new_memo=Memo.objects.create(content=content, page=page, book_id=id, hide_btn=hide_btn)
-        memo_data = list(Memo.objects.filter(book=userbook).values('id', 'book', 'content','page', 'hide_btn') )        
+        memo_data = list(Memo.objects.filter(book=userbook).values('id', 'book', 'content','page', 'created_at', 'hide_btn') )        
         
         for memo in memo_data:
             memo['created_at'] = memo['created_at'].strftime('%Y-%m-%d')
