@@ -182,6 +182,8 @@ $("#submit-memo").click((e) => {
       <button class='delete-memo btn btn-secondary' data-bid="${id}" data-mid="${res.new_memo_id}" data-csrfmiddlewaretoken="${ csrfmiddlewaretoken }" >삭제</button>
       <button type="submit" class="hide-memo btn btn-secondary" data-bid =${id} data-mid=${res.new_memo_id} data-csrfmiddlewaretoken="${ csrfmiddlewaretoken }">보임</button></div>`;
       memo_div.innerHTML += newTemp;
+      $(`textarea#review`).val('');
+      $(`input#review_pages`).val('');
     },
     error(response, status, error) {
       console.log(response, status, error);
