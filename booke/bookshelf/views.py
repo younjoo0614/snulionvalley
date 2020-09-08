@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 #from django.contrib import auth
 import urllib.request
-from urllib.error import HTTPError
 from bs4 import BeautifulSoup
 from urllib.parse import quote_plus
 import re
@@ -17,15 +16,10 @@ from .models import Author, Book, UserBook, Memo
 
 def ready_dicti(title):
     client_id = "4dDEAG4leXp6OiKVgE7G" 
-    client_secret = "gw8Luw9s2F"
+    client_secret = "5huYLNyjrl"
     encText = urllib.parse.quote(title)    
     url = "https://openapi.naver.com/v1/search/book.json?query=" + encText #+"&display=3&sort=sim" 뒤에 붙는 건 검색결과는 3개만, 정렬방법: 유사도라는 ㅣ뜻
-    request = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-    try:
-        handler = urllib.request.urlopen(request)
-    except HTTPError as e:
-        content = e.read()
-        print(content)
+    request = urllib.request.Request(url)
     request.add_header("X-Naver-Client-Id",client_id)
     request.add_header("X-Naver-Client-Secret",client_secret)
     response = urllib.request.urlopen(request)
@@ -40,7 +34,7 @@ def ready_dicti(title):
 
 def search_title_author_image(title,num):
     temp=ready_dicti(title)
-    if temp['rescode']==200:
+    if(temp['rescode']==200):
         dicti=temp['dicti']
         p=re.compile('<b>|</b>')
         book_title=p.sub('',dicti["items"][num]["title"])
@@ -59,6 +53,10 @@ def search_title_author_image(title,num):
 
 def get_page(title,num):
     # baseUrl = 'https://book.naver.com/search/search.nhn?sm=sta_hty.book&sug=&where=nexearch&query='
+
+    # url = baseUrl + quote_plus(title) #네이버 책 홈에서 책 제목을 검색해서 나오는 url
+    # html = urllib.request.urlopen(url)
+    # bsObject = BeautifulSoup(html, "html.parser")
 
     # url = baseUrl + quote_plus(title) #네이버 책 홈에서 책 제목을 검색해서 나오는 url
     # html = urllib.request.urlopen(url)
@@ -196,7 +194,6 @@ def index(request):
             follow_list=[]
             for follow in follows:
                 follow_list.append(follow.follow)
-            ##follow_list 안에 프로필 객체가 있을 줄 알았으나 그렇지 않아서 아래 과정 생성
             id_list=[person.id for person in follow_list]
             follow_list=Profile.objects.filter(id__in=id_list)
             res_follows=list(follow_list.values('nickname','id'))
@@ -245,16 +242,13 @@ def create_book(request):
     
 #     print(context)
 #     return JsonResponse(context)
-
-
 def delete_book(request,id):
     userbook=UserBook.objects.get(id=id)
     if userbook.bookid.count==1:
         userbook.bookid.delete()
     else:
         userbook.bookid.count-=1
-        userbook.bookid.delete()
-
+        userbook.bookid.save()
     userbook.delete()
     userp=request.user.profile
     userp.already-=userbook.whole_page  
@@ -286,9 +280,6 @@ def recommend_book(request):
 
 def show_memo(request,id):
     userbook=UserBook.objects.get(id=id)
-    print(request.user.id, "userid")
-    print(userbook.userid.id, "친구id")
-
     if request.user.id == userbook.userid.id:
         memo_data=list(Memo.objects.filter(book=userbook).values('id','book','content','page', 'created_at', 'hide_btn'))
     else:
@@ -296,7 +287,6 @@ def show_memo(request,id):
     
     for memo in memo_data:
         memo['created_at'] = memo['created_at'].strftime('%Y-%m-%d')
-        print(memo['created_at'])
     
     context = {
         'userbook': {
@@ -305,7 +295,6 @@ def show_memo(request,id):
             'id':userbook.id,
         }, 
         'memos': memo_data,
-
     }
 
     return JsonResponse(context)
@@ -323,13 +312,12 @@ def create_memo(request,id):
         page=request.POST['page']
         content=request.POST['content']
         hide_btn="보임"
-        new_memo=Memo.objects.create(content=content, page=page, book_id=id, hide_btn=hide_btn)
-        memo_data = list(Memo.objects.filter(book=userbook).values('id', 'book', 'content','page', 'created_at', 'hide_btn') )        
+        new_memo=Memo.objects.create(content=content, page=page, book_id=id )
+        memo_data = list(Memo.objects.filter(book=userbook).values('id', 'book', 'content','page', 'created_at', 'hide_btn'))        
         
         for memo in memo_data:
             memo['created_at'] = memo['created_at'].strftime('%Y-%m-%d')
-            print(memo['created_at'])
-
+        
         context = {
             'new_memo_id':new_memo.id,
             'page': new_memo.page,
@@ -358,11 +346,7 @@ def delete_memo(request,bid,mid):
     userbook=UserBook.objects.get(id=bid)
     m=Memo.objects.get(id=mid)
     m.delete()    
-    memo_data=list(Memo.objects.filter(book=userbook).values('id','book','content','page', 'created_at', 'hide_btn'))
-
-    for memo in memo_data:
-        memo['created_at'] = memo['created_at'].strftime('%Y-%m-%d')
-        print(memo['created_at'])
+    memo_data=list(Memo.objects.filter(book=userbook).values('id','book','content','page', 'created_at'))
 
     context = {
         'userbook': {
@@ -385,7 +369,6 @@ def hide_memo(request, bid, mid):
    
     for memo in memo_data:
         memo['created_at'] = memo['created_at'].strftime('%Y-%m-%d')
-        print(memo['created_at'])
 
     context = {
         'userbook': {
@@ -397,11 +380,10 @@ def hide_memo(request, bid, mid):
     }
     return JsonResponse(context)
 
-def friends_shelf(request):
+def friends_shelf(request,id):
     fid=request.POST['fid']
-    member=Profile.objects.get(user_id=fid)
+    member=Profile.objects.get(user_id=id)
     books=UserBook.objects.filter(userid=member)
-    authors=Author.objects.all()
     page=0
     count=0
     list1=[]

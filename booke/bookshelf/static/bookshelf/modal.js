@@ -115,7 +115,7 @@ $(".showmodal").click((e) => {
   const $this = $(e.currentTarget);
   const id = $this.data("id");
   const csrfmiddlewaretoken = $this.data("csrfmiddlewaretoken");
-
+  console.log (id);
   $.ajax({
     type: "GET",
     url: `/bookshelf/${id}`,
