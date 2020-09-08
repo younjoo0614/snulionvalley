@@ -31,6 +31,7 @@ class Memo(models.Model):
     content=models.TextField()
     created_at = models.DateTimeField(default=timezone.now)
     page = models.IntegerField(blank=True, null=True)
-    isopen=models.BooleanField(default=True)
+    hide = models.BooleanField(default=0)
+    hide_btn = models.TextField(default='보임')
 
 #https://github.com/yeonnseok/django-study/wiki/Django-%EB%B3%B5%EC%8A%B5-%EB%B0%8F-%EC%98%88%EC%A0%9C

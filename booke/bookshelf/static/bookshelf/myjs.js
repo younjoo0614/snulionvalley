@@ -1,76 +1,37 @@
-$(document).ready(() => {
-  $(".more-friendlist-btn").on('click', function(event) {
-      $(this).toggleClass("showing-friend");
-  
-      if ($(this).hasClass("showing-friend")) {
-          $(this).text("친구목록 닫기");
-          $(".friend_list").show();
-      } else {
-          $(this).text("친구목록 펼치기");
-          $(".friend_list").hide();
-      }
-      });
-  }
-)
+$(document).ready(() => {});
 
-// $(".to-friend-btn").click((e) => {
+$(".more-friendlist-btn").on("click", function (event) {
+  $(this).toggleClass("showing-friend");
+
+  if ($(this).hasClass("showing-friend")) {
+    $(this).text("친구목록 닫기");
+    $(".friend_list").show();
+  } else {
+    $(this).text("친구목록 펼치기");
+    $(".friend_list").hide();
+  }
+});
+
+// 원래 post 요청을 js로 보내려 했어서 만들어놓음.. 살펴보시와요
+// $(".to-friend-btn").on("click", function (e) {
 //   e.preventDefault();
 //   const $this = $(e.currentTarget);
-//   const id = $this.data("id");
+//   const fid = $this.data("fid");
 //   const csrfmiddlewaretoken = $this.data("csrfmiddlewaretoken");
-
-
 //   $.ajax({
-//     type: "GET",
-//     url: `/bookshelf/friend/${id}`,
+//     url: "/bookshelf/friends/",
+//     method: "POST",
+//     dataType: "json",
 //     data: {
-//       id: id,
+//       fid: fid,
 //       csrfmiddlewaretoken: csrfmiddlewaretoken,
 //     },
-//     dataType: "json",
-//     success(res) {
-//       console.log(res);
+//     success(response) {
+//       console.log(response);
+//       return render(jsonObj, (mimetype = "application/json"));
 //     },
 //     error(response, status, error) {
 //       console.log(response, status, error);
 //     },
 //   });
 // });
-
-
-  // $("#friend-value").autocomplete({
-  //     source : function(request, response) {
-  //         $.ajax({
-  //             url : "accounts/result/"
-  //             , type : "GET"
-  //             , data : {keyWord : $("#friend-value").val()} 
-  //             , success : function(data){ 
-  //                 response(
-  //                     $.map(data, function(item) {
-  //                         return {
-  //                             label : item.nickname   
-  //                             , value : item.nickname    
-  //                             , idx : item.testIdx   
-  //                         };
-  //                     })
-  //                 );    //response
-  //             }
-  //             ,
-  //             error : function(){ //실패
-  //                 alert("통신에 실패했습니다.");
-  //             }
-  //         });
-  //     }
-  //     , minLength : 1    
-  //     , autoFocus : false    
-  //     , select : function(evt, ui) {
-  //         console.log("전체 data: " + JSON.stringify(ui));
-  //         console.log("db Index : " + ui.item.idx);
-  //         console.log("검색 데이터 : " + ui.item.value);
-  //     }
-  //     , focus : function(evt, ui) {
-  //         return false;
-  //     }
-  //     , close : function(evt) {
-  //     }
-  // });
