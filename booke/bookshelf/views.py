@@ -12,27 +12,45 @@ import json
 from django.core.serializers import serialize 
 from accounts.models import Profile, Follow
 from .models import Author, Book, UserBook, Memo
+from django.core.exceptions import ImproperlyConfigured
+
 
 # Create your views here.
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+secret_file = os.path.join(BASE_DIR, 'config.json')
+
+with open(secret_file) as f:
+    secrets = json.loads(f.read())
+
+def get_secret(setting, secrets=secrets):
+    """비밀 변수를 가져오거나 명시적 예외를 반환한다."""
+    try:
+        return secrets[setting]
+    except KeyError:
+        error_msg = "Set the {} environment variable".format(setting)
+        raise ImproperlyConfigured(error_msg)
+
+CLIENT_ID = get_secret("client_id")
+CLIENT_SECRET = get_secret("client_secret")
+
 
 def search_title_author_image(title,num):
-    client_id = "4dDEAG4leXp6OiKVgE7G" 
-    client_secret = "gw8Luw9s2F"
-    encText = urllib.parse.quote(title)    
-    url = "https://openapi.naver.com/v1/search/book.json?query=" + encText #+"&display=3&sort=sim" 뒤에 붙는 건 검색결과는 3개만, 정렬방법: 유사도라는 ㅣ뜻
-    request = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-    try:
-        handler = urllib.request.urlopen(request)
-    except HTTPError as e:
-        content = e.read()
-        print(content)
-    request.add_header("X-Naver-Client-Id",client_id)
-    request.add_header("X-Naver-Client-Secret",client_secret)
-    response = urllib.request.urlopen(request)
+    encText=urllib.parse.quote(title)    
+    url="https://openapi.naver.com/v1/search/book.json?query=" + encText #+"&display=3&sort=sim" 뒤에 붙는 건 검색결과는 3개만, 정렬방법: 유사도라는 ㅣ뜻
+    request=urllib.request.Request(url)
+    # try:
+    #     handler=urllib.request.urlopen(request)
+    # except HTTPError as e:
+    #     content=e.read()
+    #     print(content)
+    request.add_header("X-Naver-Client-Id",CLIENT_ID)
+    request.add_header("X-Naver-Client-Secret",CLIENT_SECRET)
+    response=urllib.request.urlopen(request)
 
-    rescode = response.getcode()
+    rescode=response.getcode()
     if(rescode==200):
-        response_body = response.read()
+        response_body=response.read()
         dicti=json.loads(response_body.decode('utf-8'))
         p=re.compile('<b>|</b>')
         book_title=p.sub('',dicti["items"][num]["title"])
@@ -59,16 +77,14 @@ def get_page(title,num):
     # site_for_page = bsObject.select('li > dl > dt > a') # 책 제목을 검색해서 뜨는 a 태그들 결과들의 링크
 
     # deturl=site_for_page[num].attrs['href'] # 페이지 수가 써있는 url로 들어옴 index 0으로 한 건 편의를 위함, 추후 바뀔 수 있음
-    client_id = "4dDEAG4leXp6OiKVgE7G" 
-    client_secret = "gw8Luw9s2F"
-    encText = urllib.parse.quote(title)    
-    url = "https://openapi.naver.com/v1/search/book.json?query=" + encText #+"&display=3&sort=sim" 뒤에 붙는 건 검색결과는 3개만, 정렬방법: 유사도라는 ㅣ뜻
-    request = urllib.request.Request(url)
-    request.add_header("X-Naver-Client-Id",client_id)
-    request.add_header("X-Naver-Client-Secret",client_secret)
-    response = urllib.request.urlopen(request)
+    encText=urllib.parse.quote(title)    
+    url="https://openapi.naver.com/v1/search/book.json?query=" + encText #+"&display=3&sort=sim" 뒤에 붙는 건 검색결과는 3개만, 정렬방법: 유사도라는 ㅣ뜻
+    request=urllib.request.Request(url)
+    request.add_header("X-Naver-Client-Id",CLIENT_ID)
+    request.add_header("X-Naver-Client-Secret",CLIENT_SECRET)
+    response=urllib.request.urlopen(request)
 
-    rescode = response.getcode()
+    rescode=response.getcode()
     if(rescode==200):
         response_body = response.read()
         dicti=json.loads(response_body.decode('utf-8'))
@@ -77,7 +93,7 @@ def get_page(title,num):
     html=urllib.request.urlopen(deturl)
     bs=BeautifulSoup(html, "html.parser")
 
-    whole_page= bs.select('.book_info_inner') 
+    whole_page=bs.select('.book_info_inner') 
 
     m=re.search('페이지.\d+',bs.text)
     page=re.search('\d+',m.group())
