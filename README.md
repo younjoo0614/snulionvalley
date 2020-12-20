@@ -1,2 +1,1 @@
-# snulionvalley
-해커톤
+# 책일기 : 독서 기반 SNS 서비스
