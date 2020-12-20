@@ -208,8 +208,7 @@
   100% {
     opacity: 100; } }
 
-html,
-body {
+html, body {
   width: 100%;
   margin: 0; }
 
@@ -217,8 +216,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #dddddd;
-  font-family: "Noto Sans KR", sans-serif;
+  background-color: #DDDDDD;
+  font-family: 'Noto Sans KR', sans-serif;
   font-weight: 100; }
 
 a:hover {
@@ -242,7 +241,7 @@ a:hover {
       vertical-align: middle;
       cursor: pointer;
       border-radius: 50%;
-      border: 2px solid #ffffff;
+      border: 2px solid #FFFFFF;
       box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
       background-repeat: no-repeat;
       background-position: center;
@@ -250,17 +249,17 @@ a:hover {
       line-height: 44px; }
       .custom-radios input[type="radio"] + label span img {
         opacity: 0;
-        transition: all 0.3s ease; }
+        transition: all .3s ease; }
   .custom-radios input#color-1[type="radio"] + label span {
-    background-color: #3f7373; }
+    background-color: #3F7373; }
   .custom-radios input#color-2[type="radio"] + label span {
-    background-color: #89bebf; }
+    background-color: #89BEBF; }
   .custom-radios input#color-3[type="radio"] + label span {
-    background-color: #f28f78; }
+    background-color: #F28F78; }
   .custom-radios input#color-4[type="radio"] + label span {
-    background-color: #f0c1b5; }
+    background-color: #F0C1B5; }
   .custom-radios input#color-5[type="radio"] + label span {
-    background-color: #f2f2f2; }
+    background-color: #F2F2F2; }
   .custom-radios input[type="radio"]:checked + label span img {
     opacity: 1; }
 
@@ -285,7 +284,7 @@ body {
   flex-direction: column;
   left: 5%;
   top: 13%;
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   font-weight: 300; }
 
 .nav input {
@@ -304,56 +303,14 @@ input.search_bt:hover {
 .nav button {
   border: none;
   border-bottom: solid 1px white;
-  font-family: "Noto Sans KR", sans-serif;
-  font-weight: 500;
-  padding: 3px;
-  background-color: transparent;
-  margin: 5px;
-  font-size: 14px;
-  color: white;
-  padding: 10px;
-  border-radius: 5px; }
-
-.nav button:hover {
   font-family: 'Noto Sans KR', sans-serif;
   font-weight: 500;
   padding: 3px;
   background-color: transparent;
   margin: 5px;
-  font-size: 14px;
+  font-size: 12px;
   color: white;
-  padding: 10px;
-  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1); }
-
-.nav a {
-  color: white;
-  text-decoration: none;
-  position: relative; }
-
-.nav a:hover {
-  text-decoration: none;
-  color: white;
-  border: none;
-  background-color: transparent; }
-
-button.to-friend-btn {
-  font-size: 12px;
-  font-weight: 300;
-  padding: 5px; }
-
-button.to-friend-btn:hover {
-  font-size: 12px;
-  font-weight: 300;
-  padding: 5px; }
-
-button.unfollow-btn {
-  font-size: 12px;
-  font-weight: 300;
-  padding: 5px; }
-
-button.unfollow-btn:hover {
-  font-size: 12px;
-  font-weight: 300;
+  border-radius: 5px;
   padding: 5px; }
 
 .undernav {
@@ -363,8 +320,7 @@ button.unfollow-btn:hover {
   padding: 5px;
   color: white;
   font-weight: 500;
-  margin: 5px;
-  padding: 10px; }
+  margin: 5px; }
 
 .recommand_book:hover {
   padding: 5px;
@@ -372,10 +328,7 @@ button.unfollow-btn:hover {
   font-weight: 500;
   margin: 5px;
   text-decoration: none;
-  border-bottom: solid 1px white;
-  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  padding: 10px; }
+  border-bottom: solid 1px white; }
 
 .login {
   display: flex;
@@ -393,7 +346,7 @@ button.unfollow-btn:hover {
   text-transform: uppercase;
   letter-spacing: 2.5px;
   font-weight: 500;
-  color: #f2f2f2;
+  color: #F2F2F2;
   border: none;
   border-radius: 15px;
   transition: all 0.3s ease 0s;
@@ -407,7 +360,7 @@ button.unfollow-btn:hover {
 
 .logindiv a {
   color: white;
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   cursor: pointer;
   padding: 8px;
   border-bottom: solid 1px white; }
@@ -419,12 +372,12 @@ button.unfollow-btn:hover {
   cursor: pointer;
   padding: 8px;
   box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
-  color: #dddddd;
+  color: #DDDDDD;
   transform: translateY(-7px); }
 
 .hi {
   color: white;
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   font-weight: 300;
   position: relative;
   line-height: 55px; }
@@ -451,7 +404,7 @@ button.unfollow-btn:hover {
   z-index: 1;
   position: absolute;
   animation-name: slide-in-bottom, fade;
-  animation-duration: 1.5s, 1.5s;
+  animation-duration: 1s, 1s;
   animation-delay: 0.2s, 0.2s;
   animation-fill-mode: both, both; }
 
@@ -460,7 +413,7 @@ button.unfollow-btn:hover {
   z-index: 2;
   position: absolute;
   animation-name: slide-in-left, fade;
-  animation-duration: 1.5s, 1.5s;
+  animation-duration: 1s, 1s;
   animation-delay: 0.4s, 0.4s;
   animation-fill-mode: both, both; }
 
@@ -469,7 +422,7 @@ button.unfollow-btn:hover {
   z-index: 3;
   position: absolute;
   animation-name: slide-in-right, fade;
-  animation-duration: 1.5s, 1.5s;
+  animation-duration: 1s, 1s;
   animation-delay: 0.4s, 0.4s;
   animation-fill-mode: both, both; }
 
@@ -478,7 +431,7 @@ button.unfollow-btn:hover {
   z-index: 4;
   position: absolute;
   animation-name: bounce-in-top, fade;
-  animation-duration: 1.5s, 1.5s;
+  animation-duration: 1s, 1s;
   animation-delay: 1s, 1s;
   animation-fill-mode: both, both; }
 
@@ -501,30 +454,22 @@ button.unfollow-btn:hover {
   text-transform: uppercase;
   letter-spacing: 2.5px;
   font-weight: 500;
-  color: #dddddd;
+  color: #DDDDDD;
   background-color: #fff;
   border: none;
   border-radius: 20px;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease 0s;
   cursor: pointer;
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   font-weight: 500;
   outline: none; }
 
 .newbook:hover {
-  background-color: #3f7373;
+  background-color: #3F7373;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-  color: white;
+  color: #fff;
   transform: translateY(-7px); }
-
-.newbook a {
-  color: #DDDDDD; }
-
-
-.newbook a:hover {
-  color: white;
-  text-decoration: none; }
 
 .color-box {
   display: flex;
@@ -547,14 +492,13 @@ button.friendlist_btn {
   padding: 8px;
   color: white;
   background-color: transparent;
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   font-weight: 300;
   border-bottom: solid 1px white;
   font-size: 18px;
   border-radius: 0px; }
 
-.friend_list > p,
-button {
+.friend_list > p, button {
   display: inline; }
 
 .myshelf {
@@ -570,13 +514,13 @@ button {
   display: flex;
   width: 100%;
   height: 250px;
-  background-color: #dddddd;
+  background-color: #DDDDDD;
   border: 30px solid #f2f2f2; }
 
 .shelf a {
   text-decoration: none;
   color: black;
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   font-weight: 100;
   letter-spacing: 3px;
   transition: all 0.3s ease 0s; }
@@ -633,22 +577,22 @@ button {
   display: flex; }
 
 .book-1 {
-  background: linear-gradient(to right, #3F7373, #306666, #3F7373);
+  background: linear-gradient(to right, #3F7373, #356969, #3F7373);
   -webkit-fill-color: transparent;
   border-radius: 5px 5px 0 0; }
 
 .book-2 {
-  background: linear-gradient(to right, #89bebf, #7db2b3, #89bebf);
+  background: linear-gradient(to right, #89BEBF, #7db2b3, #89BEBF);
   -webkit-fill-color: transparent;
   border-radius: 3px 3px 0 0; }
 
 .book-3 {
-  background: linear-gradient(to right, #f28f78, #eb7863, #f28f78);
+  background: linear-gradient(to right, #F28F78, #eb7863, #F28F78);
   -webkit-fill-color: transparent;
   border-radius: 3px 3px 0 0; }
 
 .book-4 {
-  background: linear-gradient(to right, #f0c1b5, #e9ae9f, #f0c1b5);
+  background: linear-gradient(to right, #F0C1B5, #e9ae9f, #F0C1B5);
   -webkit-fill-color: transparent;
   border-radius: 10px 10px 0 0; }
 
@@ -666,7 +610,7 @@ button {
   width: 100%;
   top: -100px;
   border-radius: 20px;
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   font-weight: 300; }
 
 .aboutpages {
@@ -675,23 +619,23 @@ button {
 .totalpc {
   display: inline-block;
   width: 500px;
-  background-color: #f2f2f2;
+  background-color: #F2F2F2;
   margin: 20px;
   height: 50px;
   border-radius: 20px;
   animation-name: scale-up-hor-left, fade;
   animation-duration: 1s, 0.5s;
-  animation-delay: 0.2s, 0.2s;
+  animation-delay: 0.2s, 0.2S;
   animation-fill-mode: both, both; }
 
 .achievepc {
   left: 0px;
-  background-color: #89bebf;
+  background-color: #89BEBF;
   height: 50px;
   border-radius: 20px 0 0 20px;
   animation-name: scale-up-hor-left, fade;
   animation-duration: 1s, 0.5s;
-  animation-delay: 0.2s, 0.2s;
+  animation-delay: 0.2s, 0.2S;
   animation-fill-mode: both, both; }
 
 .recommand {
@@ -716,7 +660,7 @@ button {
   display: flex;
   justify-content: space-between;
   color: black;
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   font-weight: 100;
   overflow: scroll;
   position: relative;
@@ -733,12 +677,12 @@ button {
 
 .booktitle {
   display: flex;
-  border: solid 10px #f2f2f2;
+  border: solid 10px #F2F2F2;
   border-radius: 2px;
   margin: 20px;
   height: 100%;
   width: 300px;
-  background-color: #f2f2f2;
+  background-color: #F2F2F2;
   overflow: scroll; }
 
 .booklist img {
